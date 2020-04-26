@@ -1,38 +1,38 @@
-import React, { useState } from "react";
-import { Button, Dropdown, Icon, Layout, Menu, message, Popover } from "antd";
+import React from "react";
+import { Layout, Popover } from "antd";
 import { connect, useDispatch, useSelector } from "react-redux";
 import CustomScrollbars from "util/CustomScrollbars";
 import languageData from "../languageData";
-import SearchBox from "components/SearchBox";
+// import SearchBox from "components/SearchBox";
 import UserInfo from "components/UserInfo";
 import AppNotification from "components/AppNotification";
-import MailNotification from "components/MailNotification";
+// import MailNotification from "components/MailNotification";
 import HorizontalNav from "../HorizontalNav";
 import { Link } from "react-router-dom";
 import {
   switchLanguage,
   toggleCollapsedSideNav,
 } from "../../../appRedux/actions/Setting";
-import IntlMessages from "../../../util/IntlMessages";
+// import IntlMessages from "../../../util/IntlMessages";
 
 const { Header } = Layout;
 
-const menu = (
-  <Menu onClick={handleMenuClick}>
-    <Menu.Item key="1">Products</Menu.Item>
-    <Menu.Item key="2">Apps</Menu.Item>
-    <Menu.Item key="3">Blogs</Menu.Item>
-  </Menu>
-);
+// const menu = (
+//   <Menu onClick={handleMenuClick}>
+//     <Menu.Item key="1">Products</Menu.Item>
+//     <Menu.Item key="2">Apps</Menu.Item>
+//     <Menu.Item key="3">Blogs</Menu.Item>
+//   </Menu>
+// );
 
-function handleMenuClick(e) {
-  message.info("Click on menu item.");
-}
+// function handleMenuClick(e) {
+//   message.info("Click on menu item.");
+// }
 
 const InsideHeader = () => {
   const dispatch = useDispatch();
 
-  const [searchText, setSearchText] = useState("");
+  // const [searchText, setSearchText] = useState("");
   const locale = useSelector(({ settings }) => settings.locale);
   const navCollapsed = useSelector(({ settings }) => settings.navCollapsed);
 
@@ -53,9 +53,9 @@ const InsideHeader = () => {
     </CustomScrollbars>
   );
 
-  const updateSearchChatUser = (evt) => {
-    setSearchText(evt.target.value);
-  };
+  // const updateSearchChatUser = (evt) => {
+  //   setSearchText(evt.target.value);
+  // };
 
   return (
     <div className="gx-header-horizontal gx-header-horizontal-custom gx-inside-header-horizontal">
