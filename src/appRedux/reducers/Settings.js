@@ -1,44 +1,48 @@
-import {SWITCH_LANGUAGE, TOGGLE_COLLAPSED_NAV, WINDOW_WIDTH} from "constants/ActionTypes";
+import {
+  SWITCH_LANGUAGE,
+  TOGGLE_COLLAPSED_NAV,
+  WINDOW_WIDTH,
+} from "constants/ActionTypes";
 import {
   LAYOUT_TYPE,
   LAYOUT_TYPE_FULL,
   NAV_STYLE,
-  NAV_STYLE_FIXED,
   THEME_COLOR,
   THEME_TYPE,
-  THEME_TYPE_SEMI_DARK
+  THEME_TYPE_LITE,
+  NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
 } from "../../constants/ThemeSetting";
 
 const initialSettings = {
   navCollapsed: true,
-  navStyle: NAV_STYLE_FIXED,
+  navStyle: NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
   layoutType: LAYOUT_TYPE_FULL,
-  themeType: THEME_TYPE_SEMI_DARK,
+  themeType: THEME_TYPE_LITE,
   themeColor: THEME_COLOR,
 
-  pathname: '/',
+  pathname: "/",
   width: window.innerWidth,
   isDirectionRTL: false,
   locale: {
-    languageId: 'english',
-    locale: 'en',
-    name: 'English',
-    icon: 'us'
-  }
+    languageId: "english",
+    locale: "en",
+    name: "English",
+    icon: "us",
+  },
 };
 
 const settings = (state = initialSettings, action) => {
   switch (action.type) {
-    case '@@router/LOCATION_CHANGE':
+    case "@@router/LOCATION_CHANGE":
       return {
         ...state,
         pathname: action.payload.location.pathname,
-        navCollapsed: false
+        navCollapsed: false,
       };
     case TOGGLE_COLLAPSED_NAV:
       return {
         ...state,
-        navCollapsed: action.navCollapsed
+        navCollapsed: action.navCollapsed,
       };
     case WINDOW_WIDTH:
       return {
@@ -48,31 +52,30 @@ const settings = (state = initialSettings, action) => {
     case THEME_TYPE:
       return {
         ...state,
-        themeType: action.themeType
+        themeType: action.themeType,
       };
     case THEME_COLOR:
-      console.log("yes",action.themeColor);
+      console.log("yes", action.themeColor);
       return {
         ...state,
-        themeColor: action.themeColor
+        themeColor: action.themeColor,
       };
 
     case NAV_STYLE:
       return {
         ...state,
-        navStyle: action.navStyle
+        navStyle: action.navStyle,
       };
     case LAYOUT_TYPE:
       return {
         ...state,
-        layoutType: action.layoutType
+        layoutType: action.layoutType,
       };
 
     case SWITCH_LANGUAGE:
       return {
         ...state,
         locale: action.payload,
-
       };
     default:
       return state;

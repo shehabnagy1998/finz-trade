@@ -1,34 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import IntlMessages from "../../util/IntlMessages";
 
 const HorizontalNav = () => {
   return (
     <ul className="navbar-list">
       <li className="navbar-list-item">
-        <Link to="/home">
+        <NavLink activeClassName={"active"} className="nav-item" to="/home">
           <IntlMessages id="sidebar.home" />
-        </Link>
+        </NavLink>
       </li>
       <li className="navbar-list-item">
-        <Link to="/home">
+        <NavLink activeClassName={"active"} className="nav-item" to="/home">
           <IntlMessages id="sidebar.strategies" />
-        </Link>
+        </NavLink>
       </li>
       <li className="navbar-list-item">
-        <Link to="/home">
+        <NavLink activeClassName={"active"} className="nav-item" to="/home">
           <IntlMessages id="sidebar.orders" />
-        </Link>
+        </NavLink>
       </li>
       <li className="navbar-list-item">
-        <Link to="/home">
+        <NavLink activeClassName={"active"} className="nav-item" to="/home">
           <IntlMessages id="sidebar.stats" />
-        </Link>
+        </NavLink>
       </li>
       <li className="navbar-list-item">
-        <Link to="/home">
+        <NavLink activeClassName={"active"} className="nav-item" to="/home">
           <IntlMessages id="sidebar.inVoices" />
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );

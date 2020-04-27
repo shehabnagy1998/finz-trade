@@ -13,7 +13,7 @@ import {
   switchLanguage,
   toggleCollapsedSideNav,
 } from "../../../appRedux/actions/Setting";
-// import IntlMessages from "../../../util/IntlMessages";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Header } = Layout;
 
@@ -64,11 +64,21 @@ const InsideHeader = () => {
           <div className="gx-header-horizontal-top-flex">
             <div className="gx-header-horizontal-top-left">
               <i className="icon icon-alert gx-mr-3" />
-              <p className="gx-mb-0 gx-text-truncate"><IntlMessages id="app.announced"/></p>
+              <p className="gx-mb-0 gx-text-truncate">
+                <IntlMessages id="app.announced" />
+              </p>
             </div>
             <ul className="gx-login-list">
-              <li>Login</li>
-              <li>Signup</li>
+              <li>
+                <Link to="/" className="nav-item">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="nav-item">
+                  Register{" "}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -78,16 +88,20 @@ const InsideHeader = () => {
         <div className="gx-container">
           <div className="gx-header-horizontal-main-flex">
             <div className="gx-d-block gx-d-lg-none gx-linebar gx-mr-xs-3 6e">
-              <i
-                className="gx-icon-btn icon icon-menu"
+              <img
                 onClick={() => {
                   dispatch(toggleCollapsedSideNav(!navCollapsed));
                 }}
-              />
+                src={require("assets/images/bars.png")}
+              ></img>
+              {/* <i
+                className="gx-icon-btn icon icon-menu"
+              
+              /> */}
             </div>
             <Link
               to="/"
-              className="gx-d-block gx-d-lg-none gx-pointer gx-mr-xs-3 gx-pt-xs-1 gx-w-logo"
+              className="gx-d-block gx-d-lg-none gx-pointer gx-mx-2 gx-pt-xs-1 gx-w-logo"
             >
               <img alt="" src={require("assets/images/w-logo.png")} />
             </Link>
