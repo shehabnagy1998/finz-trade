@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Layout } from "antd";
 
 import Sidebar from "../Sidebar/index";
@@ -7,12 +7,13 @@ import HorizontalDark from "../Topbar/HorizontalDark/index";
 import InsideHeader from "../Topbar/InsideHeader/index";
 import AboveHeader from "../Topbar/AboveHeader/index";
 import BelowHeader from "../Topbar/BelowHeader/index";
+import getNotification from "../../appRedux/actions/API/getNotification";
 
 import Topbar from "../Topbar/index";
 import { footerText } from "util/config";
 import App from "routes/index";
 // import Customizer from "containers/Customizer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   NAV_STYLE_ABOVE_HEADER,
   NAV_STYLE_BELOW_HEADER,
@@ -28,11 +29,13 @@ import {
 } from "../../constants/ThemeSetting";
 import NoHeaderNotification from "../Topbar/NoHeaderNotification/index";
 import { useRouteMatch } from "react-router-dom";
+import IntlMessages from "../../util/IntlMessages";
 
 const { Content, Footer } = Layout;
 
 const MainApp = () => {
   const { width, navStyle } = useSelector(({ settings }) => settings);
+
   const match = useRouteMatch();
 
   const getContainerClass = (navStyle) => {
@@ -108,7 +111,15 @@ const MainApp = () => {
         >
           <App match={match} />
           <Footer>
-            <div className="gx-layout-footer-content">{footerText}</div>
+            <div className="gx-layout-footer-content">
+              <IntlMessages
+                id="footer.text"
+                values={{
+                  mark: "©",
+                  year: new Date().getFullYear(),
+                }}
+              />
+            </div>
           </Footer>
         </Content>
       </Layout>

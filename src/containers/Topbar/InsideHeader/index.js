@@ -150,8 +150,9 @@ const InsideHeader = () => {
                   content={<AppNotification />}
                   trigger="click"
                 >
-                  <span className="gx-pointer gx-d-block">
+                  <span className="gx-pointer gx-status-pos gx-d-block">
                     <i className="icon icon-notification" />
+                    <span className="gx-status gx-status-rtl gx-small gx-orange" />
                   </span>
                 </Popover>
               </li>
@@ -169,7 +170,7 @@ const InsideHeader = () => {
                   </span>
                 </Popover>
               </li> */}
-              <li className="gx-language">
+              {/* <li className="gx-language">
                 <Popover
                   overlayClassName="gx-popover-horizantal"
                   placement="bottomRight"
@@ -180,7 +181,7 @@ const InsideHeader = () => {
                     <i className={`flag flag-24 flag-${locale.icon}`} />
                   </span>
                 </Popover>
-              </li>
+              </li> */}
               <li className="gx-user-nav">
                 <UserInfo />
               </li>

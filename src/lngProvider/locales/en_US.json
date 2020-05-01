@@ -312,5 +312,6 @@
   "sidebar.strategies": "Strategies",
   "sidebar.orders": "Orders",
   "sidebar.stats": "Stats",
-  "sidebar.inVoices": "In Voices"
+  "sidebar.inVoices": "In Voices",
+  "footer.text": "Copyright to FinzTrade {mark} {year}"
 }

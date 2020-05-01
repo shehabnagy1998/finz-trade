@@ -310,5 +310,6 @@
   "sidebar.strategies": "الاستراتيجيات",
   "sidebar.orders": "الطلبات",
   "sidebar.stats": "الحاله",
-  "sidebar.inVoices": "الفواتير"
+  "sidebar.inVoices": "الفواتير",
+  "footer.text": "حقوق الملكيه لشركة FinzTrade {mark} {year}"
 }

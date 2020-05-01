@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Timeline } from "antd";
+import { Avatar, Timeline, Typography } from "antd";
 import WidgetHeader from "components/WidgetHeader/index";
-import ActivityItem from "./ActivityItem";
+import RecentOrderItem from "./RecentOrderItem";
+import { useSelector } from "react-redux";
+import Widget from "components/Widget/index";
 
-const TimeLineItem = Timeline.Item;
+const { Text } = Typography;
 
 function getName(task, shape) {
   if (task.avatar === "") {
@@ -30,9 +32,10 @@ function getName(task, shape) {
   }
 }
 
-const RecentActivity = (props) => {
+const RecentOrders = (props) => {
   const [limit, setLimit] = useState(3);
   const [shape, setShape] = useState(props.shape);
+  const rcentOrders = useSelector(({ Api }) => Api.recentOrders);
 
   useEffect(() => {
     setShape(props.shape);
@@ -47,30 +50,25 @@ const RecentActivity = (props) => {
 
   return (
     <div className="gx-entry-sec">
-      <WidgetHeader title="Recent Activity" />
-      {props.recentList.slice(0, limit).map((activity, index) => (
-        <div className="gx-timeline-info" key={"activity" + index}>
-          <h4 className="gx-timeline-info-day">{activity.day}</h4>
-          <Timeline>
-            {activity.tasks.map((task, index) => {
-              return (
-                <TimeLineItem
-                  key={"timeline" + index}
-                  mode="alternate"
-                  dot={getName(task, shape)}
-                >
-                  <ActivityItem task={task} />
-                </TimeLineItem>
-              );
-            })}
-          </Timeline>
-        </div>
-      ))}
-      <span className="gx-link gx-btn-link" onClick={onLoadMore}>
-        Load More
-      </span>
+      <WidgetHeader title="Recent Orders" />
+      {rcentOrders.length >= 1 ? (
+        rcentOrders.map((order, index) => (
+          <RecentOrderItem key={index} order={order} />
+        ))
+      ) : (
+        <Widget styleName={`gx-card-full gx-p-3 `}>
+          <div className="gx-media gx-align-items-center">
+            <i
+              className={`gx-mr-2 gx-mr-xxl-3 icon icon-error gx-fs-xl gx-text-red`}
+            />
+            <Text strong type="danger">
+              No orders have been made
+            </Text>
+          </div>
+        </Widget>
+      )}
     </div>
   );
 };
 
-export default RecentActivity;
+export default RecentOrders;
