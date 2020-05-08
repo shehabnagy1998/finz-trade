@@ -1,77 +1,88 @@
-import React from "react";
-import { Avatar } from "antd";
+import React, { useRef } from "react";
+import { Avatar, Spin } from "antd";
+import { CDN } from "../../../constants/API";
+import DisplayDate from "../../wall/DisplayDate";
+import { useDispatch, useSelector } from "react-redux";
+import editUserPic from "../../../appRedux/actions/API/editUserPic";
+import getUserInfo from "../../../appRedux/actions/API/getUserInfo";
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ profileInfo }) => {
+  const ref = useRef(null);
+  const dispatch = useDispatch();
+  const { pageLoaders, pageErrors } = useSelector(({ Api }) => Api);
+
+  const handleFileChange = (e) => {
+    var file = e.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onloadend = async function () {
+        let base64 = reader.result;
+        // base64 = base64.replace("data:image/jpeg;", "");
+        try {
+          await dispatch(editUserPic(base64));
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="gx-profile-banner">
       <div className="gx-profile-container">
         <div className="gx-profile-banner-top">
           <div className="gx-profile-banner-top-left">
-            <div className="gx-profile-banner-avatar">
-              <Avatar
-                className="gx-size-90"
-                alt="..."
-                src={"https://via.placeholder.com/150x150"}
+            <div
+              className="gx-profile-banner-avatar gx-custom-avatar"
+              onClick={(_) => ref.current.click()}
+            >
+              <Spin spinning={pageLoaders.editUserPic || false}>
+                <Avatar
+                  className="gx-size-90"
+                  alt="..."
+                  src={CDN + profileInfo.pic}
+                />
+              </Spin>
+              <input
+                type="file"
+                ref={ref}
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={handleFileChange}
               />
             </div>
             <div className="gx-profile-banner-avatar-info">
               <h2 className="gx-mb-2 gx-mb-sm-3 gx-fs-xxl gx-font-weight-light">
-                Kiley Brown
+                {profileInfo.name}
               </h2>
-              <p className="gx-mb-0 gx-fs-lg">Florida, USA</p>
+              <p className="gx-mb-0 gx-fs-lg">
+                registered <DisplayDate date={profileInfo.registeredIn} />
+              </p>
             </div>
           </div>
           <div className="gx-profile-banner-top-right">
             <ul className="gx-follower-list">
               <li>
                 <span className="gx-follower-title gx-fs-lg gx-font-weight-medium">
-                  2k+
-                </span>
-                <span className="gx-fs-sm">Followers</span>
-              </li>
-              <li>
-                <span className="gx-follower-title gx-fs-lg gx-font-weight-medium">
-                  847
+                  {profileInfo.following}
                 </span>
                 <span className="gx-fs-sm">Following</span>
               </li>
               <li>
                 <span className="gx-follower-title gx-fs-lg gx-font-weight-medium">
-                  327
+                  {profileInfo.watching}
                 </span>
-                <span className="gx-fs-sm">Friends</span>
+                <span className="gx-fs-sm">Watching</span>
+              </li>
+              <li>
+                <span className="gx-follower-title gx-fs-lg gx-font-weight-medium">
+                  {profileInfo.orders}
+                </span>
+                <span className="gx-fs-sm">Orders</span>
               </li>
             </ul>
           </div>
-        </div>
-        <div className="gx-profile-banner-bottom">
-          <div className="gx-tab-list">
-            <ul className="gx-navbar-nav">
-              <li>
-                <span className="gx-link">Timeline</span>
-              </li>
-              <li>
-                <span className="gx-link">About</span>
-              </li>
-              <li>
-                <span className="gx-link">Photos</span>
-              </li>
-              <li>
-                <span className="gx-link">
-                  Friends <span className="gx-fs-xs">287</span>
-                </span>
-              </li>
-              <li>
-                <span className="gx-link">More</span>
-              </li>
-            </ul>
-          </div>
-          <span className="gx-link gx-profile-setting">
-            <i className="icon icon-setting gx-fs-lg gx-mr-2 gx-mr-sm-3 gx-d-inline-flex gx-vertical-align-middle" />
-            <span className="gx-d-inline-flex gx-vertical-align-middle gx-ml-1 gx-ml-sm-0">
-              Setting
-            </span>
-          </span>
         </div>
       </div>
     </div>

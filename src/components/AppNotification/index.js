@@ -16,8 +16,6 @@ const AppNotification = () => {
     dispatch(getNotification(postition));
   }, []);
 
-  console.log(notification);
-
   const handleFetchMore = (_) => {
     if (notification.fetchMore) {
       let newPos = {

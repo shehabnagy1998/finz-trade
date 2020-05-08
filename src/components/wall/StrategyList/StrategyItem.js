@@ -21,7 +21,6 @@ const StrategyItem = ({ itemData, user, index }) => {
   const calcPercent =
     (itemData.wonOrders / (itemData.wonOrders + itemData.lostOrders)) * 100;
   const percent = calcPercent >= 1 ? calcPercent.toFixed(1) : 0;
-  console.log(percent);
   // const _handleKeyPress = (e) => {
   //   if (e.key === "Enter") {
   //     const commentData = {
@@ -126,7 +125,7 @@ const StrategyItem = ({ itemData, user, index }) => {
         <Text type="warning">{itemData.wonOrders}</Text> orders won of
         <Text type="warning"> {itemData.wonOrders + itemData.lostOrders}</Text>
       </Text>
-      <Progress percent={percent} status="active" />
+      <Progress percent={parseFloat(percent)} status="active" />
 
       <ButtonGroup className={"gx-w-100 gx-d-flex"}>
         <Button block>

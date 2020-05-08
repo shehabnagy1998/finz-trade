@@ -59,9 +59,9 @@ const RecentOrders = (props) => {
         <Widget styleName={`gx-card-full gx-p-3 `}>
           <div className="gx-media gx-align-items-center">
             <i
-              className={`gx-mr-2 gx-mr-xxl-3 icon icon-error gx-fs-xl gx-text-red`}
+              className={`gx-mr-2 gx-mr-xxl-3 icon icon-error gx-fs-xl gx-text-orange`}
             />
-            <Text strong type="danger">
+            <Text strong type="warning">
               No orders have been made
             </Text>
           </div>

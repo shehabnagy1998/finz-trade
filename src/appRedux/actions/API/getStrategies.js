@@ -10,14 +10,28 @@ export default (_) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { getStrategies: true },
   });
+  const user = getState().Api.user;
   try {
     const res = await Axios({
       baseURL: API,
       url: "/strategy/get/addedIn/-1",
       method: "GET",
     });
-
-    dispatch({ type: REDUX_STRATEGIES, value: res.data.data });
+    let owned = [],
+      others = [],
+      following = [],
+      watching = [];
+    res.data.data.map((st) => {
+      if (st.username === user.username) owned.push(st);
+      else others.push(st);
+      if (st.followersIds.includes(user.username)) following.push(st);
+      if (st.watchersIds.includes(user.username)) watching.push(st);
+      return st;
+    });
+    dispatch({
+      type: REDUX_STRATEGIES,
+      value: { owned, others, watching, following },
+    });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getStrategies: false } });
   } catch (error) {
     console.log(error.response);

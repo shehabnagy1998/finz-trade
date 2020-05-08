@@ -2,10 +2,7 @@ import React from "react";
 import moment from "moment";
 
 const DisplayDate = ({ date }) => {
-  const postDate = moment(
-    new Date(parseInt(date)),
-    "ddd MMM DD YYYY kk:mm:ss Z"
-  ).fromNow();
+  const postDate = moment.unix(parseInt(date) / 1000).fromNow();
   return postDate;
 };
 

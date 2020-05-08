@@ -10,18 +10,17 @@ export default (position) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { getNotification: true },
   });
-  const token = getState().Api.user.token;
+  const userToken = getState().Api.user.token;
   try {
     const res = await Axios({
       baseURL: API,
       url: `http://finztrade.com/notification/get/${position.from}/${position.to}`,
       method: "GET",
       headers: {
-        token,
+        token: userToken,
       },
     });
 
-    console.log(position);
     if (res.data.data.length >= 1) {
       if (position.from === 1) {
         dispatch({

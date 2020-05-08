@@ -21,7 +21,6 @@ export default (_) => async (dispatch, getState) => {
         token,
       },
     });
-    console.log(res);
     dispatch({ type: REDUX_RECENT_ORDERS, value: res.data.data });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getRecentOrders: false } });
   } catch (error) {

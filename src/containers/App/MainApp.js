@@ -7,11 +7,10 @@ import HorizontalDark from "../Topbar/HorizontalDark/index";
 import InsideHeader from "../Topbar/InsideHeader/index";
 import AboveHeader from "../Topbar/AboveHeader/index";
 import BelowHeader from "../Topbar/BelowHeader/index";
-import getNotification from "../../appRedux/actions/API/getNotification";
 
 import Topbar from "../Topbar/index";
-import { footerText } from "util/config";
 import App from "routes/index";
+
 // import Customizer from "containers/Customizer";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -31,12 +30,32 @@ import NoHeaderNotification from "../Topbar/NoHeaderNotification/index";
 import { useRouteMatch } from "react-router-dom";
 import IntlMessages from "../../util/IntlMessages";
 
+import getUserInfo from "../../appRedux/actions/API/getUserInfo";
+import getPaymentSource from "../../appRedux/actions/API/getPaymentSource";
+import getStrategies from "../../appRedux/actions/API/getStrategies";
+
 const { Content, Footer } = Layout;
 
 const MainApp = () => {
   const { width, navStyle } = useSelector(({ settings }) => settings);
+  const user = useSelector(({ Api }) => Api.user);
 
   const match = useRouteMatch();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const callGetInfo = async (_) => await dispatch(getUserInfo());
+    callGetInfo();
+  }, []);
+
+  useEffect(() => {
+    if (user.username) {
+      dispatch(getStrategies());
+      if (user.mainPaymentSourceId) {
+        dispatch(getPaymentSource(user.mainPaymentSourceId));
+      }
+    }
+  }, [user]);
 
   const getContainerClass = (navStyle) => {
     switch (navStyle) {

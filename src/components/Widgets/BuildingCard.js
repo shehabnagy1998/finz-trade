@@ -4,7 +4,7 @@ import { Badge } from "antd";
 import Widget from "components/Widget/index";
 import { Link } from "react-router-dom";
 
-const BuildingCard = ({ title, text, img, noBadge, link }) => {
+const BuildingCard = ({ title, text, img, noBadge, link, classes }) => {
   const Parent = ({ children, ...props }) =>
     link ? (
       <a href={link} {...props}>
@@ -15,7 +15,7 @@ const BuildingCard = ({ title, text, img, noBadge, link }) => {
     );
 
   return (
-    <Widget styleName="gx-card-full gx-dot-arrow-hover">
+    <Widget styleName={`gx-card-full gx-dot-arrow-hover ${classes}`}>
       <Parent className="gx-media gx-align-items-center gx-flex-nowrap">
         <>
           <div className="gx-px-3 gx-build-box-lay">

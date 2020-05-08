@@ -28,8 +28,6 @@ const RecentOrdersItem = ({ order }) => {
       ? "menu-right"
       : "";
 
-  console.log(cardIcon);
-
   return (
     <Widget styleName={`gx-card-full gx-p-3 gx-my-2`}>
       <div className="gx-media gx-justify-content-between gx-flex-nowrap">
