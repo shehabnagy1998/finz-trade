@@ -16,6 +16,8 @@ import AppLocale from "lngProvider";
 import MainApp from "./MainApp";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
+import ResetPassword from "../ResetPassword";
+import ForgotPassword from "../ForgotPassword";
 import { setInitUrl } from "appRedux/actions/Auth";
 import {
   onLayoutTypeChange,
@@ -48,10 +50,32 @@ const RestrictedRoute = ({
       ) : (
         <Redirect
           to={{
-            pathname: "/signin",
+            pathname: "/login",
             state: { from: location },
           }}
         />
+      )
+    }
+  />
+);
+const UnRestrictedRoute = ({
+  component: Component,
+  location,
+  authUser,
+  ...rest
+}) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      authUser ? (
+        <Redirect
+          to={{
+            pathname: "/home",
+            state: { from: location },
+          }}
+        />
+      ) : (
+        <Component {...props} />
       )
     }
   />
@@ -132,8 +156,8 @@ const App = (props) => {
   useEffect(() => {
     if (location.pathname === "/") {
       if (authUser === null) {
-        history.push("/signin");
-      } else if (initURL === "" || initURL === "/" || initURL === "/signin") {
+        history.push("/login");
+      } else if (initURL === "" || initURL === "/" || initURL === "/login") {
         history.push("/home");
       } else {
         history.push(initURL);
@@ -150,8 +174,31 @@ const App = (props) => {
         messages={currentAppLocale.messages}
       >
         <Switch>
-          <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/signup" component={SignUp} />
+          <UnRestrictedRoute
+            path="/login"
+            authUser={authUser}
+            location={location}
+            component={SignIn}
+          />
+          <UnRestrictedRoute
+            path="/register"
+            authUser={authUser}
+            location={location}
+            component={SignUp}
+          />
+          <UnRestrictedRoute
+            path="/forgot-password"
+            authUser={authUser}
+            location={location}
+            component={ForgotPassword}
+          />
+          <UnRestrictedRoute
+            path="/reset-password"
+            authUser={authUser}
+            location={location}
+            component={ResetPassword}
+          />
+
           <RestrictedRoute
             path={`${match.url}`}
             authUser={authUser}

@@ -59,7 +59,7 @@ const InsideHeader = () => {
 
   return (
     <div className="gx-header-horizontal gx-header-horizontal-custom gx-inside-header-horizontal">
-      {/* <div className="gx-header-horizontal-top">
+      <div className="gx-header-horizontal-top">
         <div className="gx-container">
           <div className="gx-header-horizontal-top-flex">
             <div className="gx-header-horizontal-top-left">
@@ -70,19 +70,19 @@ const InsideHeader = () => {
             </div>
             <ul className="gx-login-list">
               <li>
-                <Link to="/" className="nav-item">
+                <Link to="/login" className="nav-item">
                   Login
                 </Link>
               </li>
               <li>
-                <Link to="/" className="nav-item">
+                <Link to="/register" className="nav-item">
                   Register{" "}
                 </Link>
               </li>
             </ul>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <Header className="gx-header-horizontal-main">
         <div className="gx-container">

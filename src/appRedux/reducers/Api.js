@@ -11,6 +11,7 @@ import {
   REDUX_BROKERS,
   REDUX_INVOICES,
   REDUX_COUPON,
+  REDUX_SIGNALS,
 } from "../../constants/API";
 
 const INIT_STATE = {
@@ -25,6 +26,7 @@ const INIT_STATE = {
   brokers: [],
   inVoices: { list: [], hasMore: false },
   coupon: {},
+  signals: { list: [], count: 0 },
   user: {
     token:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjI3bWRtbzdzbiIsInJvbGUiOiJ1c2VyIiwiY3JlYXRlZEluIjoxNTg2MDcwMzIxODU3LCJpYXQiOjE1ODYwNzAzMjF9.qsDaJuwUCfo3ZlFWEEqXjjRgzUiqcuX89zPHd2Ik73M",
@@ -71,6 +73,9 @@ export default (state = INIT_STATE, action) => {
 
     case REDUX_COUPON:
       return { ...state, coupon: action.value };
+
+    case REDUX_SIGNALS:
+      return { ...state, signals: action.value };
 
     default:
       return state;

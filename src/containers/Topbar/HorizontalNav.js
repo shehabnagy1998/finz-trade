@@ -24,11 +24,7 @@ const HorizontalNav = () => {
           <IntlMessages id="sidebar.orders" />
         </NavLink>
       </li>
-      <li className="navbar-list-item">
-        <NavLink activeClassName={"active"} className="nav-item" to="/stats">
-          <IntlMessages id="sidebar.stats" />
-        </NavLink>
-      </li>
+
       <li className="navbar-list-item">
         <NavLink activeClassName={"active"} className="nav-item" to="/invoices">
           <IntlMessages id="sidebar.inVoices" />

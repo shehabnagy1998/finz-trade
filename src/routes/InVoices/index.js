@@ -3,10 +3,11 @@ import { Col, Row, Card, Table, Typography, Button } from "antd";
 
 import Auxiliary from "../../util/Auxiliary";
 import { useSelector, useDispatch } from "react-redux";
-import CircularProgress from "../../components/CircularProgress";
-import DisplayDate from "../../components/wall/DisplayDate";
 import getInVoices from "../../appRedux/actions/API/getInVoices";
+import payInVoice from "../../appRedux/actions/API/payInVoice";
+import cancelnVoice from "../../appRedux/actions/API/cancelnVoice";
 import moment from "moment";
+import { DownloadOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
@@ -108,15 +109,37 @@ const InVoices = ({ match }) => {
       key: "operation",
       fixed: "right",
       width: 100,
-      render: (i) =>
-        i.status === "open" ? (
-          <div className="gx-d-flex">
-            <Button icon="check" className="gx-mr-2" type="primary" />
-            <Button icon="close" type="danger" />
-          </div>
-        ) : (
-          <span>No Action</span>
-        ),
+      render: (i) => (
+        <div className="gx-d-flex gx-justify-content-center">
+          {/* <Button
+            icon="download"
+            type="link"
+            loading={pageLoaders.payInVoice === i.id}
+            onClick={(_) => dispatch(payInVoice(i.id))}
+          /> */}
+          <a href={i.invoice_pdf} download>
+            {/* <i className="icon icon-download" /> */}
+            <DownloadOutlined />
+          </a>
+          {i.status === "open" && (
+            <>
+              <Button
+                icon="check"
+                className="gx-mx-2"
+                type="primary"
+                loading={pageLoaders.payInVoice === i.id}
+                onClick={(_) => dispatch(payInVoice(i.id))}
+              />
+              <Button
+                icon="close"
+                type="danger"
+                loading={pageLoaders.cancelInVoice === i.id}
+                onClick={(_) => dispatch(cancelnVoice(i.id))}
+              />
+            </>
+          )}
+        </div>
+      ),
     },
   ];
 

@@ -5,6 +5,7 @@ import Home from "./Home/index";
 import Profile from "./Profile/index";
 import PricingTable from "./PricingTable";
 import InVoices from "./InVoices";
+import Orders from "./Orders";
 
 const App = ({ match }) => (
   <div className="gx-main-content-wrapper">
@@ -13,6 +14,7 @@ const App = ({ match }) => (
       <Route path={`${match.url}profile/:id`} component={Profile} />
       <Route path={`${match.url}pricing`} component={PricingTable} />
       <Route path={`${match.url}invoices`} component={InVoices} />
+      <Route path={`${match.url}orders`} component={Orders} />
       <Redirect to={`${match.url}home`} />
     </Switch>
   </div>
