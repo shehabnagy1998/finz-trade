@@ -3,8 +3,7 @@ import { Avatar, Spin } from "antd";
 import { CDN } from "../../../constants/API";
 import DisplayDate from "../../wall/DisplayDate";
 import { useDispatch, useSelector } from "react-redux";
-import editUserPic from "../../../appRedux/actions/API/editUserPic";
-import getUserInfo from "../../../appRedux/actions/API/getUserInfo";
+import { getUserInfo, editUserPic } from "../../../appRedux/actions/Auth";
 
 const ProfileHeader = ({ profileInfo }) => {
   const ref = useRef(null);

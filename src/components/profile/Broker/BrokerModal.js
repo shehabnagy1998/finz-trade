@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Input, Select, Row, Col, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import addPaymentSource from "../../../appRedux/actions/API/addPaymentSource";
-import getUserInfo from "../../../appRedux/actions/API/getUserInfo";
+import { getUserInfo } from "../../../appRedux/actions/Auth";
 import addBroker from "../../../appRedux/actions/API/addBroker";
 const { Option } = Select;
 

@@ -10,15 +10,7 @@ const HorizontalNav = () => {
           <IntlMessages id="sidebar.home" />
         </NavLink>
       </li>
-      <li className="navbar-list-item">
-        <NavLink
-          activeClassName={"active"}
-          className="nav-item"
-          to="/strategies"
-        >
-          <IntlMessages id="sidebar.strategies" />
-        </NavLink>
-      </li>
+
       <li className="navbar-list-item">
         <NavLink activeClassName={"active"} className="nav-item" to="/orders">
           <IntlMessages id="sidebar.orders" />

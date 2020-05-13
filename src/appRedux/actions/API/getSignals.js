@@ -8,7 +8,7 @@ export default (page, status) => async (dispatch, getState) => {
   });
   let to = page * 5;
   let from = to - 4;
-  const token = getState().Api.user.token;
+  const userToken = getState().auth.authUser;
   let url = `/signal/get/${from}/${to}`;
   if (status) url += `?status=${status}`;
   try {
@@ -17,7 +17,7 @@ export default (page, status) => async (dispatch, getState) => {
       url,
       method: "GET",
       headers: {
-        token,
+        token: userToken,
       },
     });
     console.log(res);

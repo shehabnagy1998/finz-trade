@@ -5,18 +5,19 @@ import PaymentModal from "./PaymentModal";
 import { Elements } from "react-stripe-elements";
 import { useSelector, useDispatch } from "react-redux";
 import deletePaymentSource from "../../../appRedux/actions/API/deletePaymentSource";
-import getUserInfo from "../../../appRedux/actions/API/getUserInfo";
+import { getUserInfo } from "../../../appRedux/actions/Auth";
 import Cards from "react-credit-cards";
 
 const { Text } = Typography;
 
 const Payments = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { user, pageLoaders, paymentSource } = useSelector(({ Api }) => Api);
+  const { pageLoaders, paymentSource } = useSelector(({ Api }) => Api);
+  const { userInfo } = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
 
   const handleDelete = async (_) => {
-    await dispatch(deletePaymentSource(user.mainPaymentSourceId));
+    await dispatch(deletePaymentSource(userInfo.mainPaymentSourceId));
     await dispatch(getUserInfo());
   };
 
@@ -69,10 +70,10 @@ const Payments = () => {
     <Widget styleName="gx-card-profile-sm">
       <div className="gx-d-flex gx-align-items-center gx-justify-content-between gx-mt-2 gx-mb-3">
         <div className="gx-d-flex gx-align-items-center gx-my-3">
-          <i className="icon icon-card gx-mr-2 gx-center" />
+          {/* <i className="icon icon-card gx-mr-2 gx-center" /> */}
           <Text className="gx-fs-xl">Payment</Text>
         </div>
-        {user.mainPaymentSourceId ? (
+        {userInfo.mainPaymentSourceId ? (
           <Button
             icon={"delete"}
             shape="circle"
@@ -92,7 +93,7 @@ const Payments = () => {
         )}
       </div>
 
-      {user.mainPaymentSourceId ? (
+      {userInfo.mainPaymentSourceId ? (
         <div className="gx-flex-row ">
           <Cards
             expiry={`${
@@ -105,8 +106,10 @@ const Payments = () => {
           />
         </div>
       ) : (
-        <div className="gx-flex-column">
-          <Text>You dont have payment method, Try add one now</Text>
+        <div className="gx-text-center">
+          <Text className="gx-text-orange gx-fs-lg gx-text-capitalize">
+            You didn't add any credit card
+          </Text>
         </div>
       )}
       <Elements>

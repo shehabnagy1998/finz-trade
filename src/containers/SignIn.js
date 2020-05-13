@@ -1,36 +1,33 @@
 import React, { useEffect } from "react";
-import { Button, Checkbox, Form, Icon, Input, message } from "antd";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Icon,
+  Input,
+  message,
+  Row,
+  Col,
+  Typography,
+} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
-import {
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGithubSignIn,
-  userGoogleSignIn,
-  userSignIn,
-  userTwitterSignIn,
-} from "appRedux/actions/Auth";
+import { userSignIn } from "appRedux/actions/Auth";
 
 import IntlMessages from "util/IntlMessages";
 import CircularProgress from "components/CircularProgress/index";
 
 const FormItem = Form.Item;
+const { Title } = Typography;
 
 const SignIn = (props) => {
   const dispatch = useDispatch();
-  const { loader, alertMessage, showMessage, authUser } = useSelector(
-    ({ auth }) => auth
-  );
+  const { authUser } = useSelector(({ auth }) => auth);
+  const { pageLoaders } = useSelector(({ Api }) => Api);
   const history = useHistory();
 
   useEffect(() => {
-    if (showMessage) {
-      setTimeout(() => {
-        dispatch(hideMessage());
-      }, 100);
-    }
     if (authUser !== null) {
       history.push("/");
     }
@@ -40,7 +37,6 @@ const SignIn = (props) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        dispatch(showAuthLoader());
         dispatch(userSignIn(values));
       }
     });
@@ -49,134 +45,93 @@ const SignIn = (props) => {
   const { getFieldDecorator } = props.form;
 
   return (
-    <div className="gx-app-login-wrap">
-      <div className="gx-app-login-container">
-        <div className="gx-app-login-main-content">
-          <div className="gx-app-logo-content">
-            <div className="gx-app-logo-content-bg">
-              <img src={"https://via.placeholder.com/272x395"} alt="Neature" />
+    <Row className="gx-full-screen gx-bg-white">
+      <Col lg={12} xs={24} className="gx-d-flex gx-p-0">
+        <div className="gx-login-container">
+          <div className="gx-login-content gx-login-content-custom">
+            <div className="gx-login-header">
+              <img
+                src={require("assets/images/logo.png")}
+                alt="wieldy"
+                title="wieldy"
+              />
             </div>
-            <div className="gx-app-logo-wid">
-              <h1>
-                <IntlMessages id="app.userAuth.signIn" />
-              </h1>
-              <p>
-                <IntlMessages id="app.userAuth.bySigning" />
-              </p>
-              <p>
-                <IntlMessages id="app.userAuth.getAccount" />
-              </p>
+            <div className="gx-login-header">
+              <Title className="gx-login-title gx-text-primary" level={2}>
+                Login
+              </Title>
             </div>
-            <div className="gx-app-logo">
-              <img alt="example" src={require("assets/images/logo.png")} />
-            </div>
-          </div>
-          <div className="gx-app-login-content">
-            <Form
-              onSubmit={handleSubmit}
-              className="gx-signin-form gx-form-row0"
-            >
+            <Form onSubmit={handleSubmit} className="gx-form-row0">
               <FormItem>
-                {getFieldDecorator("email", {
-                  initialValue: "demo@example.com",
+                {getFieldDecorator("username", {
                   rules: [
-                    {
-                      required: true,
-                      type: "email",
-                      message: "The input is not valid E-mail!",
-                    },
+                    { required: true, message: "Please input your username!" },
                   ],
-                })(<Input placeholder="Email" />)}
+                })(
+                  <Input
+                    prefix={
+                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    placeholder="Username"
+                  />
+                )}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("password", {
-                  initialValue: "demo#123",
                   rules: [
                     { required: true, message: "Please input your Password!" },
                   ],
-                })(<Input type="password" placeholder="Password" />)}
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator("remember", {
-                  valuePropName: "checked",
-                  initialValue: true,
                 })(
-                  <Checkbox>
-                    <IntlMessages id="appModule.iAccept" />
-                  </Checkbox>
+                  <Input
+                    prefix={
+                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    type="password"
+                    placeholder="Password"
+                  />
                 )}
-                <span className="gx-signup-form-forgot gx-link">
-                  <IntlMessages id="appModule.termAndCondition" />
-                </span>
               </FormItem>
-              <FormItem>
-                <Button type="primary" className="gx-mb-0" htmlType="submit">
-                  <IntlMessages id="app.userAuth.signIn" />
-                </Button>
-                <span>
-                  <IntlMessages id="app.userAuth.or" />
-                </span>{" "}
-                <Link to="/signup">
-                  <IntlMessages id="app.userAuth.signUp" />
-                </Link>
+              <FormItem className="">
+                <div className="gx-d-flex gx-justify-content-between">
+                  {getFieldDecorator("remember", {
+                    valuePropName: "checked",
+                    initialValue: false,
+                  })(<Checkbox>Remember me</Checkbox>)}
+                  <Link
+                    className="gx-login-form-forgot"
+                    to="/custom-views/user-auth/forgot-password"
+                  >
+                    Forgot password
+                  </Link>
+                </div>
               </FormItem>
-              <div className="gx-flex-row gx-justify-content-between">
-                <span>or connect with</span>
-                <ul className="gx-social-link">
-                  <li>
-                    <Icon
-                      type="google"
-                      onClick={() => {
-                        dispatch(showAuthLoader());
-                        dispatch(userGoogleSignIn());
-                      }}
-                    />
-                  </li>
-                  <li>
-                    <Icon
-                      type="facebook"
-                      onClick={() => {
-                        dispatch(showAuthLoader());
-                        dispatch(userFacebookSignIn());
-                      }}
-                    />
-                  </li>
-                  <li>
-                    <Icon
-                      type="github"
-                      onClick={() => {
-                        dispatch(showAuthLoader());
-                        dispatch(userGithubSignIn());
-                      }}
-                    />
-                  </li>
-                  <li>
-                    <Icon
-                      type="twitter"
-                      onClick={() => {
-                        dispatch(showAuthLoader());
-                        dispatch(userTwitterSignIn());
-                      }}
-                    />
-                  </li>
-                </ul>
-              </div>
-              <span className="gx-text-light gx-fs-sm">
-                {" "}
-                demo user email: 'demo@example.com' and password: 'demo#123'
-              </span>
+              <FormItem className="">
+                <div className="gx-text-center">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="gx-w-100"
+                    loading={pageLoaders.signInUser}
+                  >
+                    Log in
+                  </Button>
+                  <Link className="gx-link gx-text-center" to="/register">
+                    Register
+                  </Link>
+                </div>
+              </FormItem>
             </Form>
           </div>
-
-          {loader ? (
-            <div className="gx-loader-view">
-              <CircularProgress />
-            </div>
-          ) : null}
-          {showMessage ? message.error(alertMessage.toString()) : null}
         </div>
-      </div>
-    </div>
+      </Col>
+      <Col lg={12} className="gx-d-none gx-d-lg-flex gx-p-0">
+        <img
+          src={require("assets/images/stock.png")}
+          alt="wieldy"
+          title="wieldy"
+        />
+      </Col>
+    </Row>
   );
 };
 

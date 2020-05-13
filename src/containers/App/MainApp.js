@@ -30,7 +30,7 @@ import NoHeaderNotification from "../Topbar/NoHeaderNotification/index";
 import { useRouteMatch } from "react-router-dom";
 import IntlMessages from "../../util/IntlMessages";
 
-import getUserInfo from "../../appRedux/actions/API/getUserInfo";
+import { getUserInfo } from "../../appRedux/actions/Auth";
 import getPaymentSource from "../../appRedux/actions/API/getPaymentSource";
 import getStrategies from "../../appRedux/actions/API/getStrategies";
 
@@ -38,7 +38,7 @@ const { Content, Footer } = Layout;
 
 const MainApp = () => {
   const { width, navStyle } = useSelector(({ settings }) => settings);
-  const user = useSelector(({ Api }) => Api.user);
+  const user = useSelector(({ auth }) => auth.userInfo);
 
   const match = useRouteMatch();
   const dispatch = useDispatch();

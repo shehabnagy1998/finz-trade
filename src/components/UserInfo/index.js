@@ -7,7 +7,7 @@ import { CDN } from "../../constants/API";
 
 const UserInfo = () => {
   const dispatch = useDispatch();
-  const user = useSelector(({ Api }) => Api.user);
+  const user = useSelector(({ auth }) => auth.userInfo);
 
   const userMenuOptions = (
     <ul className="gx-user-popover">

@@ -4,7 +4,6 @@ import { Col, Row, Card, Select } from "antd";
 import StrategyList from "components/wall/StrategyList";
 import CustomScrollbars from "util/CustomScrollbars";
 import RecentOrders from "components/dashboard/CRM/RecentOrders";
-import { user, userInfo } from "./data";
 import BuildingCard from "../../components/Widgets/BuildingCard";
 import { useDispatch, useSelector } from "react-redux";
 import getRecentOrders from "../../appRedux/actions/API/getRecentOrders";
@@ -18,7 +17,7 @@ const Index = ({ match }) => {
   const dispatch = useDispatch();
   const strategies = useSelector(({ Api }) => Api.strategies.others);
   const pageLoaders = useSelector(({ Api }) => Api.pageLoaders);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(strategies);
   const [sort, setSort] = useState("");
 
   useEffect(() => {
@@ -27,7 +26,8 @@ const Index = ({ match }) => {
 
   useEffect(() => {
     if (strategies.length >= 1) {
-      setSort("addedIn");
+      let newItems = sortBy(strategies, (i) => i[sort]);
+      setItems(newItems);
     }
   }, [strategies]);
   useEffect(() => {
@@ -53,7 +53,7 @@ const Index = ({ match }) => {
               className="gx-d-none gx-d-sm-block"
             >
               <CustomScrollbars className="gx-wall-scroll">
-                <Profile user={user} userInfo={userInfo} />
+                <Profile />
               </CustomScrollbars>
             </Col>
             <Col xl={12} lg={8} md={16} sm={14} xs={24}>
@@ -63,7 +63,7 @@ const Index = ({ match }) => {
                     <Card className="gx-card" title={"Sort By"}>
                       <Select
                         className="gx-w-100"
-                        defaultValue="Newest"
+                        placeholder="choose the sort you want"
                         style={{ width: 120 }}
                         onChange={(value) => setSort(value)}
                       >
@@ -73,7 +73,7 @@ const Index = ({ match }) => {
                       </Select>
                     </Card>
 
-                    <StrategyList items={items} user={user} />
+                    <StrategyList items={items} />
                   </div>
                 </CustomScrollbars>
               )}

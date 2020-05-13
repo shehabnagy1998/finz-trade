@@ -3,13 +3,16 @@ import { injectStripe, CardElement } from "react-stripe-elements";
 import { Modal, Button, Input, Select, Row, Col, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import addPaymentSource from "../../../appRedux/actions/API/addPaymentSource";
-import getUserInfo from "../../../appRedux/actions/API/getUserInfo";
+import { getUserInfo } from "../../../appRedux/actions/Auth";
 const { Option } = Select;
 
 const PaymentModal = ({ isVisible, setIsVisible, stripe }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [state, setState] = useState({
     name: "",
+    address_city: "",
+    address_country: "",
+    address_line1: "",
     credit: false,
   });
   const dispatch = useDispatch();
@@ -26,8 +29,10 @@ const PaymentModal = ({ isVisible, setIsVisible, stripe }) => {
       try {
         token = await stripe.createToken({
           name: state.name,
+          address_city: state.address_city,
+          address_country: state.address_country,
+          address_line1: state.address_line1,
         });
-        console.log(token);
         await dispatch(addPaymentSource(token.token.id));
         await dispatch(getUserInfo());
         setConfirmLoading(false);
@@ -65,6 +70,27 @@ const PaymentModal = ({ isVisible, setIsVisible, stripe }) => {
         placeholder="Card holder name"
         className="gx-mb-3"
         id="name"
+        onChange={handleChange}
+        required
+      />
+      <Input
+        placeholder="Card holder country"
+        className="gx-mb-3"
+        id="address_country"
+        onChange={handleChange}
+        required
+      />
+      <Input
+        placeholder="Card holder city"
+        className="gx-mb-3"
+        id="address_city"
+        onChange={handleChange}
+        required
+      />
+      <Input
+        placeholder="Card holder address"
+        className="gx-mb-3"
+        id="address_line1"
         onChange={handleChange}
         required
       />

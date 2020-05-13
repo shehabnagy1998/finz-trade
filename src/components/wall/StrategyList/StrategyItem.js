@@ -12,44 +12,25 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import toggleWatchStrategy from "../../../appRedux/actions/API/toggleWatchStrategy";
 
 const ButtonGroup = Button.Group;
 const { Text } = Typography;
 
-const StrategyItem = ({ itemData, user, index }) => {
-  const [message, setMessage] = useState("");
+const StrategyItem = ({ itemData }) => {
+  const dispatch = useDispatch();
+  const { pageLoaders } = useSelector(({ Api }) => Api);
+  const { userInfo } = useSelector(({ auth }) => auth);
   const calcPercent =
     (itemData.wonOrders / (itemData.wonOrders + itemData.lostOrders)) * 100;
   const percent = calcPercent >= 1 ? calcPercent.toFixed(1) : 0;
-  // const _handleKeyPress = (e) => {
-  //   if (e.key === "Enter") {
-  //     const commentData = {
-  //       user: props.user,
-  //       comment: message,
-  //       date: new Date().toString(),
-  //       likeCount: 0,
-  //       isLike: true,
-  //       commentList: [],
-  //     };
-
-  //     let commentArray = post.commentList;
-  //     commentArray.push(commentData);
-  //     setPost({ ...post, commentList: commentArray });
-  //     setMessage("");
-  //   }
-  // };
-
-  // const updateCommentValue = (evt) => {
-  //   setMessage(evt.target.value);
-  // };
-
-  // const handleLikeToggle = () => {
-  //   setPost({
-  //     ...post,
-  //     isLike: !post.isLike,
-  //     likeCount: post.isLike === true ? post.likeCount - 1 : post.likeCount + 1,
-  //   });
-  // };
+  const [rendering, setRendering] = useState(true);
+  const handleWatching = async (id) => {
+    await dispatch(toggleWatchStrategy(id, "all"));
+    setRendering(!rendering);
+  };
 
   const shareContent = (
     <div className="gx-media gx-align-items-center">
@@ -87,15 +68,22 @@ const StrategyItem = ({ itemData, user, index }) => {
   return (
     <Card className="gx-card">
       <div className="gx-media gx-wall-user-info gx-flex-nowrap gx-align-items-center">
-        <Avatar
-          className="gx-mr-3 gx-mb-2 gx-size-50"
-          // src={require("assets/images/carousel/wolf.jpg")}
-          src={`${CDN}${itemData.pic}`}
-        />
+        <Link to={`/strategy/${itemData._id}`}>
+          <Avatar
+            className="gx-mr-3 gx-mb-2 gx-size-50"
+            // src={require("assets/images/carousel/wolf.jpg")}
+            src={`${CDN}${itemData.pic}`}
+          />
+        </Link>
         <div className="gx-media-body">
-          <h5 className="gx-wall-user-title">{itemData.title}</h5>
-          <DisplayDate date={itemData.addedIn} />
+          <Link to={`/strategy/${itemData._id}`}>
+            <h5 className="gx-wall-user-title">{itemData.title}</h5>
+          </Link>
+          <Text className="gx-text-muted gx-fs-sm">
+            <DisplayDate date={itemData.addedIn} />
+          </Text>
         </div>
+
         <ul className="gx-follower-list">
           <li>
             <span className="gx-follower-title gx-fs-lg gx-font-weight-medium">
@@ -117,7 +105,7 @@ const StrategyItem = ({ itemData, user, index }) => {
           </li>
         </ul>
       </div>
-      <p>{itemData.description}</p>
+      <p className="gx-overflow-break">{itemData.description}</p>
       {/* <div className="gx-wall-medialist">
           {mediaList.length > 0 ? <MediaList mediaList={mediaList} /> : null}
         </div> */}
@@ -128,9 +116,20 @@ const StrategyItem = ({ itemData, user, index }) => {
       <Progress percent={parseFloat(percent)} status="active" />
 
       <ButtonGroup className={"gx-w-100 gx-d-flex"}>
-        <Button block>
+        <Button
+          block
+          loading={pageLoaders.toggleWatchStrategy === itemData._id}
+          onClick={(_) => handleWatching(itemData._id)}
+          type={
+            itemData.watchersIds.includes(userInfo.username)
+              ? "primary"
+              : "default"
+          }
+        >
           <i className="icon gx-mr-2 icon-notification" />
-          watch
+          {itemData.watchersIds.includes(userInfo.username)
+            ? "Un-Watch"
+            : "Watch"}
         </Button>
         <Button block>
           <i className="icon gx-mr-2 icon-add" />

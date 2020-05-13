@@ -7,15 +7,13 @@ import { CDN } from "../../../constants/API";
 const Profile = (props) => {
   const [isFollow, setIsFollow] = useState(false);
 
-  const authUser = useSelector(({ auth }) => auth.authUser);
-
   const handleToggle = () => {
     setIsFollow((previousState) => ({
       isFollow: !previousState.isFollow,
     }));
   };
 
-  const user = useSelector(({ Api }) => Api.user);
+  const user = useSelector(({ auth }) => auth.userInfo);
   const { Text } = Typography;
 
   return (

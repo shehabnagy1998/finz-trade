@@ -3,7 +3,7 @@ import { Button, Typography } from "antd";
 
 import IntlMessages from "util/IntlMessages";
 import subscribePlan from "../../appRedux/actions/API/subscribePlan";
-import getUserInfo from "../../appRedux/actions/API/getUserInfo";
+import { getUserInfo } from "../../appRedux/actions/Auth";
 import { useDispatch, useSelector } from "react-redux";
 
 const PriceItem = ({

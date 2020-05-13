@@ -12,10 +12,13 @@ import {
   REDUX_INVOICES,
   REDUX_COUPON,
   REDUX_SIGNALS,
+  REDUX_STRATEGY,
+  REDUX_OTHER_USER,
 } from "../../constants/API";
 
 const INIT_STATE = {
-  strategies: { owned: [], others: [], watching: [], following: [] },
+  strategies: { all: [], owned: [], others: [], watching: [], following: [] },
+  strategy: { data: {}, followers: [], watchers: [], orders: [] },
   notification: { fetchMore: true, arr: [] },
   recentOrders: [],
   pageLoaders: {},
@@ -27,16 +30,16 @@ const INIT_STATE = {
   inVoices: { list: [], hasMore: false },
   coupon: {},
   signals: { list: [], count: 0 },
-  user: {
-    token:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjI3bWRtbzdzbiIsInJvbGUiOiJ1c2VyIiwiY3JlYXRlZEluIjoxNTg2MDcwMzIxODU3LCJpYXQiOjE1ODYwNzAzMjF9.qsDaJuwUCfo3ZlFWEEqXjjRgzUiqcuX89zPHd2Ik73M",
-  },
+  otherUser: {},
 };
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case REDUX_STRATEGIES:
       return { ...state, strategies: action.value };
+
+    case REDUX_STRATEGY:
+      return { ...state, strategy: action.value };
 
     case REDUX_NOTIFICATION:
       return { ...state, notification: action.value };
@@ -76,6 +79,9 @@ export default (state = INIT_STATE, action) => {
 
     case REDUX_SIGNALS:
       return { ...state, signals: action.value };
+
+    case REDUX_OTHER_USER:
+      return { ...state, otherUser: action.value };
 
     default:
       return state;

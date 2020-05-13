@@ -10,7 +10,7 @@ export default (position) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { getNotification: true },
   });
-  const userToken = getState().Api.user.token;
+  const userToken = getState().auth.authUser;
   try {
     const res = await Axios({
       baseURL: API,

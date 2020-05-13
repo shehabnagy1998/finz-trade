@@ -4,13 +4,10 @@ import {
   ON_HIDE_LOADER,
   ON_SHOW_LOADER,
   SHOW_MESSAGE,
-  SIGNIN_FACEBOOK_USER_SUCCESS,
-  SIGNIN_GITHUB_USER_SUCCESS,
-  SIGNIN_GOOGLE_USER_SUCCESS,
-  SIGNIN_TWITTER_USER_SUCCESS,
-  SIGNIN_USER_SUCCESS,
-  SIGNOUT_USER_SUCCESS,
-  SIGNUP_USER_SUCCESS,
+  SIGNIN_USER,
+  SIGNOUT_USER,
+  SIGNUP_USER,
+  UPDATE_USER,
 } from "constants/ActionTypes";
 
 const INIT_STATE = {
@@ -19,34 +16,45 @@ const INIT_STATE = {
   showMessage: false,
   initURL: "",
   authUser: localStorage.getItem("user_id"),
+  userInfo: {},
 };
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
-    case SIGNUP_USER_SUCCESS: {
+    case SIGNUP_USER: {
       return {
         ...state,
         loader: false,
-        authUser: action.payload,
+        authUser: action.value.authUser,
+        userInfo: action.value.userInfo,
       };
     }
-    case SIGNIN_USER_SUCCESS: {
+    case SIGNIN_USER: {
       return {
         ...state,
         loader: false,
-        authUser: action.payload,
+        authUser: action.value.authUser,
+        userInfo: action.value.userInfo,
+      };
+    }
+    case UPDATE_USER: {
+      return {
+        ...state,
+        loader: false,
+        userInfo: action.value,
       };
     }
     case INIT_URL: {
       return {
         ...state,
-        initURL: action.payload,
+        initURL: action.value,
       };
     }
-    case SIGNOUT_USER_SUCCESS: {
+    case SIGNOUT_USER: {
       return {
         ...state,
         authUser: null,
+        userInfo: {},
         initURL: "/",
         loader: false,
       };
@@ -55,7 +63,7 @@ export default (state = INIT_STATE, action) => {
     case SHOW_MESSAGE: {
       return {
         ...state,
-        alertMessage: action.payload,
+        alertMessage: action.value,
         showMessage: true,
         loader: false,
       };
@@ -66,35 +74,6 @@ export default (state = INIT_STATE, action) => {
         alertMessage: "",
         showMessage: false,
         loader: false,
-      };
-    }
-
-    case SIGNIN_GOOGLE_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
-      };
-    }
-    case SIGNIN_FACEBOOK_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
-      };
-    }
-    case SIGNIN_TWITTER_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
-      };
-    }
-    case SIGNIN_GITHUB_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
       };
     }
     case ON_SHOW_LOADER: {

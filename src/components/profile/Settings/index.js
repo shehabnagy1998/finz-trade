@@ -7,7 +7,8 @@ import editUserSettings from "../../../appRedux/actions/API/editUserSettings";
 const { Text } = Typography;
 
 const Friends = ({}) => {
-  const { user, pageLoaders } = useSelector(({ Api }) => Api);
+  const { pageLoaders } = useSelector(({ Api }) => Api);
+  const { userInfo } = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
 
   const [settings, setSettings] = useState({
@@ -17,11 +18,11 @@ const Friends = ({}) => {
   });
 
   useEffect(() => {
-    if (user.preferences)
+    if (userInfo.preferences)
       setSettings({
-        ...user.preferences,
+        ...userInfo.preferences,
       });
-  }, [user.preferences]);
+  }, [userInfo.preferences]);
 
   const handleChange = async (val, id) => {
     const obj = { ...settings, [id]: val };

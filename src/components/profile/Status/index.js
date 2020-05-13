@@ -1,11 +1,12 @@
 import React from "react";
-import { Col, Row, Tabs } from "antd";
+import { Col, Row, Tabs, Typography } from "antd";
 import Widget from "components/Widget";
 import { aboutList } from "../../../routes/Profile/data";
 import AboutItem from "./AboutItem";
 import { useSelector } from "react-redux";
 
 const TabPane = Tabs.TabPane;
+const { Text } = Typography;
 
 const About = () => {
   const strategies = useSelector(({ Api }) => Api.strategies);
@@ -19,16 +20,32 @@ const About = () => {
       <Tabs defaultActiveKey="1">
         <TabPane tab="Following" key="1">
           <div className="gx-mb-2">
-            {strategies.following.map((about, index) => (
-              <AboutItem key={index} data={about} type="following" />
-            ))}
+            {strategies.following.length >= 1 ? (
+              strategies.following.map((about, index) => (
+                <AboutItem key={index} data={about} type="following" />
+              ))
+            ) : (
+              <div className="gx-text-center gx-mt-3">
+                <Text className="gx-text-orange gx-fs-lg">
+                  You dont follow any strategy
+                </Text>
+              </div>
+            )}
           </div>
         </TabPane>
         <TabPane tab="Watching" key="2">
           <div className="gx-mb-2">
-            {strategies.watching.map((about, index) => (
-              <AboutItem key={index} data={about} type="watching" />
-            ))}
+            {strategies.watching.length >= 1 ? (
+              strategies.watching.map((about, index) => (
+                <AboutItem key={index} data={about} type="watching" />
+              ))
+            ) : (
+              <div className="gx-text-center gx-mt-3">
+                <Text className="gx-text-orange gx-fs-lg">
+                  You dont watch any strategy
+                </Text>
+              </div>
+            )}
           </div>
         </TabPane>
       </Tabs>

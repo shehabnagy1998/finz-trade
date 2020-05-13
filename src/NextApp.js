@@ -14,9 +14,7 @@ const NextApp = () => (
   <Provider store={store}>
     <StripeProvider apiKey="pk_test_A4NpuY8IglXSz4BGF0xQIkXE">
       <ConnectedRouter history={history}>
-        <Switch>
-          <Route path="/" component={App} />
-        </Switch>
+        <App />
       </ConnectedRouter>
     </StripeProvider>
   </Provider>

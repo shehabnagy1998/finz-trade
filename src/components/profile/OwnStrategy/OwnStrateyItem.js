@@ -3,14 +3,32 @@ import { Avatar, Typography, Button, Progress, Menu, Dropdown } from "antd";
 import DisplayDate from "../../wall/DisplayDate";
 import { CDN } from "../../../constants/API";
 import { MoreOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import deleteStrategy from "../../../appRedux/actions/API/deleteStrategy";
+import { Link } from "react-router-dom";
 
 const { Text } = Typography;
 
-const OwnStrateyItem = ({ item }) => {
+const OwnStrateyItem = ({ item, setStrategyEditItem }) => {
+  const dispatch = useDispatch();
   const MyMenu = (
     <Menu>
-      <Menu.Item>Edit</Menu.Item>
-      <Menu.Item>Delete</Menu.Item>
+      <Menu.Item
+        onClick={(_) =>
+          setStrategyEditItem({
+            _id: item._id,
+            title: item.title,
+            description: item.description,
+            cost: item.cost,
+            pic: item.pic,
+          })
+        }
+      >
+        Edit
+      </Menu.Item>
+      <Menu.Item onClick={(_) => dispatch(deleteStrategy(item._id))}>
+        Delete
+      </Menu.Item>
     </Menu>
   );
 
@@ -21,13 +39,17 @@ const OwnStrateyItem = ({ item }) => {
     <div className="gx-my-4">
       <div className="gx-flex-row gx-justify-content-between">
         <div className="gx-d-flex">
-          <Avatar
-            className="gx-mr-3 gx-size-50 gx-flex-shrink-0"
-            src={CDN + item.pic}
-          />
+          <Link to={`/strategy/${item._id}`}>
+            <Avatar
+              className="gx-mr-3 gx-size-50 gx-flex-shrink-0"
+              src={CDN + item.pic}
+            />
+          </Link>
           <div className="gx-flex-column">
-            <Text className="gx-fs-lg gx-fs-md-xl gx-mb-1">{item.title}</Text>
-            <Text className="gx-fs-md gx-text-muted">
+            <Link to={`/strategy/${item._id}`}>
+              <Text className="gx-fs-lg gx-fs-md-xl gx-mb-1">{item.title}</Text>
+            </Link>
+            <Text className="gx-fs-sm gx-text-muted">
               <DisplayDate date={item.addedIn} />
             </Text>
           </div>

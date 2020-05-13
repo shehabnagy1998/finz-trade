@@ -10,7 +10,7 @@ export default (token) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { addPaymentSource: true },
   });
-  const userToken = getState().Api.user.token;
+  const userToken = getState().auth.authUser;
   try {
     const res = await Axios({
       baseURL: API,
@@ -21,6 +21,7 @@ export default (token) => async (dispatch, getState) => {
         token: userToken,
       },
     });
+    console.log(res);
     // dispatch({ type: REDUX_STRATEGIES, value: res.data.data });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addPaymentSource: false } });
   } catch (error) {

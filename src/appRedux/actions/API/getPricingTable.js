@@ -11,7 +11,7 @@ export default (token) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { addPricingTable: true },
   });
-  const userToken = getState().Api.user.token;
+  const userToken = getState().auth.authUser;
   try {
     const res = await Axios({
       baseURL: API,

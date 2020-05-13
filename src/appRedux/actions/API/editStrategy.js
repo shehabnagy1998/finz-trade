@@ -3,42 +3,43 @@ import {
   REDUX_PAGE_LOADERS,
   API,
   REDUX_STRATEGIES,
-  REDUX_BROKERS,
 } from "../../../constants/API";
-import getBrokers from "./getBrokers";
+import getStrategies from "./getStrategies";
 import { notification } from "antd";
 
 const openNotificationError = (msg) => {
   notification["error"]({
-    message: "Broker",
+    message: "Strategies",
     description: msg,
   });
 };
 
-export default (obj) => async (dispatch, getState) => {
+export default (obj, setItem) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
-    value: { addBroker: true },
+    value: { editStrategy: true },
   });
   const userToken = getState().auth.authUser;
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/broker/add/${obj.id}/${obj.name}`,
-      method: "POST",
+      url: `/strategy/edit/${obj._id}`,
+      method: "PUT",
+      data: { ...obj },
       headers: {
         token: userToken,
       },
     });
-    await dispatch(getBrokers());
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { addBroker: false } });
+    await dispatch(getStrategies());
+    setItem({});
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { editStrategy: false } });
   } catch (error) {
     console.log(error.response);
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { addBroker: false } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { editStrategy: false } });
     if (error.response && error.response.data) {
       openNotificationError(error.response.data.message);
       return;
     }
-    openNotificationError("sorry failed to add new broker, try again");
+    openNotificationError("sorry failed to edit strategy, try again");
   }
 };

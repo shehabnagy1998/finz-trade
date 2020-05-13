@@ -1,12 +1,11 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
-import IntlMessages from "util/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
-import { userForgotPassword } from "../appRedux/actions/Auth";
+import { userConfirmEmail } from "../appRedux/actions/Auth";
 
 const FormItem = Form.Item;
 
-const ForgotPassword = (props) => {
+const ConfirmEmail = (props) => {
   const dispatch = useDispatch();
   const { pageLoaders } = useSelector(({ Api }) => Api);
 
@@ -14,7 +13,7 @@ const ForgotPassword = (props) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        dispatch(userForgotPassword(values.email));
+        dispatch(userConfirmEmail(values.code));
       }
     });
   };
@@ -32,9 +31,9 @@ const ForgotPassword = (props) => {
           />
         </div>
         <div className="gx-mb-4">
-          <h2>Forgot Your Password ?</h2>
+          <h2>Confirm Email</h2>
           <p>
-            <IntlMessages id="app.userAuth.forgot" />
+            please enter the confirmation code sent to your email to confirm it
           </p>
         </div>
 
@@ -44,27 +43,23 @@ const ForgotPassword = (props) => {
           className="gx-login-form gx-form-row0"
         >
           <FormItem>
-            {getFieldDecorator("email", {
+            {getFieldDecorator("code", {
               rules: [
                 {
-                  type: "email",
-                  message: "The input is not valid E-mail!",
-                },
-                {
                   required: true,
-                  message: "Please input your E-mail!",
+                  message: "Please input your confirm code",
                 },
               ],
-            })(<Input type="email" placeholder="E-Mail Address" />)}
+            })(<Input type="text" placeholder="Confirm Code" />)}
           </FormItem>
 
           <FormItem>
             <Button
               type="primary"
               htmlType="submit"
-              loading={pageLoaders.forgotPassword}
+              loading={pageLoaders.confirmEmail}
             >
-              <IntlMessages id="app.userAuth.send" />
+              Confirm
             </Button>
           </FormItem>
         </Form>
@@ -73,6 +68,6 @@ const ForgotPassword = (props) => {
   );
 };
 
-const WrappedForgotPasswordForm = Form.create()(ForgotPassword);
+const WrappedConfirmEmailForm = Form.create()(ConfirmEmail);
 
-export default WrappedForgotPasswordForm;
+export default WrappedConfirmEmailForm;

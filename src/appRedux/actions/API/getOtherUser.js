@@ -2,30 +2,29 @@ import Axios from "axios";
 import {
   REDUX_PAGE_LOADERS,
   API,
-  REDUX_STRATEGIES,
-  REDUX_BROKERS,
+  REDUX_OTHER_USER,
 } from "../../../constants/API";
 
-export default () => async (dispatch, getState) => {
+export default (username) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
-    value: { getBrokers: true },
+    value: { getOtherUser: true },
   });
   const userToken = getState().auth.authUser;
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/broker/get/",
+      url: `/user/info/${username}`,
       method: "GET",
       headers: {
         token: userToken,
       },
     });
     console.log(res);
-    dispatch({ type: REDUX_BROKERS, value: res.data.data });
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { getBrokers: false } });
+    dispatch({ type: REDUX_OTHER_USER, value: res.data.data.user });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getOtherUser: false } });
   } catch (error) {
     console.log(error.response);
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { getBrokers: false } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getOtherUser: false } });
   }
 };

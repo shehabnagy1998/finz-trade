@@ -10,15 +10,14 @@ export default (_) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { getRecentOrders: true },
   });
-  const token = getState().Api.user.token;
-
+  const userToken = getState().auth.authUser;
   try {
     const res = await Axios({
       baseURL: API,
       url: "/order/get/1/5",
       method: "GET",
       headers: {
-        token,
+        token: userToken,
       },
     });
     dispatch({ type: REDUX_RECENT_ORDERS, value: res.data.data });

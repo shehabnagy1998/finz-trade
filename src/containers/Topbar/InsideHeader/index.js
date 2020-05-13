@@ -35,6 +35,7 @@ const InsideHeader = () => {
   // const [searchText, setSearchText] = useState("");
   const locale = useSelector(({ settings }) => settings.locale);
   const navCollapsed = useSelector(({ settings }) => settings.navCollapsed);
+  const { authUser } = useSelector(({ auth }) => auth);
 
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">
@@ -59,30 +60,27 @@ const InsideHeader = () => {
 
   return (
     <div className="gx-header-horizontal gx-header-horizontal-custom gx-inside-header-horizontal">
-      <div className="gx-header-horizontal-top">
-        <div className="gx-container">
-          <div className="gx-header-horizontal-top-flex">
-            <div className="gx-header-horizontal-top-left">
-              <i className="icon icon-alert gx-mr-3" />
-              <p className="gx-mb-0 gx-text-truncate">
-                <IntlMessages id="app.announced" />
-              </p>
+      {!authUser && (
+        <div className="gx-header-horizontal-top">
+          <div className="gx-container">
+            <div className="gx-header-horizontal-top-flex">
+              <div className="gx-header-horizontal-top-left"></div>
+              <ul className="gx-login-list">
+                <li>
+                  <Link to="/login" className="nav-item">
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/register" className="nav-item">
+                    Register{" "}
+                  </Link>
+                </li>
+              </ul>
             </div>
-            <ul className="gx-login-list">
-              <li>
-                <Link to="/login" className="nav-item">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to="/register" className="nav-item">
-                  Register{" "}
-                </Link>
-              </li>
-            </ul>
           </div>
         </div>
-      </div>
+      )}
 
       <Header className="gx-header-horizontal-main">
         <div className="gx-container">
@@ -182,9 +180,11 @@ const InsideHeader = () => {
                   </span>
                 </Popover>
               </li> */}
-              <li className="gx-user-nav">
-                <UserInfo />
-              </li>
+              {authUser && (
+                <li className="gx-user-nav">
+                  <UserInfo />
+                </li>
+              )}
             </ul>
           </div>
         </div>

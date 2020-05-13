@@ -11,7 +11,7 @@ export default (lastID) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { getInVoices: true },
   });
-  const userToken = getState().Api.user.token;
+  const userToken = getState().auth.authUser;
   let url = "/invoice/get";
   if (lastID) url += `?last=${lastID}`;
   try {

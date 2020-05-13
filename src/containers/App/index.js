@@ -16,6 +16,7 @@ import AppLocale from "lngProvider";
 import MainApp from "./MainApp";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
+import ConfirmEmail from "../ConfirmEmail";
 import ResetPassword from "../ResetPassword";
 import ForgotPassword from "../ForgotPassword";
 import { setInitUrl } from "appRedux/actions/Auth";
@@ -91,6 +92,7 @@ const App = (props) => {
   const location = useLocation();
   const history = useHistory();
   const match = useRouteMatch();
+  console.log(authUser);
 
   useEffect(() => {
     let link = document.createElement("link");
@@ -187,13 +189,19 @@ const App = (props) => {
             component={SignUp}
           />
           <UnRestrictedRoute
+            path="/confirm-email"
+            authUser={authUser}
+            location={location}
+            component={ConfirmEmail}
+          />
+          <UnRestrictedRoute
             path="/forgot-password"
             authUser={authUser}
             location={location}
             component={ForgotPassword}
           />
           <UnRestrictedRoute
-            path="/reset-password"
+            path="/reset-password/:email/:code"
             authUser={authUser}
             location={location}
             component={ResetPassword}
