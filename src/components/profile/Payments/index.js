@@ -67,7 +67,7 @@ const Payments = () => {
   };
 
   const stripePromise = loadStripe("pk_test_A4NpuY8IglXSz4BGF0xQIkXE");
-
+  console.log(userInfo);
   return (
     <Widget styleName="gx-card-profile-sm">
       <div className="gx-d-flex gx-align-items-center gx-justify-content-between gx-mt-2 gx-mb-3">
@@ -95,7 +95,7 @@ const Payments = () => {
         )}
       </div>
 
-      {userInfo.mainPaymentSourceId ? (
+      {userInfo.mainPaymentSourceId && paymentSource.card ? (
         <div className="gx-flex-row ">
           <Cards
             expiry={`${

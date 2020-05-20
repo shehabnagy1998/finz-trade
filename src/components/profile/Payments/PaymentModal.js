@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import addPaymentSource from "../../../appRedux/actions/API/addPaymentSource";
 import { getUserInfo } from "../../../appRedux/actions/Auth";
+import { ALL_COUNTRIES } from "../../../constants/API";
 const { Option } = Select;
 const FormItem = Form.Item;
 
@@ -101,7 +102,13 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
             rules: [
               { required: true, message: "Please input card holder country!" },
             ],
-          })(<Input placeholder="Card holder country" />)}
+          })(
+            <Select placeholder="Card holder country">
+              {ALL_COUNTRIES.map((i) => (
+                <Select.Option value={i}>{i}</Select.Option>
+              ))}
+            </Select>
+          )}
         </FormItem>
         <FormItem>
           {getFieldDecorator("city", {

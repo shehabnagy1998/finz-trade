@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import addPayout from "../../../appRedux/actions/API/addPayout";
 import editPayout from "../../../appRedux/actions/API/editPayout";
+import { ALL_COUNTRIES } from "../../../constants/API";
 const { Option } = Select;
 const FormItem = Form.Item;
 
@@ -92,7 +93,13 @@ const PayoutModal = ({ isVisible, setIsVisible, form }) => {
         <FormItem>
           {getFieldDecorator("country", {
             rules: [{ required: true, message: "Please input Country!" }],
-          })(<Input placeholder="Country" />)}
+          })(
+            <Select placeholder="Country">
+              {ALL_COUNTRIES.map((i) => (
+                <Select.Option value={i}>{i}</Select.Option>
+              ))}
+            </Select>
+          )}
         </FormItem>
         <FormItem>
           {getFieldDecorator("city", {
