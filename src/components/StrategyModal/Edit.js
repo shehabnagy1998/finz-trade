@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { injectStripe, CardElement } from "react-stripe-elements";
 import {
   Modal,
   Button,
@@ -10,6 +9,8 @@ import {
   message,
   Avatar,
   Spin,
+  Form,
+  Radio,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import TextArea from "antd/lib/input/TextArea";
@@ -18,23 +19,28 @@ import editStrategy from "../../appRedux/actions/API/editStrategy";
 import { CDN } from "../../constants/API";
 import editStrategyPic from "../../appRedux/actions/API/editStrategyPic";
 const { Option } = Select;
-
-const EditModal = ({ item, setItem }) => {
+const FormItem = Form.Item;
+const stocksArr = ["stock", "forex", "cryptocurrencies", "commodities"];
+const tradeTypingArr = ["automatic", "manual", "mixed"];
+const EditModal = ({ item, setItem, form }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const { pageLoaders, brokers } = useSelector(({ Api }) => Api);
+  const { pageLoaders } = useSelector(({ Api }) => Api);
 
   const handleCancel = (e) => {
     setItem({});
   };
 
-  const handleAdd = async (_) => {
-    if (!isError()) {
-      setConfirmLoading(true);
-      await dispatch(editStrategy(item, setItem));
-      setConfirmLoading(false);
-    }
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    form.validateFields(async (err, values) => {
+      if (!err) {
+        setConfirmLoading(true);
+        await dispatch(editStrategy({ ...values, _id: item._id }, setItem));
+        setConfirmLoading(false);
+      }
+    });
   };
   const ref = useRef(null);
 
@@ -55,33 +61,42 @@ const EditModal = ({ item, setItem }) => {
     }
   };
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setItem({ ...item, [id]: value });
-  };
-
-  const isError = (_) => {
-    for (var key in item) {
-      if (!item[key] && item[key] == "") {
-        message.warn(`${key} is missing`);
-        return true;
-      }
+  const validateFormFields = (rule, value, callback) => {
+    const fieldName = rule.field;
+    if (fieldName === "title") {
+      /^$|^[a-z0-9\ ]{12,80}$/.test(value)
+        ? callback()
+        : callback("should be 12 min and 80 max character");
+    } else if (fieldName === "description") {
+      /^$|^[a-z0-9 ]{80,255}$/.test(value)
+        ? callback()
+        : callback("should be 80 min and 255 max character");
     }
-    return false;
   };
 
-  console.log(item);
+  const { getFieldDecorator, setFieldsValue } = form;
+
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 24 },
+  };
+
+  useEffect(() => {
+    if (item.title) {
+      setFieldsValue({ ...item });
+    }
+  }, [item]);
 
   return (
     <Modal
       visible={item._id}
-      title="Add Strategy"
-      confirmLoading={confirmLoading || pageLoaders.editStrategy}
-      onOk={handleAdd}
+      title="Edit Strategy"
       onCancel={handleCancel}
+      footer={null}
+      bodyStyle={{ paddingBottom: 0 }}
     >
       <div
-        className="gx-profile-banner-avatar gx-d-flex gx-justify-content-center gx-align-items-center gx-mb-3"
+        className="gx-profile-banner-avatar gx-d-flex gx-justify-content-center gx-align-items-center gx-mb-3 gx-mx-0"
         onClick={(_) => ref.current.click()}
       >
         <div className="gx-size-100 gx-custom-avatar">
@@ -103,33 +118,88 @@ const EditModal = ({ item, setItem }) => {
         />
       </div>
 
-      <Input
-        placeholder="Title"
-        className="gx-mb-3"
-        id="title"
-        value={item.title}
-        onChange={handleChange}
-        required
-      />
-      <Input
-        placeholder="Cost"
-        className="gx-mb-3"
-        id="cost"
-        type="number"
-        value={item.cost}
-        onChange={handleChange}
-        required
-      />
-      <TextArea
-        onChange={handleChange}
-        placeholder="Descripiton"
-        id="description"
-        value={item.description}
-        className="gx-mb-3"
-        autoSize={{ minRows: 2, maxRows: 5 }}
-      />
+      <Form onSubmit={handleAdd} className="gx-w-100" {...layout}>
+        <FormItem>
+          {getFieldDecorator("title", {
+            rules: [
+              { required: true, message: "Please input strategy title!" },
+              { validator: validateFormFields },
+            ],
+          })(<Input placeholder="Title" />)}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator("cost", {
+            rules: [{ required: true, message: "Please input strategy cost!" }],
+          })(<Input placeholder="Cost" type="number" />)}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator("description", {
+            rules: [
+              { required: true, message: "Please input strategy description!" },
+              { validator: validateFormFields },
+            ],
+          })(
+            <TextArea
+              placeholder="Descripiton"
+              autoSize={{ minRows: 2, maxRows: 5 }}
+            />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator("stocks", {
+            rules: [
+              { required: true, message: "Please choose one or more stocks!" },
+            ],
+          })(
+            <Select placeholder="Stocks" mode="multiple">
+              {stocksArr.map((item, index) => (
+                <Select.Option value={item} key={index}>
+                  {item}
+                </Select.Option>
+              ))}
+            </Select>
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator("tradeType", {
+            rules: [{ required: true, message: "Please choose trade type!" }],
+          })(
+            <Select placeholder="Trade Type">
+              {tradeTypingArr.map((item, index) => (
+                <Select.Option value={item} key={index}>
+                  {item}
+                </Select.Option>
+              ))}
+            </Select>
+          )}
+        </FormItem>
+        <FormItem label="Type" labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+          {getFieldDecorator("public", {
+            initialValue: true,
+            rules: [
+              { required: true, message: "Please choose strategy type!" },
+            ],
+          })(
+            <Radio.Group>
+              <Radio value={true}>Private</Radio>
+              <Radio value={false}>Public</Radio>
+            </Radio.Group>
+          )}
+        </FormItem>
+
+        <FormItem className="">
+          <div className="gx-d-flex gx-align-items gx-justify-content-end gx-mt-3">
+            <Button onClick={handleCancel}>Cancel</Button>
+            <Button htmlType="submit" type="primary" loading={confirmLoading}>
+              Ok
+            </Button>
+          </div>
+        </FormItem>
+      </Form>
     </Modal>
   );
 };
 
-export default EditModal;
+const WrappedEditForm = Form.create()(EditModal);
+
+export default WrappedEditForm;

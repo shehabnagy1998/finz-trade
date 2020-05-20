@@ -5,27 +5,29 @@ import {
   REDUX_STRATEGIES,
   REDUX_PAYMENT_SOURCES,
 } from "../../../constants/API";
+import { getUserInfo } from "../Auth";
 
-export default (token) => async (dispatch, getState) => {
+export default (obj) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
-    value: { getPaymentSource: true },
+    value: { addPayout: true },
   });
   const userToken = getState().auth.authUser;
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/paymentSource/${token}`,
-      method: "GET",
+      url: `/user/payout`,
+      method: "put",
+      data: { ...obj },
       headers: {
         token: userToken,
       },
     });
     console.log(res);
-    dispatch({ type: REDUX_PAYMENT_SOURCES, value: res.data.source });
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { getPaymentSource: false } });
+    await dispatch(getUserInfo());
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { addPayout: false } });
   } catch (error) {
     console.log(error.response);
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { getPaymentSource: false } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { addPayout: false } });
   }
 };

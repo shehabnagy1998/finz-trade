@@ -95,7 +95,7 @@ const SignIn = (props) => {
                 <div className="gx-d-flex gx-justify-content-between">
                   {getFieldDecorator("remember", {
                     valuePropName: "checked",
-                    initialValue: false,
+                    initialValue: true,
                   })(<Checkbox>Remember me</Checkbox>)}
                   <Link
                     className="gx-login-form-forgot"

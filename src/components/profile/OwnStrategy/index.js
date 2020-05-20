@@ -16,7 +16,7 @@ const openNotificationError = (msg) => {
   });
 };
 
-const OwnStrategy = () => {
+const OwnStrategy = ({ isMyProfile }) => {
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [strategyEditItem, setStrategyEditItem] = useState({});
 
@@ -37,7 +37,9 @@ const OwnStrategy = () => {
     <Widget styleName="gx-card-profile">
       <div className="gx-mt-4 gx-d-flex gx-justify-content-between">
         <Text className="gx-fs-xl">Own Strategy</Text>
-        <Button icon="plus" shape="circle" onClick={handleOpenModal} />
+        {isMyProfile && (
+          <Button icon="plus" shape="circle" onClick={handleOpenModal} />
+        )}
       </div>
       {strategies.length >= 1 ? (
         strategies.map((item, index) => (
@@ -45,6 +47,7 @@ const OwnStrategy = () => {
             item={item}
             key={index}
             setStrategyEditItem={setStrategyEditItem}
+            isMyProfile={isMyProfile}
           />
         ))
       ) : (

@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const TabPane = Tabs.TabPane;
 const { Text } = Typography;
 
-const About = () => {
+const About = ({ isMyProfile }) => {
   const strategies = useSelector(({ Api }) => Api.strategies);
   console.log(strategies);
 
@@ -22,12 +22,17 @@ const About = () => {
           <div className="gx-mb-2">
             {strategies.following.length >= 1 ? (
               strategies.following.map((about, index) => (
-                <AboutItem key={index} data={about} type="following" />
+                <AboutItem
+                  key={index}
+                  data={about}
+                  type="following"
+                  isMyProfile={isMyProfile}
+                />
               ))
             ) : (
               <div className="gx-text-center gx-mt-3">
                 <Text className="gx-text-orange gx-fs-lg">
-                  You dont follow any strategy
+                  No Following Strategies
                 </Text>
               </div>
             )}
@@ -37,12 +42,17 @@ const About = () => {
           <div className="gx-mb-2">
             {strategies.watching.length >= 1 ? (
               strategies.watching.map((about, index) => (
-                <AboutItem key={index} data={about} type="watching" />
+                <AboutItem
+                  key={index}
+                  data={about}
+                  type="watching"
+                  isMyProfile={isMyProfile}
+                />
               ))
             ) : (
               <div className="gx-text-center gx-mt-3">
                 <Text className="gx-text-orange gx-fs-lg">
-                  You dont watch any strategy
+                  No Watching Strategies
                 </Text>
               </div>
             )}

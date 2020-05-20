@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Card, Typography } from "antd";
 import Status from "../../components/profile/Status";
 import Broker from "../../components/profile/Broker";
 
@@ -14,6 +14,8 @@ import CircularProgress from "../../components/CircularProgress";
 import Subscription from "../../components/profile/Subscription";
 import getBrokers from "../../appRedux/actions/API/getBrokers";
 import getOtherUser from "../../appRedux/actions/API/getOtherUser";
+import getStrategies from "../../appRedux/actions/API/getStrategies";
+import Payout from "../../components/profile/Payout";
 
 const Profile = ({ match }) => {
   const { pageLoaders, paymentSource, otherUser } = useSelector(
@@ -25,14 +27,17 @@ const Profile = ({ match }) => {
   const paramId = match.params.id;
   const [isMyProfile, setIsMyProfile] = useState(false);
   const [profileInfo, setProfileInfo] = useState({});
+  const { Title } = Typography;
 
   useEffect(() => {
     const getFunc = async () => {
       if (paramId === userInfo.username) {
         setIsMyProfile(true);
-        setProfileInfo(userInfo);
+        await setProfileInfo(userInfo);
+        await dispatch(getStrategies());
       } else {
         await dispatch(getOtherUser(paramId));
+        await dispatch(getStrategies(paramId));
         console.log(otherUser);
         setProfileInfo(otherUser);
       }
@@ -43,6 +48,11 @@ const Profile = ({ match }) => {
   useEffect(() => {
     dispatch(getBrokers());
   }, []);
+
+  const dis1 = { xl: 16, lg: 14, md: 14, sm: 24, xs: 24 };
+  const dis2 = { xs: 24 };
+  let toView = isMyProfile ? dis1 : dis2;
+  console.log(profileInfo);
 
   return (
     <>
@@ -56,22 +66,35 @@ const Profile = ({ match }) => {
         <CircularProgress />
       ) : (
         <Auxiliary>
-          <ProfileHeader profileInfo={profileInfo} />
-          <div className="gx-profile-content">
-            <Row>
-              <Col xl={16} lg={14} md={14} sm={24} xs={24}>
-                <Status />
-                {isMyProfile && <OwnStrategy />}
-              </Col>
+          {profileInfo ? (
+            <>
+              <ProfileHeader profileInfo={profileInfo} />
+              <div className="gx-profile-content">
+                <Row>
+                  <Col {...toView}>
+                    <Status isMyProfile={isMyProfile} />
+                    <OwnStrategy isMyProfile={isMyProfile} />
+                  </Col>
 
-              <Col xl={8} lg={10} md={10} sm={24} xs={24}>
-                <Broker />
-                {isMyProfile && <Settings />}
-                {isMyProfile && <Payments />}
-                {isMyProfile && <Subscription />}
-              </Col>
-            </Row>
-          </div>
+                  {isMyProfile && (
+                    <Col xl={8} lg={10} md={10} sm={24} xs={24}>
+                      {isMyProfile && <Broker />}
+                      {isMyProfile && <Settings />}
+                      {isMyProfile && <Payments />}
+                      {isMyProfile && <Payout />}
+                      {isMyProfile && <Subscription />}
+                    </Col>
+                  )}
+                </Row>
+              </div>
+            </>
+          ) : (
+            <Card className="gx-text-center">
+              <Title className="gx-m-0" level={4}>
+                Account Not Available
+              </Title>
+            </Card>
+          )}
         </Auxiliary>
       )}
     </>

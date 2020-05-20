@@ -9,7 +9,7 @@ const { Text } = Typography;
 
 const Subscription = () => {
   const { userInfo } = useSelector(({ auth }) => auth);
-
+  console.log(userInfo);
   return (
     <Widget styleName="gx-card-profile-sm">
       <div className="gx-d-flex gx-align-items-center gx-my-3">

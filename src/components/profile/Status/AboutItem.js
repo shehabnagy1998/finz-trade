@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toggleWatchStrategy from "../../../appRedux/actions/API/toggleWatchStrategy";
 import { Link } from "react-router-dom";
 
-const AboutItem = ({ data, type }) => {
+const AboutItem = ({ data, type, isMyProfile }) => {
   const { Text } = Typography;
   const dispatch = useDispatch();
   const { pageLoaders } = useSelector(({ Api }) => Api);
@@ -37,15 +37,17 @@ const AboutItem = ({ data, type }) => {
               </Text>
             </div>
           </div>
-          <Button
-            size="default"
-            className="gx-mt-3 gx-mt-lg-0 gx-ml-lg-3"
-            shape="round"
-            onClick={(_) => btnMethod(data._id)}
-            loading={pageLoaders.toggleWatchStrategy === data._id}
-          >
-            {btnText}
-          </Button>
+          {isMyProfile && (
+            <Button
+              size="default"
+              className="gx-mt-3 gx-mt-lg-0 gx-ml-lg-3"
+              shape="round"
+              onClick={(_) => btnMethod(data._id)}
+              loading={pageLoaders.toggleWatchStrategy === data._id}
+            >
+              {btnText}
+            </Button>
+          )}
         </div>
       </div>
     </Auxiliary>

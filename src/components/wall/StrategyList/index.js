@@ -11,16 +11,17 @@ const StrategyList = (props) => {
 
   return (
     <>
-      {props.items.map((item, index) => {
-        return (
-          <StrategyItem
-            key={item._id}
-            index={index}
-            itemData={item}
-            user={user}
-          />
-        );
-      })}
+      {props.items.length >= 1 &&
+        props.items.map((item, index) => {
+          return (
+            <StrategyItem
+              key={item._id}
+              index={index}
+              itemData={item}
+              user={user}
+            />
+          );
+        })}
     </>
   );
 };

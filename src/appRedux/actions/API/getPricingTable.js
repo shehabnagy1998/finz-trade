@@ -18,6 +18,7 @@ export default (token) => async (dispatch, getState) => {
       url: "/plan/get",
       method: "GET",
     });
+    console.log(res);
     dispatch({ type: REDUX_PRICING_TABLE, value: res.data.data });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addPricingTable: false } });
   } catch (error) {

@@ -6,7 +6,6 @@ import {
   REDUX_PAGE_TEMPS,
 } from "../../../constants/API";
 import { notification } from "antd";
-import toggleFollowStrategy from "./toggleFollowStrategy";
 
 const openNotificationSuccess = () => {
   notification["success"]({
@@ -21,46 +20,35 @@ const openNotificationError = (msg) => {
   });
 };
 
-export default (token, followObject) => async (dispatch, getState) => {
+export default (token) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
     value: { subscribePlan: true },
   });
   const userToken = getState().auth.authUser;
-  const couponName = getState().Api.coupon.name;
-  let url = `/subscription/subscribe/${token}`;
-  if (couponName) url += `?coupon=${couponName}`;
   try {
     const res = await Axios({
       baseURL: API,
-      url,
-      method: "POST",
-
+      url: `/subscription/confirm`,
+      method: "PUT",
       headers: {
         token: userToken,
       },
     });
     console.log(res);
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { subscribePlan: false } });
-    if (followObject.id) {
-      dispatch(toggleFollowStrategy(followObject.id, followObject.type));
-      return;
-    }
     openNotificationSuccess();
+    dispatch({
+      type: REDUX_PAGE_TEMPS,
+      value: { clientSecret: null },
+    });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { subscribePlan: false } });
   } catch (error) {
     console.log(error.response);
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { subscribePlan: false } });
     if (error.response && error.response.data) {
-      if (error.response.data.thirdActionSecret) {
-        dispatch({
-          type: REDUX_PAGE_TEMPS,
-          value: { clientSecret: error.response.data.thirdActionSecret },
-        });
-        return;
-      }
       openNotificationError(error.response.data.message);
       return;
     }
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { subscribePlan: false } });
     openNotificationError("sorry error has occured, please try again");
   }
 };

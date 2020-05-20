@@ -21,7 +21,6 @@ export default () => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
     dispatch({ type: REDUX_BROKERS, value: res.data.data });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getBrokers: false } });
   } catch (error) {

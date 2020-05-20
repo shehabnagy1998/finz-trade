@@ -5,7 +5,7 @@ import {
   REDUX_STRATEGIES,
 } from "../../../constants/API";
 
-export default (_) => async (dispatch, getState) => {
+export default (otherUsername) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
     value: { getStrategies: true },
@@ -22,15 +22,24 @@ export default (_) => async (dispatch, getState) => {
       following = [],
       watching = [],
       all = [];
-    res.data.data.map((st) => {
-      if (st.username === user.username) owned.push(st);
-      else others.push(st);
-      if (st.followersIds.includes(user.username)) following.push(st);
-      if (st.watchersIds.includes(user.username)) watching.push(st);
-      all.push(st);
-      return st;
-    });
-
+    if (otherUsername)
+      res.data.data.map((st) => {
+        if (st.username === otherUsername) owned.push(st);
+        else others.push(st);
+        if (st.followersIds.includes(otherUsername)) following.push(st);
+        if (st.watchersIds.includes(otherUsername)) watching.push(st);
+        all.push(st);
+        return st;
+      });
+    else
+      res.data.data.map((st) => {
+        if (st.username === user.username) owned.push(st);
+        else others.push(st);
+        if (st.followersIds.includes(user.username)) following.push(st);
+        if (st.watchersIds.includes(user.username)) watching.push(st);
+        all.push(st);
+        return st;
+      });
     dispatch({
       type: REDUX_STRATEGIES,
       value: { all, owned, others, watching, following },

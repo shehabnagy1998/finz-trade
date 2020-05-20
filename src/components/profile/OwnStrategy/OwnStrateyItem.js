@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const { Text } = Typography;
 
-const OwnStrateyItem = ({ item, setStrategyEditItem }) => {
+const OwnStrateyItem = ({ item, setStrategyEditItem, isMyProfile }) => {
   const dispatch = useDispatch();
   const MyMenu = (
     <Menu>
@@ -21,6 +21,9 @@ const OwnStrateyItem = ({ item, setStrategyEditItem }) => {
             description: item.description,
             cost: item.cost,
             pic: item.pic,
+            stocks: item.stocks,
+            tradeType: item.tradeType,
+            public: item.public,
           })
         }
       >
@@ -55,9 +58,11 @@ const OwnStrateyItem = ({ item, setStrategyEditItem }) => {
           </div>
         </div>
         <div className="gx-d-flex gx-mt-3 gx-mt-lg-0 gx-justify-content-center">
-          <Dropdown overlay={MyMenu} placement="bottomRight">
-            <MoreOutlined />
-          </Dropdown>
+          {isMyProfile && (
+            <Dropdown overlay={MyMenu} placement="bottomRight">
+              <MoreOutlined />
+            </Dropdown>
+          )}
         </div>
       </div>
       <div className="gx-my-3">

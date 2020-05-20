@@ -28,19 +28,22 @@ const Broker = () => {
       </div>
       {brokers.length >= 1 ? (
         brokers.map((data, index) => (
-          <div className="gx-d-flex gx-justify-content-between gx-align-items-center">
-            <div
-              key={index}
-              className="gx-media gx-align-items-center gx-flex-nowrap gx-pro-contact-list"
-            >
-              <div className="gx-mr-3">
+          <div
+            className="gx-d-flex gx-justify-content-between gx-align-items-center"
+            key={index}
+          >
+            <div className="gx-media gx-align-items-center gx-flex-nowrap gx-pro-contact-list">
+              <div className="gx-mr-3 gx-flex-column gx-justify-content-center gx-align-items-center">
                 <i
-                  className={`gx-fs-xxl icon ${
+                  className={`gx-fs-xxl gx-d-flex icon ${
                     data.company
                       ? "icon-check-cricle gx-text-green"
                       : "icon-error gx-text-orange"
                   }`}
                 />
+                <span className="gx-text-grey gx-fs-sm">
+                  {data.live ? "Live" : "Demo"}
+                </span>
               </div>
               <div className="gx-media-body gx-flex-column">
                 {/* <span className="gx-mb-0 gx-text-grey gx-fs-sm">{data.id}</span> */}

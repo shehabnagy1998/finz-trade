@@ -9,7 +9,7 @@ const openNotificationError = () => {
   });
 };
 
-export default (obj, setSettings) => async (dispatch, getState) => {
+export default (obj) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
     value: { editUserSettings: true },
@@ -18,7 +18,7 @@ export default (obj, setSettings) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/uploadPic",
+      url: "/user/preferences",
       method: "PUT",
       data: { ...obj },
       headers: {
@@ -27,7 +27,6 @@ export default (obj, setSettings) => async (dispatch, getState) => {
     });
     console.log(res);
     // dispatch({ type: REDUX_STRATEGIES, value: res.data.data });
-    setSettings(obj);
     dispatch({ type: REDUX_PAGE_LOADERS, value: { editUserSettings: false } });
   } catch (error) {
     console.log(error.response);

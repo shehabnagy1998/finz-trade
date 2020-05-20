@@ -44,6 +44,15 @@ const SignUp = (props) => {
     });
   };
 
+  const validateFormFields = (rule, value, callback) => {
+    const fieldName = rule.field;
+    if (fieldName === "username") {
+      /^$|^[a-z0-9]{3,}$/.test(value)
+        ? callback()
+        : callback("must contain lowercase and numbers only");
+    }
+  };
+
   const { getFieldDecorator } = props.form;
 
   return (
@@ -79,6 +88,7 @@ const SignUp = (props) => {
                 {getFieldDecorator("username", {
                   rules: [
                     { required: true, message: "Please input your username!" },
+                    { validator: validateFormFields },
                   ],
                 })(<Input placeholder="Username" />)}
               </FormItem>
@@ -135,74 +145,3 @@ const SignUp = (props) => {
 const WrappedSignUpForm = Form.create()(SignUp);
 
 export default WrappedSignUpForm;
-
-{
-  /* <Form
-              onSubmit={handleSubmit}
-              className="gx-signup-form gx-form-row0"
-            >
-              <FormItem>
-                {getFieldDecorator("name", {
-                  rules: [
-                    { required: true, message: "Please input your name!" },
-                  ],
-                })(<Input placeholder="Name" />)}
-              </FormItem>
-
-              <FormItem>
-                {getFieldDecorator("username", {
-                  rules: [
-                    { required: true, message: "Please input your username!" },
-                  ],
-                })(<Input placeholder="Username" />)}
-              </FormItem>
-
-              <FormItem>
-                {getFieldDecorator("email", {
-                  rules: [
-                    {
-                      required: true,
-                      type: "email",
-                      message: "The input is not valid E-mail!",
-                    },
-                  ],
-                })(<Input placeholder="Email" />)}
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator("password", {
-                  rules: [
-                    { required: true, message: "Please input your Password!" },
-                  ],
-                })(<Input type="password" placeholder="Password" />)}
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator("remember", {
-                  valuePropName: "checked",
-                  initialValue: true,
-                })(
-                  <Checkbox>
-                    <IntlMessages id="appModule.iAccept" />
-                  </Checkbox>
-                )}
-                <span className="gx-link gx-signup-form-forgot">
-                  <IntlMessages id="appModule.termAndCondition" />
-                </span>
-              </FormItem>
-              <FormItem>
-                <Button
-                  type="primary"
-                  className="gx-mb-0"
-                  htmlType="submit"
-                  loading={pageLoaders.signUpUser}
-                >
-                  <IntlMessages id="app.userAuth.signUp" />
-                </Button>
-                <span>
-                  <IntlMessages id="app.userAuth.or" />
-                </span>{" "}
-                <Link to="/login">
-                  <IntlMessages id="app.userAuth.signIn" />
-                </Link>
-              </FormItem>
-            </Form> */
-}

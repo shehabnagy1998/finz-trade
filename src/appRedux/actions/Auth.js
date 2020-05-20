@@ -103,7 +103,7 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
       },
     });
     console.log(res);
-    if (res.data.data.user.plan.subscribed)
+    if (res.data.data.user.plan.subscriptionId)
       dispatch({
         type: UPDATE_USER,
         value: {
