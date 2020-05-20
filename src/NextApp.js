@@ -11,11 +11,9 @@ const store = configureStore(/* provide initial state if any */);
 
 const NextApp = () => (
   <Provider store={store}>
-    {/* <StripeProvider apiKey="pk_test_A4NpuY8IglXSz4BGF0xQIkXE"> */}
     <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter>
-    {/* </StripeProvider> */}
   </Provider>
 );
 

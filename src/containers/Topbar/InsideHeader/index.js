@@ -168,7 +168,7 @@ const InsideHeader = () => {
                   </span>
                 </Popover>
               </li> */}
-              {/* <li className="gx-language">
+              <li className="gx-language">
                 <Popover
                   overlayClassName="gx-popover-horizantal"
                   placement="bottomRight"
@@ -179,7 +179,7 @@ const InsideHeader = () => {
                     <i className={`flag flag-24 flag-${locale.icon}`} />
                   </span>
                 </Popover>
-              </li> */}
+              </li>
               {authUser && (
                 <li className="gx-user-nav">
                   <UserInfo />

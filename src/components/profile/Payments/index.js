@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Button, Modal, Avatar } from "antd";
+import { Typography, Button, Modal, Avatar, Popconfirm } from "antd";
 import Widget from "../../Widget/index";
 import PaymentModal from "./PaymentModal";
 import { loadStripe } from "@stripe/stripe-js";
@@ -33,13 +33,17 @@ const Payments = () => {
           <Text className="gx-fs-xl">Payment</Text>
         </div>
         {userInfo.mainPaymentSourceId ? (
-          <Button
-            icon={"delete"}
-            shape="circle"
-            className="gx-m-0"
-            onClick={handleDelete}
-            loading={pageLoaders.deletePaymentSource}
-          />
+          <Popconfirm
+            title="Are you sure you'd like to delete your credit card ?"
+            onConfirm={handleDelete}
+          >
+            <Button
+              icon={"delete"}
+              shape="circle"
+              className="gx-m-0"
+              loading={pageLoaders.deletePaymentSource}
+            />
+          </Popconfirm>
         ) : (
           <div className="gx-d-flex">
             <Button

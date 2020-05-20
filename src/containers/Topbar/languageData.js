@@ -5,12 +5,18 @@ const languageData = [
     name: "English",
     icon: "us",
   },
-  // {
-  //   languageId: 'chinese',
-  //   locale: 'zh',
-  //   name: 'Chinese',
-  //   icon: 'cn'
-  // },
+  {
+    languageId: "chinese",
+    locale: "zh",
+    name: "Chinese",
+    icon: "cn",
+  },
+  {
+    languageId: "malaysian",
+    locale: "ms",
+    name: "Malaysian",
+    icon: "my",
+  },
   // {
   //   languageId: 'spanish',
   //   locale: 'es',
@@ -29,11 +35,11 @@ const languageData = [
   //   name: 'Italian',
   //   icon: 'it'
   // },
-  {
-    languageId: "saudi-arabia",
-    locale: "ar",
-    name: "Arabic",
-    icon: "sa",
-  },
+  // {
+  //   languageId: "saudi-arabia",
+  //   locale: "ar",
+  //   name: "Arabic",
+  //   icon: "sa",
+  // },
 ];
 export default languageData;

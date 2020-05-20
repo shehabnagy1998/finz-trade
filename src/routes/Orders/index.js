@@ -57,7 +57,7 @@ const Orders = () => {
                   <Radio style={radioStyle} value={"win"}>
                     win
                   </Radio>
-                  <Radio style={radioStyle} value={"lost"}>
+                  <Radio style={radioStyle} value={"lose"}>
                     lose
                   </Radio>
                   <Radio style={radioStyle} value={"execute"}>

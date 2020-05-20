@@ -4339,8 +4339,16 @@ a.ant-btn-sm {
 .ant-carousel .slick-list .slick-slide {
   pointer-events: none;
 }
+.ant-carousel .slick-list .slick-slide input.ant-radio-input,
+.ant-carousel .slick-list .slick-slide input.ant-checkbox-input {
+  visibility: hidden;
+}
 .ant-carousel .slick-list .slick-slide.slick-active {
   pointer-events: auto;
+}
+.ant-carousel .slick-list .slick-slide.slick-active input.ant-radio-input,
+.ant-carousel .slick-list .slick-slide.slick-active input.ant-checkbox-input {
+  visibility: visible;
 }
 .ant-carousel .slick-slider .slick-track,
 .ant-carousel .slick-slider .slick-list {
@@ -27471,7 +27479,7 @@ h6,
   }
 }
 .gx-popover-lang-scroll {
-  min-height: 70px !important;
+  min-height: 106px !important;
   width: 160px !important;
   margin: 0 -16px;
 }

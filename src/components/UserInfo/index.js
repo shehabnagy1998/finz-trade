@@ -16,7 +16,6 @@ const UserInfo = () => {
           My Account
         </Link>
       </li>
-      <li>Connections</li>
       <li onClick={() => dispatch(userSignOut())}>Logout</li>
     </ul>
   );
