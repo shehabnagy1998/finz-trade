@@ -14,7 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import addPaymentSource from "../../../appRedux/actions/API/addPaymentSource";
 import { getUserInfo } from "../../../appRedux/actions/Auth";
-import { ALL_COUNTRIES } from "../../../constants/API";
+import ALL_COUNTRIES from "../../../constants/Countries.json";
 const { Option } = Select;
 const FormItem = Form.Item;
 
@@ -61,6 +61,7 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
             name: values.name,
           },
         });
+        console.log(paymentMethod);
         if (!paymentMethod) {
           openNotificationError("please check your information");
           setConfirmLoading(false);
@@ -105,7 +106,7 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
           })(
             <Select placeholder="Card holder country">
               {ALL_COUNTRIES.map((i) => (
-                <Select.Option value={i}>{i}</Select.Option>
+                <Select.Option value={i.Code}>{i.Name}</Select.Option>
               ))}
             </Select>
           )}
