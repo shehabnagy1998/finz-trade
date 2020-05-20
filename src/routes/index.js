@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import Home from "./Home/index";
-import Profile from "./Profile/index";
+import Home from "./Home";
+import Profile from "./Profile";
 import PricingTable from "./PricingTable";
 import InVoices from "./InVoices";
 import Orders from "./Orders";
