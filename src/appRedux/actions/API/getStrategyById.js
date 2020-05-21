@@ -24,12 +24,13 @@ export default (id) => async (dispatch, getState) => {
     });
     const ordersRes = await Axios({
       baseURL: API,
-      url: `/order/get/1/10?strategy=${id}`,
+      url: `/order/get/1/10?strategyId=${id}`,
       method: "GET",
       headers: {
         token: userToken,
       },
     });
+    console.log(ordersRes);
     dispatch({
       type: REDUX_STRATEGY,
       value: {

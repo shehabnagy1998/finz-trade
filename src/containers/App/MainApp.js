@@ -33,6 +33,7 @@ import IntlMessages from "../../util/IntlMessages";
 import { getUserInfo } from "../../appRedux/actions/Auth";
 import getPaymentSource from "../../appRedux/actions/API/getPaymentSource";
 import getStrategies from "../../appRedux/actions/API/getStrategies";
+import getNotification from "../../appRedux/actions/API/getNotification";
 
 const { Content, Footer } = Layout;
 
@@ -51,6 +52,7 @@ const MainApp = () => {
   useEffect(() => {
     if (user.username) {
       dispatch(getStrategies());
+      dispatch(getNotification({ from: 1, to: 50 }));
       if (user.mainPaymentSourceId) {
         dispatch(getPaymentSource(user.mainPaymentSourceId));
       }

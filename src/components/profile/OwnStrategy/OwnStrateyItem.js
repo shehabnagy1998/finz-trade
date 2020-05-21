@@ -1,5 +1,13 @@
 import React from "react";
-import { Avatar, Typography, Button, Progress, Menu, Dropdown } from "antd";
+import {
+  Avatar,
+  Typography,
+  Button,
+  Progress,
+  Menu,
+  Dropdown,
+  Popconfirm,
+} from "antd";
 import DisplayDate from "../../wall/DisplayDate";
 import { CDN } from "../../../constants/API";
 import { MoreOutlined } from "@ant-design/icons";
@@ -29,8 +37,13 @@ const OwnStrateyItem = ({ item, setStrategyEditItem, isMyProfile }) => {
       >
         Edit
       </Menu.Item>
-      <Menu.Item onClick={(_) => dispatch(deleteStrategy(item._id))}>
-        Delete
+      <Menu.Item>
+        <Popconfirm
+          title="Are you sure you'd like to delete this strategy ?"
+          onConfirm={(_) => dispatch(deleteStrategy(item._id))}
+        >
+          Delete
+        </Popconfirm>
       </Menu.Item>
     </Menu>
   );

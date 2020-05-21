@@ -14,6 +14,7 @@ import {
   toggleCollapsedSideNav,
 } from "../../../appRedux/actions/Setting";
 import IntlMessages from "../../../util/IntlMessages";
+import seeNotification from "../../../appRedux/actions/API/seeNotification";
 
 const { Header } = Layout;
 
@@ -36,6 +37,8 @@ const InsideHeader = () => {
   const locale = useSelector(({ settings }) => settings.locale);
   const navCollapsed = useSelector(({ settings }) => settings.navCollapsed);
   const { authUser } = useSelector(({ auth }) => auth);
+  const notification = useSelector(({ Api }) => Api.notification);
+  console.log(notification);
 
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">
@@ -57,6 +60,10 @@ const InsideHeader = () => {
   // const updateSearchChatUser = (evt) => {
   //   setSearchText(evt.target.value);
   // };
+
+  const handleSeeNotification = (_) => {
+    if (!notification.allSaw) dispatch(seeNotification());
+  };
 
   return (
     <div className="gx-header-horizontal gx-header-horizontal-custom gx-inside-header-horizontal">
@@ -147,10 +154,16 @@ const InsideHeader = () => {
                   placement="bottomRight"
                   content={<AppNotification />}
                   trigger="click"
+                  on
                 >
-                  <span className="gx-pointer gx-status-pos gx-d-block">
+                  <span
+                    className="gx-pointer gx-status-pos gx-d-block"
+                    onClick={handleSeeNotification}
+                  >
                     <i className="icon icon-notification" />
-                    <span className="gx-status gx-status-rtl gx-small gx-orange" />
+                    {!notification.allSaw && (
+                      <span className="gx-status gx-status-rtl gx-small gx-orange" />
+                    )}
                   </span>
                 </Popover>
               </li>
@@ -168,7 +181,7 @@ const InsideHeader = () => {
                   </span>
                 </Popover>
               </li> */}
-              {/* <li className="gx-language">
+              <li className="gx-language">
                 <Popover
                   overlayClassName="gx-popover-horizantal"
                   placement="bottomRight"
@@ -179,7 +192,7 @@ const InsideHeader = () => {
                     <i className={`flag flag-24 flag-${locale.icon}`} />
                   </span>
                 </Popover>
-              </li> */}
+              </li>
               {authUser && (
                 <li className="gx-user-nav">
                   <UserInfo />

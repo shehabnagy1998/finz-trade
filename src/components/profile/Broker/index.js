@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Widget from "components/Widget";
-import { Typography, Button } from "antd";
+import { Typography, Button, Popconfirm } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import deleteBroker from "../../../appRedux/actions/API/deleteBroker";
 import BrokerModal from "./BrokerModal";
@@ -54,12 +54,16 @@ const Broker = () => {
                 <p className="gx-mb-0">{data.name}</p>
               </div>
             </div>
-            <Button
-              icon="delete"
-              onClick={(_) => dispatch(deleteBroker(data._id))}
-              shape="circle"
-              loading={pageLoaders.deleteBroker === data._id}
-            />
+            <Popconfirm
+              title="Are you sure you'd like to delete this broker ?"
+              onConfirm={(_) => dispatch(deleteBroker(data._id))}
+            >
+              <Button
+                icon="delete"
+                shape="circle"
+                loading={pageLoaders.deleteBroker === data._id}
+              />
+            </Popconfirm>
           </div>
         ))
       ) : (

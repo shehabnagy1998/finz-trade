@@ -66,7 +66,7 @@ const InVoices = ({ match }) => {
       key: "amount",
       render: (i) => (
         <span>
-          {i.amount} {i.currency}
+          {i.amount / 100} {i.currency.toUpperCase()}
         </span>
       ),
       sorter: (a, b) => a.amount - b.amount,
@@ -95,7 +95,15 @@ const InVoices = ({ match }) => {
         <span>{moment(new Date(parseInt(i) * 1000)).format("DD/MM/YYYY")}</span>
       ),
     },
-    { title: "Total", dataIndex: "total", key: "total" },
+    {
+      title: "Total",
+      key: "total",
+      render: (i) => (
+        <span>
+          {i.total / 100} {i.currency.toUpperCase()}
+        </span>
+      ),
+    },
     {
       title: "Status",
       dataIndex: "status",

@@ -4,6 +4,7 @@ import WidgetHeader from "components/WidgetHeader/index";
 import RecentOrderItem from "./RecentOrderItem";
 import { useSelector } from "react-redux";
 import Widget from "components/Widget/index";
+import OrderSignalsModal from "../../OrderSignalsModal";
 
 const { Text } = Typography;
 
@@ -67,6 +68,7 @@ const RecentOrders = (props) => {
           </div>
         </Widget>
       )}
+      <OrderSignalsModal />
     </div>
   );
 };

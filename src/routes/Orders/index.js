@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Typography, Radio, Pagination } from "antd";
+import {
+  Row,
+  Col,
+  Card,
+  Typography,
+  Radio,
+  Pagination,
+  Collapse,
+  Tag,
+} from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import OrderItem from "./OrderItem";
 import getSignals from "../../appRedux/actions/API/getSignals";
 import CircularProgress from "../../components/CircularProgress";
+import { Link } from "react-router-dom";
 
 const { Title, Text } = Typography;
+const { Panel } = Collapse;
 
 const radioStyle = {
   display: "block",
@@ -38,6 +49,8 @@ const Orders = () => {
     setPage(num);
   };
 
+  console.log(signals);
+
   return (
     <>
       {pageLoaders.getStrategies ||
@@ -48,7 +61,7 @@ const Orders = () => {
       ) : (
         <div className="gx-main-content">
           <Row>
-            <Col md={6}>
+            <Col md={6} xs={24}>
               <Card title="Filter">
                 <Radio.Group value={filter} onChange={handleChangeFilter}>
                   <Radio style={radioStyle} value={"all"}>
@@ -57,7 +70,7 @@ const Orders = () => {
                   <Radio style={radioStyle} value={"win"}>
                     win
                   </Radio>
-                  <Radio style={radioStyle} value={"lost"}>
+                  <Radio style={radioStyle} value={"lose"}>
                     lose
                   </Radio>
                   <Radio style={radioStyle} value={"execute"}>
@@ -66,16 +79,93 @@ const Orders = () => {
                 </Radio.Group>
               </Card>
             </Col>
-            <Col md={18}>
+            <Col md={18} xs={24}>
               <Title level={4} className="gx-text-capitalize">
                 {filter} Orders
               </Title>
               {signals.list.length >= 1 ? (
                 <>
-                  {signals.list.map((item, index) => (
-                    <OrderItem key={index} order={item} />
-                  ))}
-                  <div className="gx-text-right gx-mb-2">
+                  <Collapse accordion>
+                    {signals.list.map((item, index) => (
+                      // <OrderItem key={index} order={item} />
+                      <Panel
+                        key={index}
+                        showArrow={false}
+                        header={<OrderItem key={index} order={item} />}
+                      >
+                        <Row className="gx-mb-5">
+                          <Col md={8}>
+                            <div className="gx-flex-column">
+                              <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                Initial Price
+                              </Text>
+                              <Text className="gx-fs-lg" ellipsis>
+                                {item.initialPrice}
+                              </Text>
+                            </div>
+                          </Col>
+                          <Col md={8}>
+                            <div className="gx-flex-column">
+                              <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                Close Price
+                              </Text>
+                              <Text className="gx-fs-lg" ellipsis>
+                                {item.closePrice}
+                              </Text>
+                            </div>
+                          </Col>
+                          <Col
+                            md={8}
+                            className="gx-d-flex gx-justify-content-end gx-align-items-center"
+                          >
+                            <Tag color="#8c8c8c" className="gx-text-center">
+                              {item.side.toUpperCase()}
+                            </Tag>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col xs={8}>
+                            <Link to={`/strategy/${item.strategyId}`}>
+                              <div className="gx-flex-column">
+                                <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                  Strategy
+                                </Text>
+                                <Text className="gx-fs-lg" ellipsis>
+                                  {item.strategyId}
+                                </Text>
+                              </div>
+                            </Link>
+                          </Col>
+                          <Col xs={8}>
+                            <Link to={`/profile/${item.mangerId}`}>
+                              <div className="gx-flex-column">
+                                <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                  Investor
+                                </Text>
+                                <Text className="gx-fs-lg" ellipsis>
+                                  {item.investorId}
+                                </Text>
+                              </div>
+                            </Link>
+                          </Col>
+                          <Col xs={8}>
+                            <Link to={`/profile/${item.managerId}`}>
+                              <div className="gx-flex-column">
+                                <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                  Manger
+                                </Text>
+                                <Text className="gx-fs-lg" ellipsis>
+                                  {item.managerId}
+                                </Text>
+                              </div>
+                            </Link>
+                          </Col>
+                        </Row>
+                      </Panel>
+                    ))}
+                  </Collapse>
+
+                  <div className="gx-text-right gx-my-2">
                     <Pagination
                       onChange={handleChangePagination}
                       defaultCurrent={page}

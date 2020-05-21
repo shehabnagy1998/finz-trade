@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Button, Modal, Avatar } from "antd";
+import { Typography, Button, Modal, Avatar, Popconfirm } from "antd";
 import Widget from "../../Widget/index";
 import PaymentModal from "./PaymentModal";
 import { loadStripe } from "@stripe/stripe-js";
@@ -23,51 +23,8 @@ const Payments = () => {
     await dispatch(getUserInfo());
   };
 
-  const selectImg = (val) => {
-    switch (val.toLowerCase()) {
-      case "visa":
-        return (
-          <Avatar
-            shape="square"
-            src={require(`assets/images/widget/visa.png`)}
-          />
-        );
-      case "mastercard":
-        return (
-          <Avatar
-            shape="square"
-            src={require(`assets/images/widget/mastercard.png`)}
-          />
-        );
-      case "discover":
-        return (
-          <Avatar
-            shape="square"
-            src={require(`assets/images/widget/discover.png`)}
-          />
-        );
-      case "american-express":
-        return (
-          <Avatar
-            shape="square"
-            src={require(`assets/images/widget/american-express.png`)}
-          />
-        );
-      case "paypal":
-        return (
-          <Avatar
-            shape="square"
-            src={require(`assets/images/widget/paypal.png`)}
-          />
-        );
-
-      default:
-        return null;
-    }
-  };
-
   const stripePromise = loadStripe("pk_test_A4NpuY8IglXSz4BGF0xQIkXE");
-
+  console.log(paymentSource);
   return (
     <Widget styleName="gx-card-profile-sm">
       <div className="gx-d-flex gx-align-items-center gx-justify-content-between gx-mt-2 gx-mb-3">
@@ -76,13 +33,17 @@ const Payments = () => {
           <Text className="gx-fs-xl">Payment</Text>
         </div>
         {userInfo.mainPaymentSourceId ? (
-          <Button
-            icon={"delete"}
-            shape="circle"
-            className="gx-m-0"
-            onClick={handleDelete}
-            loading={pageLoaders.deletePaymentSource}
-          />
+          <Popconfirm
+            title="Are you sure you'd like to delete your credit card ?"
+            onConfirm={handleDelete}
+          >
+            <Button
+              icon={"delete"}
+              shape="circle"
+              className="gx-m-0"
+              loading={pageLoaders.deletePaymentSource}
+            />
+          </Popconfirm>
         ) : (
           <div className="gx-d-flex">
             <Button
@@ -95,7 +56,7 @@ const Payments = () => {
         )}
       </div>
 
-      {userInfo.mainPaymentSourceId ? (
+      {userInfo.mainPaymentSourceId && paymentSource.card ? (
         <div className="gx-flex-row ">
           <Cards
             expiry={`${
@@ -103,7 +64,7 @@ const Payments = () => {
                 ? paymentSource.card.exp_month
                 : "0" + paymentSource.card.exp_month.toString()
             }/${paymentSource.card.exp_year}`}
-            name={paymentSource.card.name}
+            name={paymentSource.billing_details.name}
             number={`${paymentSource.card.last4}xxxxxxxxxxxxx`}
           />
         </div>

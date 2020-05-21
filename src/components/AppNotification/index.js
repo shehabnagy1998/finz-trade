@@ -10,22 +10,22 @@ import { Spin } from "antd";
 const AppNotification = () => {
   const notification = useSelector(({ Api }) => Api.notification);
   const dispatch = useDispatch();
-  const [postition, setPostition] = useState({ from: 1, to: 5 });
+  const [postition, setPostition] = useState({ from: 1, to: 50 });
 
-  useEffect(() => {
-    dispatch(getNotification(postition));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getNotification(postition));
+  // }, []);
 
-  const handleFetchMore = (_) => {
-    if (notification.fetchMore) {
-      let newPos = {
-        from: postition.from + 5,
-        to: postition.to + 5,
-      };
-      dispatch(getNotification(newPos));
-      setPostition(newPos);
-    }
-  };
+  // const handleFetchMore = (_) => {
+  //   if (notification.fetchMore) {
+  //     let newPos = {
+  //       from: postition.from + 5,
+  //       to: postition.to + 5,
+  //     };
+  //     dispatch(getNotification(newPos));
+  //     setPostition(newPos);
+  //   }
+  // };
 
   return (
     <Auxiliary>
@@ -40,8 +40,8 @@ const AppNotification = () => {
         <InfiniteScroll
           scrollableTarget={"notification-scrollbar"}
           dataLength={notification.arr.length} //This is important field to render the next data
-          next={handleFetchMore}
-          hasMore={notification.fetchMore}
+          // next={handleFetchMore}
+          // hasMore={notification.fetchMore}
           loader={
             <div className="gx-text-center">
               <Spin />
