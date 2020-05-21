@@ -24,7 +24,7 @@ const OrderItem = ({ order }) => {
       : order.status === "execute"
       ? "menu-right"
       : "";
-
+  console.log(order);
   return (
     <Card className="gx-mb-0">
       <div className="gx-media gx-justify-content-between gx-flex-nowrap">

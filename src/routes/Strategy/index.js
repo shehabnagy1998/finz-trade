@@ -36,6 +36,7 @@ import { useHistory } from "react-router-dom";
 import toggleFollowStrategy from "../../appRedux/actions/API/toggleFollowStrategy";
 import subscribePlan from "../../appRedux/actions/API/subscribePlan";
 import { Link } from "react-router-dom";
+import OrderSignalsModal from "../../components/OrderSignalsModal";
 
 const Strategy = ({ match }) => {
   const pageId = match.params.id;
@@ -333,6 +334,7 @@ const Strategy = ({ match }) => {
           <Title level={3}>There is no strategy with this ID</Title>
         </Card>
       )}
+      <OrderSignalsModal />
     </>
   );
 };

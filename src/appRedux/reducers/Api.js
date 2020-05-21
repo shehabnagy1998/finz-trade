@@ -14,12 +14,13 @@ import {
   REDUX_SIGNALS,
   REDUX_STRATEGY,
   REDUX_OTHER_USER,
+  REDUX_ORDER_SIGNALS,
 } from "../../constants/API";
 
 const INIT_STATE = {
   strategies: { all: [], owned: [], others: [], watching: [], following: [] },
   strategy: { data: {}, followers: [], watchers: [], orders: [] },
-  notification: { fetchMore: true, arr: [] },
+  notification: { fetchMore: true, arr: [], allSaw: true },
   recentOrders: [],
   pageLoaders: {},
   pageErrors: {},
@@ -30,6 +31,7 @@ const INIT_STATE = {
   inVoices: { list: [], hasMore: false },
   coupon: {},
   signals: { list: [], count: 0 },
+  orderSignals: { list: [], count: 0, order: {} },
   otherUser: {},
 };
 
@@ -79,6 +81,9 @@ export default (state = INIT_STATE, action) => {
 
     case REDUX_SIGNALS:
       return { ...state, signals: action.value };
+
+    case REDUX_ORDER_SIGNALS:
+      return { ...state, orderSignals: action.value };
 
     case REDUX_OTHER_USER:
       return { ...state, otherUser: action.value };
