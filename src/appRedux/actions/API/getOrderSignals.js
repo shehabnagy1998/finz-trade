@@ -12,7 +12,7 @@ const openNotificationError = (msg) => {
     description: msg,
   });
 };
-const openNotificationWarning = (msg) => {
+const openNotificationWarnin = (msg) => {
   notification["warn"]({
     message: "Order Signals",
     description: msg,
@@ -39,7 +39,7 @@ export default (order) => async (dispatch, getState) => {
       value: { list: res.data.data, count: res.data.count, order },
     });
     if (res.data.count <= 0)
-      openNotificationWarning("This order doesn't have any signals");
+      openNotificationWarnin("This order doesn't have any signals");
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getOrderSignals: null } });
   } catch (error) {
     console.log(error.response);
