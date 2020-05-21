@@ -2,6 +2,10 @@
   "name": "wieldy-hook",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.13.4",
+    "node": "12.14.1"
+  },
   "dependencies": {
     "@amcharts/amcharts3-react": "^3.1.0",
     "@ant-design/icons": "^4.1.0",
@@ -64,7 +68,10 @@
     "slick-carousel": "^1.8.1",
     "stripe": "^8.49.0",
     "url-search-params": "^1.1.0",
-    "victory": "^34.0.0"
+    "victory": "^34.0.0",
+    "babel-plugin-import": "^1.13.0",
+    "customize-cra": "^0.9.1",
+    "react-app-rewired": "^2.1.5"
   },
   "scripts": {
     "start": "react-app-rewired start",
