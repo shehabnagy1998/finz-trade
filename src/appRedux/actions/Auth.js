@@ -45,10 +45,10 @@ export const userConfirmEmail = (code) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_LOADERS, value: { confirmEmail: false } });
   } catch (error) {
     console.log(error.response);
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { confirmEmail: false } });
     if (error.response && error.response.data) {
       openNotificationError("Confirmation", error.response.data.message);
       dispatch({ type: SIGNUP_USER, value: { userInfo: {}, authUser: null } });
-      dispatch({ type: REDUX_PAGE_LOADERS, value: { confirmEmail: false } });
       return;
     }
     openNotificationError("Confirmation", "Failed to confirm email");
@@ -75,10 +75,10 @@ export const userSignUp = (user) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signUpUser: false } });
   } catch (error) {
     console.log(error.response);
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { signUpUser: false } });
     if (error.response && error.response.data) {
       openNotificationError("Register", error.response.data.message);
       dispatch({ type: SIGNUP_USER, value: { userInfo: {}, authUser: null } });
-      dispatch({ type: REDUX_PAGE_LOADERS, value: { signUpUser: false } });
       return;
     }
     openNotificationError("Register", "Failed to register");
@@ -122,10 +122,10 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getUserInfo: false } });
   } catch (error) {
     console.log(error.response);
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getUserInfo: false } });
     if (error.response && error.response.data) {
       localStorage.removeItem("user_id");
       dispatch({ type: SIGNIN_USER, value: { userInfo: {}, authUser: null } });
-      dispatch({ type: REDUX_PAGE_LOADERS, value: { getUserInfo: false } });
     }
   }
 };
@@ -155,10 +155,10 @@ export const userSignIn = (user) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signInUser: false } });
   } catch (error) {
     console.log(error.response);
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { signInUser: false } });
     if (error.response && error.response.data) {
       openNotificationError("Login", error.response.data.message);
       dispatch({ type: SIGNIN_USER, value: { userInfo: {}, authUser: null } });
-      dispatch({ type: REDUX_PAGE_LOADERS, value: { signInUser: false } });
       return;
     }
     openNotificationError("Login", "Failed to login");
