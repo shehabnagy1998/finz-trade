@@ -18,8 +18,13 @@ const HorizontalNav = () => {
       </li>
 
       <li className="navbar-list-item">
-        <NavLink activeClassName={"active"} className="nav-item" to="/invoices">
-          <IntlMessages id="sidebar.inVoices" />
+        <NavLink
+          activeClassName={"active"}
+          className="nav-item"
+          to="/watchlist"
+        >
+          {/* <IntlMessages id="sidebar.inVoices" /> */}
+          Watchlist
         </NavLink>
       </li>
     </ul>

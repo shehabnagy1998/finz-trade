@@ -45,12 +45,12 @@ const InsideHeader = () => {
       <ul className="gx-sub-popover">
         {languageData.map((language) => (
           <li
-            className="gx-media gx-pointer"
+            className="gx-media gx-pointer gx-justify-content-center"
             key={JSON.stringify(language)}
             onClick={(e) => dispatch(switchLanguage(language))}
           >
-            <i className={`flag flag-24 gx-mr-2 flag-${language.icon}`} />
-            <span className="gx-language-text">{language.name}</span>
+            <i className={`flag flag-24 flag-${language.icon}`} />
+            {/* <span className="gx-language-text">{language.name}</span> */}
           </li>
         ))}
       </ul>
@@ -112,7 +112,7 @@ const InsideHeader = () => {
             </Link>
             <Link
               to="/"
-              className="gx-d-none gx-d-lg-block gx-pointer gx-mr-xs-5 gx-logo"
+              className="gx-d-none gx-d-lg-block gx-pointer gx-mr-xs-5 gx-logo gx-width-200"
             >
               <img alt="" src={require("assets/images/logo.png")} />
             </Link>

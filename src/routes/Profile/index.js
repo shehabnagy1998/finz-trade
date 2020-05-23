@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Card, Typography } from "antd";
-import Status from "../../components/profile/Status";
+// import Status from "../../components/profile/Status";
 import Broker from "../../components/profile/Broker";
 
-import { friendList } from "./data";
 import Settings from "../../components/profile/Settings";
 import Auxiliary from "../../util/Auxiliary";
 import ProfileHeader from "../../components/profile/ProfileHeader";
@@ -16,6 +15,7 @@ import getBrokers from "../../appRedux/actions/API/getBrokers";
 import getOtherUser from "../../appRedux/actions/API/getOtherUser";
 import getStrategies from "../../appRedux/actions/API/getStrategies";
 import Payout from "../../components/profile/Payout";
+import InVoices from "../../components/profile/Invoices";
 
 const Profile = ({ match }) => {
   const { pageLoaders, paymentSource, otherUser } = useSelector(
@@ -72,8 +72,9 @@ const Profile = ({ match }) => {
               <div className="gx-profile-content">
                 <Row>
                   <Col {...toView}>
-                    <Status isMyProfile={isMyProfile} />
+                    {/* {!isMyProfile && <Status isMyProfile={isMyProfile} />} */}
                     <OwnStrategy isMyProfile={isMyProfile} />
+                    {isMyProfile && <InVoices />}
                   </Col>
 
                   {isMyProfile && (

@@ -17,7 +17,7 @@ import addStrategy from "../../appRedux/actions/API/addStrategy";
 const { Option } = Select;
 const FormItem = Form.Item;
 
-const stocksArr = ["stock", "forex", "cryptocurrencies", "commodities"];
+const stocksArr = ["stock", "forex", "crypto", "commodities"];
 const tradeTypingArr = ["automatic", "manual", "mixed"];
 
 const AddModal = ({ isVisible, setIsVisible, form }) => {
