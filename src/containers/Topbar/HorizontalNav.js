@@ -7,13 +7,13 @@ const HorizontalNav = () => {
     <ul className="navbar-list">
       <li className="navbar-list-item">
         <NavLink activeClassName={"active"} className="nav-item" to="/home">
-          <IntlMessages id="sidebar.home" />
+          <IntlMessages id="home" />
         </NavLink>
       </li>
 
       <li className="navbar-list-item">
         <NavLink activeClassName={"active"} className="nav-item" to="/orders">
-          <IntlMessages id="sidebar.orders" />
+          <IntlMessages id="orders" />
         </NavLink>
       </li>
 
@@ -23,8 +23,7 @@ const HorizontalNav = () => {
           className="nav-item"
           to="/watchlist"
         >
-          {/* <IntlMessages id="sidebar.inVoices" /> */}
-          Watchlist
+          <IntlMessages id="watchlist" />
         </NavLink>
       </li>
     </ul>

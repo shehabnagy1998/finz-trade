@@ -14,6 +14,7 @@ import { MoreOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import deleteStrategy from "../../../appRedux/actions/API/deleteStrategy";
 import { Link } from "react-router-dom";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Text } = Typography;
 
@@ -35,14 +36,14 @@ const OwnStrateyItem = ({ item, setStrategyEditItem, isMyProfile }) => {
           })
         }
       >
-        Edit
+        <IntlMessages id="edit" />
       </Menu.Item>
       <Menu.Item>
         <Popconfirm
           title="Are you sure you'd like to delete this strategy ?"
           onConfirm={(_) => dispatch(deleteStrategy(item._id))}
         >
-          Delete
+          <IntlMessages id="delete" />
         </Popconfirm>
       </Menu.Item>
     </Menu>

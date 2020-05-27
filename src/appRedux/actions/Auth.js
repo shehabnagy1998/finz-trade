@@ -96,7 +96,7 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/info",
+      url: "/user/info?stats=true",
       method: "GET",
       headers: {
         token: userToken,
@@ -110,6 +110,7 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
           ...res.data.data.user,
           plan: res.data.data.subscription.plan,
           subscription: res.data.data.subscription.subscription.subscription,
+          stats: res.data.stats,
         },
       });
     else

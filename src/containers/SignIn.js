@@ -97,10 +97,7 @@ const SignIn = (props) => {
                     valuePropName: "checked",
                     initialValue: true,
                   })(<Checkbox>Remember me</Checkbox>)}
-                  <Link
-                    className="gx-login-form-forgot"
-                    to="/custom-views/user-auth/forgot-password"
-                  >
+                  <Link className="gx-login-form-forgot" to="/forgot-password">
                     Forgot password
                   </Link>
                 </div>

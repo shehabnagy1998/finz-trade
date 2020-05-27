@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import deletePaymentSource from "../../../appRedux/actions/API/deletePaymentSource";
 import { getUserInfo } from "../../../appRedux/actions/Auth";
 import Cards from "react-credit-cards";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Text } = Typography;
 
@@ -23,7 +24,9 @@ const Payout = () => {
       <div className="gx-d-flex gx-align-items-center gx-justify-content-between gx-mt-2 gx-mb-3">
         <div className="gx-d-flex gx-align-items-center gx-my-3">
           {/* <i className="icon icon-card gx-mr-2 gx-center" /> */}
-          <Text className="gx-fs-xl">Payout</Text>
+          <Text className="gx-fs-xl">
+            <IntlMessages id="payout" />
+          </Text>
         </div>
         {userInfo.payout ? (
           <Button
@@ -48,15 +51,21 @@ const Payout = () => {
       {userInfo.payout ? (
         <div className="gx-flex-column">
           <div className="gx-d-flex gx-justify-content-between">
-            <Text>Account Name:</Text>
+            <Text>
+              <IntlMessages id="accountName" />:
+            </Text>
             <Text>{userInfo.payout.accountName}</Text>
           </div>
           <div className="gx-d-flex gx-justify-content-between">
-            <Text>Account Number:</Text>
+            <Text>
+              <IntlMessages id="accountNum" />:
+            </Text>
             <Text>{userInfo.payout.accountNumber}</Text>
           </div>
           <div className="gx-d-flex gx-justify-content-between">
-            <Text>Bank Name:</Text>
+            <Text>
+              <IntlMessages id="bankName" />:
+            </Text>
             <Text>{userInfo.payout.bankName}</Text>
           </div>
         </div>

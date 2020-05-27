@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import addPayout from "../../../appRedux/actions/API/addPayout";
 import editPayout from "../../../appRedux/actions/API/editPayout";
 import ALL_COUNTRIES from "../../../constants/Countries.json";
+import IntlMessages from "../../../util/IntlMessages";
+import { useIntl } from "react-intl";
 const { Option } = Select;
 const FormItem = Form.Item;
 
@@ -29,6 +31,7 @@ const PayoutModal = ({ isVisible, setIsVisible, form }) => {
   const pageLoaders = useSelector(({ Api }) => Api.pageLoaders);
   const { userInfo } = useSelector(({ auth }) => auth);
   const { getFieldDecorator, setFieldsValue } = form;
+  const { formatMessage } = useIntl();
 
   const handleCancel = (e) => {
     setIsVisible(false);
@@ -67,7 +70,13 @@ const PayoutModal = ({ isVisible, setIsVisible, form }) => {
   return (
     <Modal
       visible={isVisible}
-      title={userInfo.payout ? "Edit Payout" : "Add Payout"}
+      title={
+        userInfo.payout ? (
+          <IntlMessages id="editPayout" />
+        ) : (
+          <IntlMessages id="addPayout" />
+        )
+      }
       onCancel={handleCancel}
       footer={null}
       bodyStyle={{ paddingBottom: 0 }}
@@ -75,26 +84,46 @@ const PayoutModal = ({ isVisible, setIsVisible, form }) => {
       <Form onSubmit={handleAdd} className="gx-w-100" {...layout}>
         <FormItem>
           {getFieldDecorator("accountName", {
-            rules: [{ required: true, message: "Please input account name!" }],
-          })(<Input placeholder="Account Name" />)}
+            rules: [
+              {
+                required: true,
+                message: <IntlMessages id="accountNameError" />,
+              },
+            ],
+          })(<Input placeholder={formatMessage({ id: "accountName" })} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("accountNumber", {
             rules: [
-              { required: true, message: "Please input account number!" },
+              {
+                required: true,
+                message: <IntlMessages id="accountNumError" />,
+              },
             ],
-          })(<Input type="number" placeholder="Account Number" />)}
+          })(
+            <Input
+              type="number"
+              placeholder={formatMessage({ id: "accountNum" })}
+            />
+          )}
         </FormItem>
         <FormItem>
           {getFieldDecorator("bankName", {
-            rules: [{ required: true, message: "Please input bank name!" }],
-          })(<Input placeholder="Bank Name" />)}
+            rules: [
+              { required: true, message: <IntlMessages id="bankNameError" /> },
+            ],
+          })(<Input placeholder={formatMessage({ id: "bankName" })} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("country", {
-            rules: [{ required: true, message: "Please input Country!" }],
+            rules: [
+              {
+                required: true,
+                message: <IntlMessages id="accountCountryError" />,
+              },
+            ],
           })(
-            <Select placeholder="Card holder country">
+            <Select placeholder={formatMessage({ id: "accountCountry" })}>
               {ALL_COUNTRIES.map((i) => (
                 <Select.Option value={i.Code}>{i.Name}</Select.Option>
               ))}
@@ -104,33 +133,51 @@ const PayoutModal = ({ isVisible, setIsVisible, form }) => {
         <FormItem>
           {getFieldDecorator("city", {
             rules: [
-              { required: true, message: "Please input card holder city!" },
+              {
+                required: true,
+                message: <IntlMessages id="accountCityError" />,
+              },
             ],
-          })(<Input placeholder="Card holder city" />)}
+          })(<Input placeholder={formatMessage({ id: "accountCity" })} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("address", {
-            rules: [{ required: true, message: "Please input address!" }],
-          })(<Input placeholder="Address" />)}
+            rules: [
+              {
+                required: true,
+                message: <IntlMessages id="accountAddressError" />,
+              },
+            ],
+          })(<Input placeholder={formatMessage({ id: "accountAddress" })} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("postalCode", {
             rules: [
-              { required: true, message: "Please input postal code!" },
+              {
+                required: true,
+                message: <IntlMessages id="accountPostalError" />,
+              },
               { validator: validateFormFields },
             ],
-          })(<Input placeholder="Postal Code" type="number" />)}
+          })(
+            <Input
+              placeholder={formatMessage({ id: "accountPostal" })}
+              type="number"
+            />
+          )}
         </FormItem>
 
         <FormItem className="">
           <div className="gx-d-flex gx-align-items gx-justify-content-end gx-mt-3">
-            <Button onClick={handleCancel}>Cancel</Button>
+            <Button onClick={handleCancel}>
+              <IntlMessages id="cancel" />
+            </Button>
             <Button
               htmlType="submit"
               type="primary"
               loading={pageLoaders.addPayout}
             >
-              Ok
+              <IntlMessages id="ok" />
             </Button>
           </div>
         </FormItem>

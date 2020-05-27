@@ -9,7 +9,7 @@ import {
   useLocation,
   useRouteMatch,
 } from "react-router-dom";
-import { LocaleProvider } from "antd";
+import { ConfigProvider } from "antd";
 import { IntlProvider } from "react-intl";
 
 import AppLocale from "lngProvider";
@@ -170,7 +170,7 @@ const App = (props) => {
   const currentAppLocale = AppLocale[locale.locale];
 
   return (
-    <LocaleProvider locale={currentAppLocale.antd}>
+    <ConfigProvider locale={currentAppLocale.antd}>
       <IntlProvider
         locale={currentAppLocale.locale}
         messages={currentAppLocale.messages}
@@ -215,7 +215,7 @@ const App = (props) => {
           />
         </Switch>
       </IntlProvider>
-    </LocaleProvider>
+    </ConfigProvider>
   );
 };
 

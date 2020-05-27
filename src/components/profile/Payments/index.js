@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import deletePaymentSource from "../../../appRedux/actions/API/deletePaymentSource";
 import { getUserInfo } from "../../../appRedux/actions/Auth";
 import Cards from "react-credit-cards";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Text } = Typography;
 
@@ -30,7 +31,9 @@ const Payments = () => {
       <div className="gx-d-flex gx-align-items-center gx-justify-content-between gx-mt-2 gx-mb-3">
         <div className="gx-d-flex gx-align-items-center gx-my-3">
           {/* <i className="icon icon-card gx-mr-2 gx-center" /> */}
-          <Text className="gx-fs-xl">Payment</Text>
+          <Text className="gx-fs-xl">
+            <IntlMessages id="payment" />
+          </Text>
         </div>
         {userInfo.mainPaymentSourceId ? (
           <Popconfirm
@@ -71,7 +74,7 @@ const Payments = () => {
       ) : (
         <div className="gx-text-center">
           <Text className="gx-text-orange gx-fs-lg gx-text-capitalize">
-            You didn't add any credit card
+            <IntlMessages id="noPayment" />
           </Text>
         </div>
       )}

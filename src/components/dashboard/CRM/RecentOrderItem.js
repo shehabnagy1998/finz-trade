@@ -5,6 +5,7 @@ import DisplayDate from "../../wall/DisplayDate";
 import { Typography, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import getOrderSignals from "../../../appRedux/actions/API/getOrderSignals";
+import IntlMessages from "../../../util/IntlMessages";
 
 const RecentOrdersItem = ({ order }) => {
   const { Text } = Typography;
@@ -61,7 +62,7 @@ const RecentOrdersItem = ({ order }) => {
               className="gx-link gx-fs-sm"
               onClick={(_) => dispatch(getOrderSignals(order))}
             >
-              Show Signals
+              <IntlMessages id="showSignals" />
             </Text>
           </div>
         </div>

@@ -27,6 +27,7 @@ import toggleFollowStrategy from "../../appRedux/actions/API/toggleFollowStrateg
 import subscribePlan from "../../appRedux/actions/API/subscribePlan";
 import { Link, useHistory } from "react-router-dom";
 import DisplayDate from "../wall/DisplayDate";
+import IntlMessages from "../../util/IntlMessages";
 
 const StrategyCard = ({ strategy, setStrategyEditItem }) => {
   const { Title, Text } = Typography;
@@ -177,11 +178,13 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
       </div>
       <div>
         <Text>
-          <Text type="warning">{strategy.wonOrders}</Text> orders won of
-          <Text type="warning">
-            {" "}
-            {strategy.wonOrders + strategy.lostOrders}
-          </Text>
+          <IntlMessages
+            id="ordersWonOf"
+            values={{
+              firstVal: strategy.wonOrders,
+              secondVal: strategy.wonOrders + strategy.lostOrders,
+            }}
+          />
         </Text>
         <Progress percent={parseFloat(percent)} status="active" />
       </div>
@@ -201,7 +204,7 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
                 loading={pageLoaders.deleteStrategy}
                 block
               >
-                Delete
+                <IntlMessages id="delete" />
               </Button>
             </Popconfirm>
             <Button
@@ -221,7 +224,7 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
                 })
               }
             >
-              Edit
+              <IntlMessages id="edit" />
             </Button>
           </>
         ) : (
@@ -239,7 +242,7 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
               }
             >
               <i className="icon gx-mr-2 icon-notification" />
-              Watch
+              <IntlMessages id="Watch" />
             </Button>
             <Popconfirm
               title={`This will cost you ${strategy.cost}$ monthly and can't be refunded ?`}
@@ -258,13 +261,16 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
                 }
               >
                 <i className="icon gx-mr-2 icon-add" />
-                Follow with {strategy.cost}$
+                <IntlMessages
+                  id="followWith"
+                  values={{ val: `${strategy.cost}$` }}
+                />
               </Button>
             </Popconfirm>
             <Popover content={shareContent} trigger="hover">
               <Button block>
                 <i className="icon gx-mr-2 icon-sent" />
-                Share
+                <IntlMessages id="share" />
               </Button>
             </Popover>
           </>

@@ -3,6 +3,7 @@ import { Button, Typography } from "antd";
 import { useSelector } from "react-redux";
 import Auxiliary from "util/Auxiliary";
 import { CDN } from "../../../constants/API";
+import IntlMessages from "../../../util/IntlMessages";
 
 const Profile = (props) => {
   const [isFollow, setIsFollow] = useState(false);
@@ -29,7 +30,11 @@ const Profile = (props) => {
               user.subscribed ? "gx-text-teal" : "gx-text-red"
             }`}
           >
-            {user.subscribed ? "subscribed" : "not subscribed"}
+            {user.subscribed ? (
+              <IntlMessages id="subscribed" />
+            ) : (
+              <IntlMessages id="notSubscribed" />
+            )}
           </Text>
         </div>
       </div>
@@ -38,15 +43,21 @@ const Profile = (props) => {
         <ul className="gx-follower-list">
           <li>
             <span className="gx-follower-title">{user.following}</span>
-            <span>Following</span>
+            <span>
+              <IntlMessages id="following" />
+            </span>
           </li>
           <li>
             <span className="gx-follower-title">{user.watching}</span>
-            <span>Watching</span>
+            <span>
+              <IntlMessages id="watching" />
+            </span>
           </li>
           <li>
             <span className="gx-follower-title">{user.orders}</span>
-            <span>Orders</span>
+            <span>
+              <IntlMessages id="orders" />
+            </span>
           </li>
         </ul>
       </div>

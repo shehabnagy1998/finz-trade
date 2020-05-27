@@ -16,6 +16,9 @@ import getOtherUser from "../../appRedux/actions/API/getOtherUser";
 import getStrategies from "../../appRedux/actions/API/getStrategies";
 import Payout from "../../components/profile/Payout";
 import InVoices from "../../components/profile/Invoices";
+import IntlMessages from "../../util/IntlMessages";
+import TableContainer from "../../components/profile/TableContainer/TableContainer";
+import ChartContainer from "../../components/profile/Chart/ChartContainer";
 
 const Profile = ({ match }) => {
   const { pageLoaders, paymentSource, otherUser } = useSelector(
@@ -25,13 +28,13 @@ const Profile = ({ match }) => {
   const dispatch = useDispatch();
 
   const paramId = match.params.id;
-  const [isMyProfile, setIsMyProfile] = useState(false);
+  const [isMyProfile, setIsMyProfile] = useState(null);
   const [profileInfo, setProfileInfo] = useState({});
   const { Title } = Typography;
 
   useEffect(() => {
     const getFunc = async () => {
-      if (paramId === userInfo.username) {
+      if (paramId === userInfo.username && isMyProfile === null) {
         setIsMyProfile(true);
         await setProfileInfo(userInfo);
         await dispatch(getStrategies());
@@ -43,6 +46,7 @@ const Profile = ({ match }) => {
       }
     };
     getFunc();
+    return (_) => setIsMyProfile(null);
   }, [paramId, userInfo]);
 
   useEffect(() => {
@@ -72,27 +76,31 @@ const Profile = ({ match }) => {
               <div className="gx-profile-content">
                 <Row>
                   <Col {...toView}>
+                    {profileInfo.stats && (
+                      <TableContainer profileInfo={profileInfo} />
+                    )}
                     {/* {!isMyProfile && <Status isMyProfile={isMyProfile} />} */}
                     <OwnStrategy isMyProfile={isMyProfile} />
                     {isMyProfile && <InVoices />}
                   </Col>
 
-                  {isMyProfile && (
-                    <Col xl={8} lg={10} md={10} sm={24} xs={24}>
-                      {isMyProfile && <Broker />}
-                      {isMyProfile && <Settings />}
-                      {isMyProfile && <Payments />}
-                      {isMyProfile && <Payout />}
-                      {isMyProfile && <Subscription />}
-                    </Col>
-                  )}
+                  <Col xl={8} lg={10} md={10} sm={24} xs={24}>
+                    {profileInfo.stats && (
+                      <ChartContainer profileInfo={profileInfo} />
+                    )}
+                    {isMyProfile && <Broker />}
+                    {isMyProfile && <Settings />}
+                    {isMyProfile && <Payments />}
+                    {isMyProfile && <Payout />}
+                    {isMyProfile && <Subscription />}
+                  </Col>
                 </Row>
               </div>
             </>
           ) : (
             <Card className="gx-text-center">
               <Title className="gx-m-0" level={4}>
-                Account Not Available
+                <IntlMessages id="noAccount" />
               </Title>
             </Card>
           )}

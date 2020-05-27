@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { Typography, Button, notification } from "antd";
 import AddModal from "../../StrategyModal/Add";
 import EditModal from "../../StrategyModal/Edit";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Text, Title } = Typography;
 
@@ -36,7 +37,9 @@ const OwnStrategy = ({ isMyProfile }) => {
   return (
     <Widget styleName="gx-card-profile">
       <div className="gx-mt-4 gx-d-flex gx-justify-content-between">
-        <Text className="gx-fs-xl">Own Strategy</Text>
+        <Text className="gx-fs-xl">
+          <IntlMessages id="ownStrategy" />
+        </Text>
         {isMyProfile && (
           <Button icon="plus" shape="circle" onClick={handleOpenModal} />
         )}
@@ -53,7 +56,7 @@ const OwnStrategy = ({ isMyProfile }) => {
       ) : (
         <div className="gx-text-center">
           <Text className="gx-text-orange gx-fs-lg gx-text-capitalize">
-            You didn't create any strategy, try add one
+            <IntlMessages id="noStrategy" />
           </Text>
         </div>
       )}

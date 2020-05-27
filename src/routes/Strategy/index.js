@@ -22,6 +22,8 @@ import { useHistory } from "react-router-dom";
 
 import OrderSignalsModal from "../../components/OrderSignalsModal";
 import StrategyCard from "../../components/StrategyCard";
+import TableContainer from "./TableContainer/TableContainer";
+import ChartContainer from "./Chart/ChartContainer";
 
 const Strategy = ({ match }) => {
   const pageId = match.params.id;
@@ -53,18 +55,34 @@ const Strategy = ({ match }) => {
           <Row>
             {/* <Col xs={24} md={8}>
               <StrategyLists
-                title={"Followers"}
-                items={strategy.followers}
-                icon={<i className="icon gx-mr-2 icon-add" />}
+              title={"Followers"}
+              items={strategy.followers}
+              icon={<i className="icon gx-mr-2 icon-add" />}
               />
-            </Col>
-            <Col xs={24} md={8}>
+              </Col>
+              <Col xs={24} md={8}>
               <StrategyLists
-                title={"Watchers"}
-                items={strategy.watchers}
-                icon={<i className="icon gx-mr-2 icon-notification" />}
+              title={"Watchers"}
+              items={strategy.watchers}
+              icon={<i className="icon gx-mr-2 icon-notification" />}
               />
             </Col> */}
+            {strategy.orders.length >= 2 ||
+              (true && (
+                <>
+                  {" "}
+                  <Col xs={24} md={14}>
+                    <TableContainer />
+                  </Col>
+                  <Col
+                    xs={24}
+                    md={10}
+                    className="gx-d-flex gx-align-items-center"
+                  >
+                    <ChartContainer />
+                  </Col>
+                </>
+              ))}
             <Col xs={24}>
               <Card
                 title={
