@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import addPaymentSource from "../../../appRedux/actions/API/addPaymentSource";
 import { getUserInfo } from "../../../appRedux/actions/Auth";
 import addBroker from "../../../appRedux/actions/API/addBroker";
+import IntlMessages from "../../../util/IntlMessages";
+import { useIntl } from "react-intl";
 const FormItem = Form.Item;
 
 const BrokerModal = ({ isVisible, setIsVisible, stripe, form }) => {
@@ -11,6 +13,7 @@ const BrokerModal = ({ isVisible, setIsVisible, stripe, form }) => {
 
   const dispatch = useDispatch();
   const pageLoaders = useSelector(({ Api }) => Api.pageLoaders);
+  const intl = useIntl();
 
   const handleCancel = (e) => {
     setIsVisible(false);
@@ -38,7 +41,7 @@ const BrokerModal = ({ isVisible, setIsVisible, stripe, form }) => {
   return (
     <Modal
       visible={isVisible}
-      title="Add Broker"
+      title={<IntlMessages id="addBroker" />}
       onCancel={handleCancel}
       footer={null}
       bodyStyle={{ paddingBottom: 0 }}
@@ -46,20 +49,26 @@ const BrokerModal = ({ isVisible, setIsVisible, stripe, form }) => {
       <Form onSubmit={handleAdd} className="gx-w-100" {...layout}>
         <FormItem>
           {getFieldDecorator("id", {
-            rules: [{ required: true, message: "Please input broker ID!" }],
-          })(<Input placeholder="ID" />)}
+            rules: [
+              { required: true, message: <IntlMessages id="idBError" /> },
+            ],
+          })(<Input placeholder={intl.formatMessage({ id: "idB" })} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("name", {
-            rules: [{ required: true, message: "Please input broker name!" }],
-          })(<Input placeholder="Name" />)}
+            rules: [
+              { required: true, message: <IntlMessages id="nameBError" /> },
+            ],
+          })(<Input placeholder={intl.formatMessage({ id: "nameB" })} />)}
         </FormItem>
 
         <FormItem className="">
           <div className="gx-d-flex gx-align-items gx-justify-content-end gx-mt-3">
-            <Button onClick={handleCancel}>Cancel</Button>
+            <Button onClick={handleCancel}>
+              <IntlMessages id="cancel" />
+            </Button>
             <Button htmlType="submit" type="primary" loading={confirmLoading}>
-              Ok
+              <IntlMessages id="ok" />
             </Button>
           </div>
         </FormItem>

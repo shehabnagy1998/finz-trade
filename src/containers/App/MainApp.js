@@ -134,7 +134,7 @@ const MainApp = () => {
           <Footer>
             <div className="gx-layout-footer-content">
               <IntlMessages
-                id="footer.text"
+                id="footerText"
                 values={{
                   mark: "©",
                   year: new Date().getFullYear(),

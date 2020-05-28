@@ -3,7 +3,9 @@ import Widget from "components/Widget";
 import { Typography, Button, Popconfirm } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import deleteBroker from "../../../appRedux/actions/API/deleteBroker";
+import getBrokerFile from "../../../appRedux/actions/API/getBrokerFile";
 import BrokerModal from "./BrokerModal";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Text } = Typography;
 
@@ -16,14 +18,21 @@ const Broker = () => {
   return (
     <Widget styleName="gx-card-profile-sm">
       <div className="gx-d-flex gx-align-items-center gx-justify-content-between gx-mb-3">
-        <Text className="gx-fs-xl">Broker</Text>
+        <Text className="gx-fs-xl">
+          <IntlMessages id="broker" />
+        </Text>
         <div className="gx-d-flex">
           <Button
             shape="circle"
             icon="plus"
             onClick={(_) => setIsVisible(true)}
           />
-          <Button shape="circle" icon="download" />
+          <Button
+            shape="circle"
+            icon="download"
+            loading={pageLoaders.getBrokerFile}
+            onClick={(_) => dispatch(getBrokerFile())}
+          />
         </div>
       </div>
       {brokers.length >= 1 ? (
@@ -69,7 +78,7 @@ const Broker = () => {
       ) : (
         <div className="gx-text-center gx-mt-3">
           <Text className="gx-text-orange gx-fs-lg">
-            You dont have any brokers
+            <IntlMessages id="noBroker" />
           </Text>
         </div>
       )}

@@ -20,7 +20,7 @@ import { CDN } from "../../constants/API";
 import editStrategyPic from "../../appRedux/actions/API/editStrategyPic";
 const { Option } = Select;
 const FormItem = Form.Item;
-const stocksArr = ["stock", "forex", "cryptocurrencies", "commodities"];
+const stocksArr = ["stock", "forex", "crypto", "commodities"];
 const tradeTypingArr = ["automatic", "manual", "mixed"];
 const EditModal = ({ item, setItem, form }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);

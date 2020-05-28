@@ -4,6 +4,7 @@ import { Avatar, Popover } from "antd";
 import { userSignOut } from "appRedux/actions/Auth";
 import { Link } from "react-router-dom";
 import { CDN } from "../../constants/API";
+import IntlMessages from "../../util/IntlMessages";
 
 const UserInfo = () => {
   const dispatch = useDispatch();
@@ -13,10 +14,12 @@ const UserInfo = () => {
     <ul className="gx-user-popover">
       <li>
         <Link className="gx-text-black-grey" to={`/profile/${user.username}`}>
-          My Account
+          <IntlMessages id="myAccount" />
         </Link>
       </li>
-      <li onClick={() => dispatch(userSignOut())}>Logout</li>
+      <li onClick={() => dispatch(userSignOut())}>
+        <IntlMessages id="logout" />
+      </li>
     </ul>
   );
 

@@ -23926,6 +23926,9 @@ img {
 .gx-width-175 {
   width: 175px !important;
 }
+.gx-width-200 {
+  width: 200px !important;
+}
 .gx-img-fluid,
 .gx-img-thumbnail {
   max-width: 100%;
@@ -27480,7 +27483,7 @@ h6,
 }
 .gx-popover-lang-scroll {
   min-height: 106px !important;
-  width: 160px !important;
+  min-width: 65px !important;
   margin: 0 -16px;
 }
 .ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow {

@@ -24,7 +24,7 @@ export default (id) => async (dispatch, getState) => {
     });
     const ordersRes = await Axios({
       baseURL: API,
-      url: `/order/get/1/10?strategyId=${id}`,
+      url: `/order/get/1/10?strategyId=${id}&stats=true`,
       method: "GET",
       headers: {
         token: userToken,
@@ -38,6 +38,7 @@ export default (id) => async (dispatch, getState) => {
         followers: res.data.followers,
         watchers: res.data.watchers,
         orders: ordersRes.data.data,
+        stats: ordersRes.data.stats,
       },
     });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getStrategyById: false } });

@@ -10,6 +10,7 @@ import getRecentOrders from "../../appRedux/actions/API/getRecentOrders";
 import { sortBy } from "lodash";
 import Profile from "components/wall/Profile/index";
 import CircularProgress from "../../components/CircularProgress";
+import IntlMessages from "../../util/IntlMessages";
 
 const Option = Select.Option;
 
@@ -60,16 +61,25 @@ const Index = ({ match }) => {
               {items.length >= 1 && (
                 <CustomScrollbars className="gx-wall-scroll">
                   <div className="gx-wall-postlist">
-                    <Card className="gx-card" title={"Sort By"}>
+                    <Card
+                      className="gx-card"
+                      title={<IntlMessages id="sortBy" />}
+                    >
                       <Select
                         className="gx-w-100"
-                        placeholder="choose the sort you want"
+                        placeholder={<IntlMessages id="sortPlaceholder" />}
                         style={{ width: 120 }}
                         onChange={(value) => setSort(value)}
                       >
-                        <Option value="addedIn">Newest</Option>
-                        <Option value="wonOrders">Best</Option>
-                        <Option value="watchers">Popular</Option>
+                        <Option value="addedIn">
+                          <IntlMessages id="newest" />
+                        </Option>
+                        <Option value="wonOrders">
+                          <IntlMessages id="best" />
+                        </Option>
+                        <Option value="watchers">
+                          <IntlMessages id="popular" />
+                        </Option>
                       </Select>
                     </Card>
 
@@ -89,16 +99,16 @@ const Index = ({ match }) => {
               <CustomScrollbars className="gx-wall-scroll">
                 <BuildingCard
                   noBadge={true}
-                  title={"Download our app"}
-                  text={"From Google Play"}
+                  title={<IntlMessages id="downloadOutApp" />}
+                  text={<IntlMessages id="googlePlay" />}
                   img={require("assets/images/google_play.png")}
                   link="https://play.google.com/store?hl=en"
                   classes="gx-mb-3"
                 />
                 <BuildingCard
                   noBadge={true}
-                  title={"Download our app"}
-                  text={"From App Store"}
+                  title={<IntlMessages id="downloadOurApp" />}
+                  text={<IntlMessages id="appStore" />}
                   img={require("assets/images/app_store.png")}
                   link="https://www.apple.com/ios/app-store/"
                 />

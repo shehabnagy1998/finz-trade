@@ -5,6 +5,7 @@ import RecentOrderItem from "./RecentOrderItem";
 import { useSelector } from "react-redux";
 import Widget from "components/Widget/index";
 import OrderSignalsModal from "../../OrderSignalsModal";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Text } = Typography;
 
@@ -51,7 +52,7 @@ const RecentOrders = (props) => {
 
   return (
     <div className="gx-entry-sec">
-      <WidgetHeader title="Recent Orders" />
+      <WidgetHeader title={<IntlMessages id="recentOrders" />} />
       {rcentOrders.length >= 1 ? (
         rcentOrders.map((order, index) => (
           <RecentOrderItem key={index} order={order} />
@@ -63,7 +64,7 @@ const RecentOrders = (props) => {
               className={`gx-mr-2 gx-mr-xxl-3 icon icon-error gx-fs-xl gx-text-orange`}
             />
             <Text strong type="warning">
-              No orders have been made
+              <IntlMessages id="noOrders" />
             </Text>
           </div>
         </Widget>

@@ -6,6 +6,7 @@ import Auxiliary from "util/Auxiliary";
 import { useSelector, useDispatch } from "react-redux";
 import getNotification from "../../appRedux/actions/API/getNotification";
 import { Spin } from "antd";
+import IntlMessages from "../../util/IntlMessages";
 
 const AppNotification = () => {
   const notification = useSelector(({ Api }) => Api.notification);
@@ -30,7 +31,9 @@ const AppNotification = () => {
   return (
     <Auxiliary>
       <div className="gx-popover-header">
-        <h3 className="gx-mb-0">Notifications</h3>
+        <h3 className="gx-mb-0">
+          <IntlMessages id="notifications" />
+        </h3>
         {/* <i className="gx-icon-btn icon icon-charvlet-down" /> */}
       </div>
       <CustomScrollbars

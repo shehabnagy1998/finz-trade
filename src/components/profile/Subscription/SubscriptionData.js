@@ -3,6 +3,7 @@ import { connect, useSelector } from "react-redux";
 import { Typography, Progress } from "antd";
 import moment from "moment";
 import { round } from "lodash";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Text } = Typography;
 
@@ -28,7 +29,10 @@ const SubscriptionData = () => {
   return (
     <div className="gx-flex-column">
       <Text className="gx-mb-2">
-        You Are {userInfo.plan.name.toUpperCase()} Subscriber
+        <IntlMessages
+          id="subscriptionText"
+          values={{ val: userInfo.plan.name.toUpperCase() }}
+        />
       </Text>
       <div className="gx-d-flex">
         <Progress
@@ -37,7 +41,9 @@ const SubscriptionData = () => {
           showInfo={false}
           strokeColor={getColor()}
         />
-        <Text>{timeLeft} days left</Text>
+        <Text>
+          <IntlMessages id="daysLeft" values={{ val: timeLeft }} />
+        </Text>
       </div>
     </div>
   );

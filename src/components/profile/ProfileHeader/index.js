@@ -4,6 +4,7 @@ import { CDN } from "../../../constants/API";
 import DisplayDate from "../../wall/DisplayDate";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, editUserPic } from "../../../appRedux/actions/Auth";
+import IntlMessages from "../../../util/IntlMessages";
 
 const ProfileHeader = ({ profileInfo }) => {
   const ref = useRef(null);
@@ -56,7 +57,12 @@ const ProfileHeader = ({ profileInfo }) => {
                 {profileInfo.name}
               </h2>
               <p className="gx-mb-0 gx-fs-lg">
-                registered <DisplayDate date={profileInfo.registeredIn} />
+                <IntlMessages
+                  id="registered"
+                  values={{
+                    val: <DisplayDate date={profileInfo.registeredIn} />,
+                  }}
+                />
               </p>
             </div>
           </div>
@@ -66,19 +72,25 @@ const ProfileHeader = ({ profileInfo }) => {
                 <span className="gx-follower-title gx-fs-lg gx-font-weight-medium">
                   {profileInfo.following}
                 </span>
-                <span className="gx-fs-sm">Following</span>
+                <span className="gx-fs-sm">
+                  <IntlMessages id="following" />
+                </span>
               </li>
               <li>
                 <span className="gx-follower-title gx-fs-lg gx-font-weight-medium">
                   {profileInfo.watching}
                 </span>
-                <span className="gx-fs-sm">Watching</span>
+                <span className="gx-fs-sm">
+                  <IntlMessages id="watching" />
+                </span>
               </li>
               <li>
                 <span className="gx-follower-title gx-fs-lg gx-font-weight-medium">
                   {profileInfo.orders}
                 </span>
-                <span className="gx-fs-sm">Orders</span>
+                <span className="gx-fs-sm">
+                  <IntlMessages id="orders" />
+                </span>
               </li>
             </ul>
           </div>

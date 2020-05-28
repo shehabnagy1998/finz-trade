@@ -3,6 +3,7 @@ import { Badge, Typography, Button, Switch, Spin, Form, Input } from "antd";
 import Widget from "../../Widget/index";
 import { useSelector, useDispatch } from "react-redux";
 import editUserSettings from "../../../appRedux/actions/API/editUserSettings";
+import IntlMessages from "../../../util/IntlMessages";
 
 const { Text } = Typography;
 
@@ -52,7 +53,9 @@ const Settings = ({ form }) => {
     <Form onSubmit={handleAdd} className="gx-w-100" {...layout} prefix={null}>
       <Widget styleName="gx-card-profile-sm">
         <div className="gx-d-flex gx-align-items-center gx-justify-content-between gx-my-3">
-          <Text className="gx-fs-xl">Settings</Text>
+          <Text className="gx-fs-xl">
+            <IntlMessages id="settings" />
+          </Text>
           <Button
             icon="save"
             loading={pageLoaders.editUserSettings}
@@ -61,36 +64,45 @@ const Settings = ({ form }) => {
             shape="circle"
           />
         </div>
-        <FormItem label="Ratio" className="gx-mb-1">
+        <FormItem label={<IntlMessages id="ratio" />} className="gx-mb-1">
           {getFieldDecorator("ratio", {
             rules: [{ required: true, message: "Please input ratio!" }],
           })(<Input />)}
         </FormItem>
-        <FormItem label="Demo Allocation" className="gx-mb-1">
+        <FormItem
+          label={<IntlMessages id="demoAllocation" />}
+          className="gx-mb-1"
+        >
           {getFieldDecorator("demoAllocation", {
             rules: [
               { required: true, message: "Please input demo allocation!" },
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="Live Allocation" className="gx-mb-1">
+        <FormItem
+          label={<IntlMessages id="liveAllocation" />}
+          className="gx-mb-1"
+        >
           {getFieldDecorator("liveAllocation", {
             rules: [
               { required: true, message: "Please input live allocation!" },
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="Show Profits" className="gx-mb-1">
+        <FormItem label={<IntlMessages id="showProfits" />} className="gx-mb-1">
           {getFieldDecorator("showProfits", {
             valuePropName: "checked",
           })(<Switch size="small" />)}
         </FormItem>
-        <FormItem label="Recive Emails" className="gx-mb-1">
+        <FormItem
+          label={<IntlMessages id="reciveEmails" />}
+          className="gx-mb-1"
+        >
           {getFieldDecorator("emailNotifications", {
             valuePropName: "checked",
           })(<Switch size="small" />)}
         </FormItem>
-        <FormItem label="Recive push notifications" className="gx-mb-1">
+        <FormItem label={<IntlMessages id="recivePush" />} className="gx-mb-1">
           {getFieldDecorator("pushNotifications", {
             valuePropName: "checked",
           })(<Switch size="small" />)}

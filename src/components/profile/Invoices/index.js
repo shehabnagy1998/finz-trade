@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Card, Table, Typography, Button } from "antd";
+import { Table, Typography, Button } from "antd";
 
-import Auxiliary from "../../util/Auxiliary";
 import { useSelector, useDispatch } from "react-redux";
-import getInVoices from "../../appRedux/actions/API/getInVoices";
-import payInVoice from "../../appRedux/actions/API/payInVoice";
-import cancelnVoice from "../../appRedux/actions/API/cancelnVoice";
+import getInVoices from "../../../appRedux/actions/API/getInVoices";
+import payInVoice from "../../../appRedux/actions/API/payInVoice";
+import cancelnVoice from "../../../appRedux/actions/API/cancelnVoice";
 import moment from "moment";
 import { DownloadOutlined } from "@ant-design/icons";
+import Widget from "../../Widget";
+import IntlMessages from "../../../util/IntlMessages";
 
-const { Title } = Typography;
+const { Text } = Typography;
 
 const InVoices = ({ match }) => {
   const { pageLoaders, user, inVoices } = useSelector(({ Api }) => Api);
@@ -62,7 +63,7 @@ const InVoices = ({ match }) => {
 
   const columns = [
     {
-      title: "Amount",
+      title: <IntlMessages id="amount" />,
       key: "amount",
       render: (i) => (
         <span>
@@ -74,13 +75,13 @@ const InVoices = ({ match }) => {
         state.sortedInfo.columnKey === "amount" && state.sortedInfo.order,
     },
     {
-      title: "Plan Description",
+      title: <IntlMessages id="planDescription" />,
       width: 300,
       dataIndex: "plan_description",
       key: "plan_description",
     },
     {
-      title: "Plan Started At",
+      title: <IntlMessages id="planStart" />,
       dataIndex: "period_start_at",
       key: "start_at",
       render: (i) => (
@@ -88,7 +89,7 @@ const InVoices = ({ match }) => {
       ),
     },
     {
-      title: "Plan Ended At",
+      title: <IntlMessages id="planEnd" />,
       dataIndex: "period_end_at",
       key: "end_at",
       render: (i) => (
@@ -96,7 +97,7 @@ const InVoices = ({ match }) => {
       ),
     },
     {
-      title: "Total",
+      title: <IntlMessages id="total" />,
       key: "total",
       render: (i) => (
         <span>
@@ -105,7 +106,7 @@ const InVoices = ({ match }) => {
       ),
     },
     {
-      title: "Status",
+      title: <IntlMessages id="status" />,
       dataIndex: "status",
       key: "status",
       sorter: (a, b) => a.status.length - b.status.length,
@@ -113,7 +114,7 @@ const InVoices = ({ match }) => {
         state.sortedInfo.columnKey === "status" && state.sortedInfo.order,
     },
     {
-      title: "Action",
+      title: <IntlMessages id="action" />,
       key: "operation",
       fixed: "right",
       width: 100,
@@ -152,19 +153,21 @@ const InVoices = ({ match }) => {
   ];
 
   return (
-    <Auxiliary>
-      <Title className="gx-text-center gx-mb-2">All Invoices</Title>
-      <Card className="gx-w-100">
-        <Table
-          columns={columns}
-          dataSource={inVoices.list}
-          scroll={{ x: 1300 }}
-          onChange={handleChange}
-          loading={pageLoaders.getInVoices}
-          pagination={state.pagination}
-        />
-      </Card>
-    </Auxiliary>
+    <Widget styleName="gx-card-profile">
+      <div className="gx-mt-4 gx-d-flex gx-justify-content-between gx-mb-4">
+        <Text className="gx-fs-xl">
+          <IntlMessages id="invoices" />
+        </Text>
+      </div>
+      <Table
+        columns={columns}
+        dataSource={inVoices.list}
+        scroll={{ x: 1300 }}
+        onChange={handleChange}
+        loading={pageLoaders.getInVoices}
+        pagination={state.pagination}
+      />
+    </Widget>
   );
 };
 

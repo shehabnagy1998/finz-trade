@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import addPaymentSource from "../../../appRedux/actions/API/addPaymentSource";
 import { getUserInfo } from "../../../appRedux/actions/Auth";
 import ALL_COUNTRIES from "../../../constants/Countries.json";
+import IntlMessages from "../../../util/IntlMessages";
+import { useIntl } from "react-intl";
 const { Option } = Select;
 const FormItem = Form.Item;
 
@@ -34,6 +36,7 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
   const pageLoaders = useSelector(({ Api }) => Api.pageLoaders);
   const stripe = useStripe();
   const elements = useElements();
+  const { formatMessage } = useIntl();
 
   const handleCancel = (e) => {
     setIsVisible(false);
@@ -85,7 +88,7 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
   return (
     <Modal
       visible={isVisible}
-      title="Add Card"
+      title={<IntlMessages id="addCard" />}
       onCancel={handleCancel}
       footer={null}
       bodyStyle={{ paddingBottom: 0 }}
@@ -94,17 +97,20 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
         <FormItem>
           {getFieldDecorator("name", {
             rules: [
-              { required: true, message: "Please input card holder name!" },
+              { required: true, message: <IntlMessages id="cardNameError" /> },
             ],
-          })(<Input placeholder="Card holder name" />)}
+          })(<Input placeholder={formatMessage({ id: "cardName" })} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("country", {
             rules: [
-              { required: true, message: "Please input card holder country!" },
+              {
+                required: true,
+                message: <IntlMessages id="cardCountryError" />,
+              },
             ],
           })(
-            <Select placeholder="Card holder country">
+            <Select placeholder={formatMessage({ id: "cardCountry" })}>
               {ALL_COUNTRIES.map((i) => (
                 <Select.Option value={i.Code}>{i.Name}</Select.Option>
               ))}
@@ -114,16 +120,19 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
         <FormItem>
           {getFieldDecorator("city", {
             rules: [
-              { required: true, message: "Please input card holder city!" },
+              { required: true, message: <IntlMessages id="cardCityError" /> },
             ],
-          })(<Input placeholder="Card holder city" />)}
+          })(<Input placeholder={formatMessage({ id: "cardCity" })} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("line1", {
             rules: [
-              { required: true, message: "Please input card holder address!" },
+              {
+                required: true,
+                message: <IntlMessages id="cardAddressError" />,
+              },
             ],
-          })(<Input placeholder="Card holder address" />)}
+          })(<Input placeholder={formatMessage({ id: "cardAddress" })} />)}
         </FormItem>
         <FormItem>
           <CardElement
@@ -134,9 +143,11 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
 
         <FormItem className="">
           <div className="gx-d-flex gx-align-items gx-justify-content-end gx-mt-3">
-            <Button onClick={handleCancel}>Cancel</Button>
+            <Button onClick={handleCancel}>
+              <IntlMessages id="cancel" />
+            </Button>
             <Button htmlType="submit" type="primary" loading={confirmLoading}>
-              Ok
+              <IntlMessages id="ok" />
             </Button>
           </div>
         </FormItem>

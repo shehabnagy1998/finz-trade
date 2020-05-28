@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import StrategyItem from "./StrategyItem";
-import WriteBox from "../../../components/wall/WriteBox/index";
+
+import StrategyCard from "../../StrategyCard";
 
 const StrategyList = (props) => {
   const [user, setUser] = useState(props.user);
@@ -13,14 +13,7 @@ const StrategyList = (props) => {
     <>
       {props.items.length >= 1 &&
         props.items.map((item, index) => {
-          return (
-            <StrategyItem
-              key={item._id}
-              index={index}
-              itemData={item}
-              user={user}
-            />
-          );
+          return <StrategyCard key={item._id} index={index} strategy={item} />;
         })}
     </>
   );

@@ -19,7 +19,7 @@ import {
 
 const INIT_STATE = {
   strategies: { all: [], owned: [], others: [], watching: [], following: [] },
-  strategy: { data: {}, followers: [], watchers: [], orders: [] },
+  strategy: { data: {}, followers: [], watchers: [], orders: [], stats: {} },
   notification: { fetchMore: true, arr: [], allSaw: true },
   recentOrders: [],
   pageLoaders: {},
