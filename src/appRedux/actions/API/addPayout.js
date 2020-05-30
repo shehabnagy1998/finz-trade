@@ -23,7 +23,7 @@ export default (obj) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
+
     await dispatch(getUserInfo());
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addPayout: false } });
   } catch (error) {

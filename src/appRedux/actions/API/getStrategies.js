@@ -14,7 +14,7 @@ export default (otherUsername) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/strategy/get/addedIn/-1",
+      url: "/strategy/get/addedIn/-1?cb=Date.now()",
       method: "GET",
     });
     let owned = [],

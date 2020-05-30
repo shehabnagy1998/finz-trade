@@ -15,10 +15,10 @@ export default (token) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/plan/get",
+      url: "/plan/get?cb=Date.now()",
       method: "GET",
     });
-    console.log(res);
+
     dispatch({ type: REDUX_PRICING_TABLE, value: res.data.data });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addPricingTable: false } });
   } catch (error) {

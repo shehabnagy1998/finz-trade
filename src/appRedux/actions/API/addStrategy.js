@@ -30,7 +30,7 @@ export default (obj, setIsVisible) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
+
     await dispatch(getStrategies());
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addStrategy: false } });
     setIsVisible(false);

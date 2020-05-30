@@ -16,7 +16,7 @@ export default (id) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/strategy/get/${id}`,
+      url: `/strategy/get/${id}?cb=Date.now()`,
       method: "GET",
       headers: {
         token: userToken,
@@ -24,7 +24,7 @@ export default (id) => async (dispatch, getState) => {
     });
     const ordersRes = await Axios({
       baseURL: API,
-      url: `/order/get/1/10?strategyId=${id}&stats=true`,
+      url: `/order/get/1/10?strategyId=${id}&stats=true&cb=Date.now()`,
       method: "GET",
       headers: {
         token: userToken,
