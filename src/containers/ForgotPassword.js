@@ -3,12 +3,14 @@ import { Button, Form, Input } from "antd";
 import IntlMessages from "util/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
 import { userForgotPassword } from "../appRedux/actions/Auth";
+import { useIntl } from "react-intl";
 
 const FormItem = Form.Item;
 
 const ForgotPassword = (props) => {
   const dispatch = useDispatch();
   const { pageLoaders } = useSelector(({ Api }) => Api);
+  const { formatMessage } = useIntl();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,9 +34,11 @@ const ForgotPassword = (props) => {
           />
         </div>
         <div className="gx-mb-4">
-          <h2>Forgot Your Password ?</h2>
+          <h2>
+            <IntlMessages id="forgetPassword" />
+          </h2>
           <p>
-            <IntlMessages id="app.userAuth.forgot" />
+            <IntlMessages id="forgetPasswordText" />
           </p>
         </div>
 
@@ -48,14 +52,19 @@ const ForgotPassword = (props) => {
               rules: [
                 {
                   type: "email",
-                  message: "The input is not valid E-mail!",
+                  message: <IntlMessages id="emailError2" />,
                 },
                 {
                   required: true,
-                  message: "Please input your E-mail!",
+                  message: <IntlMessages id="emailError" />,
                 },
               ],
-            })(<Input type="email" placeholder="E-Mail Address" />)}
+            })(
+              <Input
+                type="email"
+                placeholder={formatMessage({ id: "email" })}
+              />
+            )}
           </FormItem>
 
           <FormItem>
@@ -64,7 +73,7 @@ const ForgotPassword = (props) => {
               htmlType="submit"
               loading={pageLoaders.forgotPassword}
             >
-              <IntlMessages id="app.userAuth.send" />
+              <IntlMessages id="send" />
             </Button>
           </FormItem>
         </Form>

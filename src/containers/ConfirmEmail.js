@@ -2,12 +2,15 @@ import React from "react";
 import { Button, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { userConfirmEmail } from "../appRedux/actions/Auth";
+import IntlMessages from "util/IntlMessages";
+import { useIntl } from "react-intl";
 
 const FormItem = Form.Item;
 
 const ConfirmEmail = (props) => {
   const dispatch = useDispatch();
   const { pageLoaders } = useSelector(({ Api }) => Api);
+  const { formatMessage } = useIntl();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,9 +34,11 @@ const ConfirmEmail = (props) => {
           />
         </div>
         <div className="gx-mb-4">
-          <h2>Confirm Email</h2>
+          <h2>
+            <IntlMessages id="confirmEmail" />
+          </h2>
           <p>
-            please enter the confirmation code sent to your email to confirm it
+            <IntlMessages id="confirmEmailText" />
           </p>
         </div>
 
@@ -47,10 +52,15 @@ const ConfirmEmail = (props) => {
               rules: [
                 {
                   required: true,
-                  message: "Please input your confirm code",
+                  message: <IntlMessages id="confirmCodeError" />,
                 },
               ],
-            })(<Input type="text" placeholder="Confirm Code" />)}
+            })(
+              <Input
+                type="text"
+                placeholder={formatMessage({ id: "confirmCode" })}
+              />
+            )}
           </FormItem>
 
           <FormItem>
@@ -59,7 +69,7 @@ const ConfirmEmail = (props) => {
               htmlType="submit"
               loading={pageLoaders.confirmEmail}
             >
-              Confirm
+              <IntlMessages id="confirm" />
             </Button>
           </FormItem>
         </Form>

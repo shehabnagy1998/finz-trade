@@ -29,7 +29,6 @@ const BarChartComp = ({ cName, name, data }) => {
       setArrObj(arrObjCon);
     }
   }, [data]);
-  console.log(arrObj);
 
   return (
     <Widget styleName="gx-card gx-flex-grow-1" bodyStyle={{ padding: "15px" }}>

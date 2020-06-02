@@ -56,7 +56,6 @@ const Profile = ({ match }) => {
   const dis1 = { xl: 16, lg: 14, md: 14, sm: 24, xs: 24 };
   const dis2 = { xs: 24 };
   let toView = isMyProfile ? dis1 : dis2;
-  console.log(profileInfo);
 
   return (
     <>

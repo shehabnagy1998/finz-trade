@@ -17,6 +17,7 @@ import { userSignIn } from "appRedux/actions/Auth";
 
 import IntlMessages from "util/IntlMessages";
 import CircularProgress from "components/CircularProgress/index";
+import { useIntl } from "react-intl";
 
 const FormItem = Form.Item;
 const { Title } = Typography;
@@ -26,6 +27,7 @@ const SignIn = (props) => {
   const { authUser } = useSelector(({ auth }) => auth);
   const { pageLoaders } = useSelector(({ Api }) => Api);
   const history = useHistory();
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     if (authUser !== null) {
@@ -58,28 +60,34 @@ const SignIn = (props) => {
             </div>
             <div className="gx-login-header">
               <Title className="gx-login-title gx-text-primary" level={2}>
-                Login
+                <IntlMessages id="login" />
               </Title>
             </div>
             <Form onSubmit={handleSubmit} className="gx-form-row0">
               <FormItem>
                 {getFieldDecorator("username", {
                   rules: [
-                    { required: true, message: "Please input your username!" },
+                    {
+                      required: true,
+                      message: <IntlMessages id="usernameError" />,
+                    },
                   ],
                 })(
                   <Input
                     prefix={
                       <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
-                    placeholder="Username"
+                    placeholder={formatMessage({ id: "username" })}
                   />
                 )}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("password", {
                   rules: [
-                    { required: true, message: "Please input your Password!" },
+                    {
+                      required: true,
+                      message: <IntlMessages id="passwordError" />,
+                    },
                   ],
                 })(
                   <Input
@@ -87,7 +95,7 @@ const SignIn = (props) => {
                       <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
                     type="password"
-                    placeholder="Password"
+                    placeholder={formatMessage({ id: "password" })}
                   />
                 )}
               </FormItem>
@@ -96,9 +104,13 @@ const SignIn = (props) => {
                   {getFieldDecorator("remember", {
                     valuePropName: "checked",
                     initialValue: true,
-                  })(<Checkbox>Remember me</Checkbox>)}
+                  })(
+                    <Checkbox>
+                      <IntlMessages id="rememberMe" />
+                    </Checkbox>
+                  )}
                   <Link className="gx-login-form-forgot" to="/forgot-password">
-                    Forgot password
+                    <IntlMessages id="forgetPassword" />
                   </Link>
                 </div>
               </FormItem>
@@ -110,10 +122,10 @@ const SignIn = (props) => {
                     className="gx-w-100"
                     loading={pageLoaders.signInUser}
                   >
-                    Log in
+                    <IntlMessages id="login" />
                   </Button>
                   <Link className="gx-link gx-text-center" to="/register">
-                    Register
+                    <IntlMessages id="register" />
                   </Link>
                 </div>
               </FormItem>

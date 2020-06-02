@@ -5,13 +5,19 @@ import { CDN } from "../../constants/API";
 import { useDispatch, useSelector } from "react-redux";
 import toggleWatchStrategy from "../../appRedux/actions/API/toggleWatchStrategy";
 import { Link } from "react-router-dom";
+import IntlMessages from "util/IntlMessages";
 
 const AboutItem = ({ data, type }) => {
   const { Text } = Typography;
   const dispatch = useDispatch();
   const { pageLoaders } = useSelector(({ Api }) => Api);
 
-  const btnText = type === "following" ? "Un-Follow" : "Un-Watch";
+  const btnText =
+    type === "following" ? (
+      <IntlMessages id="unFollow" />
+    ) : (
+      <IntlMessages id="unWatch" />
+    );
   const btnMethod = (id) =>
     type === "following"
       ? "Un-Follow"

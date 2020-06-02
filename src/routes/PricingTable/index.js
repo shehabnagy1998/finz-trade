@@ -26,11 +26,11 @@ const PricingTable = ({ match }) => {
       ) : (
         <Row gutter={[16, 32]}>
           <Col span={24} className="gx-flex-column gx-align-items-center">
-            <Title level={2}>Let's Get Started</Title>
+            <Title level={2}>
+              <IntlMessages id="pricingTableTitle" />
+            </Title>
             <Text className="gx-fs-lg">
-              To get started, you will need to choose a plan for your needs. You
-              can select monthly, annual or half-annual options and go with one
-              of the listed plans below.
+              <IntlMessages id="pricingTableDesc" />
             </Text>
           </Col>
 

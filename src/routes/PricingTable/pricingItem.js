@@ -107,32 +107,44 @@ const PriceItem = ({
         <ul className="gx-package-items">
           <li className="gx-d-flex">
             <span>{item.maxFollowers}</span>
-            <span className="gx-ml-3">Max Followers</span>
+            <span className="gx-ml-3">
+              <IntlMessages id="maxFollowers" />
+            </span>
           </li>
 
           <li className="gx-d-flex">
             <span>{item.maxWatchers}</span>
-            <span className="gx-ml-3">Max Watchers</span>
+            <span className="gx-ml-3">
+              <IntlMessages id="maxWatchers" />
+            </span>
           </li>
 
           <li className="gx-d-flex">
             <span>{item.maxStrategiesAdd}</span>
-            <span className="gx-ml-3">Max Stratgies To Add</span>
+            <span className="gx-ml-3">
+              <IntlMessages id="maxStrategiesAdd" />
+            </span>
           </li>
 
           <li className="gx-d-flex">
             <span>{item.maxStrategiesFollow}</span>
-            <span className="gx-ml-3">Max Strategies To Follow</span>
+            <span className="gx-ml-3">
+              <IntlMessages id="maxStrategiesFollow" />
+            </span>
           </li>
 
           <li className="gx-d-flex">
             <span>{item.maxStrategiesWatch}</span>
-            <span className="gx-ml-3">Max Strategies To Watch</span>
+            <span className="gx-ml-3">
+              <IntlMessages id="maxStrategiesWatch" />
+            </span>
           </li>
 
           <li className="gx-d-flex">
             <span>{item.maxBrokersHave}</span>
-            <span className="gx-ml-3">Max Brokers</span>
+            <span className="gx-ml-3">
+              <IntlMessages id="maxBrokers" />
+            </span>
           </li>
         </ul>
 
@@ -143,7 +155,7 @@ const PriceItem = ({
             onClick={handleSubscribe}
             loading={loader}
           >
-            <IntlMessages id="pricingTable.buyNow" />
+            <IntlMessages id="buyNow" />
           </Button>
         </div>
       </div>
