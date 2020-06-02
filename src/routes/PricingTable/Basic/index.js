@@ -4,6 +4,7 @@ import PricingItem from "../pricingItem";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import IntlMessages from "util/IntlMessages";
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -23,9 +24,15 @@ const Basic = () => {
             onChange={(e) => setPeriod(e.target.value)}
             size="large"
           >
-            <RadioButton value="yearly">Year</RadioButton>
-            <RadioButton value="halfYearly">Half-Year</RadioButton>
-            <RadioButton value="monthly">Month</RadioButton>
+            <RadioButton value="yearly">
+              <IntlMessages id="year" />
+            </RadioButton>
+            <RadioButton value="halfYearly">
+              <IntlMessages id="halfYear" />
+            </RadioButton>
+            <RadioButton value="monthly">
+              <IntlMessages id="month" />
+            </RadioButton>
           </RadioGroup>
         </Col>
 

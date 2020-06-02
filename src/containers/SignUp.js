@@ -15,8 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { hideMessage, showAuthLoader, userSignUp } from "appRedux/actions/Auth";
 
 import IntlMessages from "util/IntlMessages";
-import { message } from "antd/lib/index";
-import CircularProgress from "components/CircularProgress/index";
+import { useIntl } from "react-intl";
 
 const FormItem = Form.Item;
 const { Title } = Typography;
@@ -26,6 +25,7 @@ const SignUp = (props) => {
   const history = useHistory();
   const { authUser } = useSelector(({ auth }) => auth);
   const { pageLoaders } = useSelector(({ Api }) => Api);
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     if (authUser !== null) {
@@ -49,7 +49,7 @@ const SignUp = (props) => {
     if (fieldName === "username") {
       /^$|^[a-z0-9]{3,}$/.test(value)
         ? callback()
-        : callback("must contain lowercase and numbers only");
+        : callback(formatMessage({ id: "usernameError2" }));
     }
   };
 
@@ -69,7 +69,7 @@ const SignUp = (props) => {
             </div>
             <div className="gx-login-header">
               <Title className="gx-login-title gx-text-primary" level={2}>
-                Register
+                <IntlMessages id="register" />
               </Title>
             </div>
             <Form
@@ -79,15 +79,21 @@ const SignUp = (props) => {
               <FormItem>
                 {getFieldDecorator("name", {
                   rules: [
-                    { required: true, message: "Please input your name!" },
+                    {
+                      required: true,
+                      message: <IntlMessages id="nameError" />,
+                    },
                   ],
-                })(<Input placeholder="Name" />)}
+                })(<Input placeholder={formatMessage({ id: "name" })} />)}
               </FormItem>
 
               <FormItem>
                 {getFieldDecorator("username", {
                   rules: [
-                    { required: true, message: "Please input your username!" },
+                    {
+                      required: true,
+                      message: <IntlMessages id="usernameError" />,
+                    },
                     { validator: validateFormFields },
                   ],
                 })(<Input placeholder="Username" />)}
@@ -97,19 +103,30 @@ const SignUp = (props) => {
                 {getFieldDecorator("email", {
                   rules: [
                     {
-                      required: true,
                       type: "email",
-                      message: "The input is not valid E-mail!",
+                      message: <IntlMessages id="emailError2" />,
+                    },
+                    {
+                      required: true,
+                      message: <IntlMessages id="emailError" />,
                     },
                   ],
-                })(<Input placeholder="Email" />)}
+                })(<Input placeholder={formatMessage({ id: "email" })} />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("password", {
                   rules: [
-                    { required: true, message: "Please input your Password!" },
+                    {
+                      required: true,
+                      message: <IntlMessages id="passwordError" />,
+                    },
                   ],
-                })(<Input type="password" placeholder="Password" />)}
+                })(
+                  <Input
+                    type="password"
+                    placeholder={formatMessage({ id: "password" })}
+                  />
+                )}
               </FormItem>
 
               <FormItem>
@@ -120,10 +137,10 @@ const SignUp = (props) => {
                     className="gx-w-100"
                     loading={pageLoaders.signUpUser}
                   >
-                    Register
+                    <IntlMessages id="register" />
                   </Button>
                   <Link className="gx-link gx-text-center" to="/login">
-                    Log in
+                    <IntlMessages id="login" />
                   </Link>
                 </div>
               </FormItem>

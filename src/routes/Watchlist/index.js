@@ -3,13 +3,13 @@ import { Col, Row, Tabs, Typography } from "antd";
 import Widget from "components/Widget";
 import AboutItem from "./AboutItem";
 import { useSelector } from "react-redux";
+import IntlMessages from "util/IntlMessages";
 
 const TabPane = Tabs.TabPane;
 const { Text } = Typography;
 
 const Watchlist = ({}) => {
   const strategies = useSelector(({ Api }) => Api.strategies);
-  console.log(strategies);
 
   return (
     <Widget
@@ -26,7 +26,7 @@ const Watchlist = ({}) => {
             ) : (
               <div className="gx-text-center gx-mt-3">
                 <Text className="gx-text-orange gx-fs-lg">
-                  No Following Strategies
+                  <IntlMessages id="noFollowingStrategies" />
                 </Text>
               </div>
             )}
@@ -41,7 +41,7 @@ const Watchlist = ({}) => {
             ) : (
               <div className="gx-text-center gx-mt-3">
                 <Text className="gx-text-orange gx-fs-lg">
-                  No Watching Strategies
+                  <IntlMessages id="noWatchingStrategies" />
                 </Text>
               </div>
             )}

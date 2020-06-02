@@ -67,22 +67,21 @@ const Strategy = ({ match }) => {
               icon={<i className="icon gx-mr-2 icon-notification" />}
               />
             </Col> */}
-            {strategy.orders.length >= 2 ||
-              (true && (
-                <>
-                  {" "}
-                  <Col xs={24} md={14}>
-                    <TableContainer />
-                  </Col>
-                  <Col
-                    xs={24}
-                    md={10}
-                    className="gx-d-flex gx-align-items-center"
-                  >
-                    <ChartContainer />
-                  </Col>
-                </>
-              ))}
+            {strategy.orders.length >= 2 && (
+              <>
+                {" "}
+                <Col xs={24} md={14}>
+                  <TableContainer />
+                </Col>
+                <Col
+                  xs={24}
+                  md={10}
+                  className="gx-d-flex gx-align-items-center"
+                >
+                  <ChartContainer />
+                </Col>
+              </>
+            )}
             <Col xs={24}>
               <Card
                 title={

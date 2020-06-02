@@ -1,8 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import IntlMessages from "../../util/IntlMessages";
+import { useSelector } from "react-redux";
 
 const HorizontalNav = () => {
+  const { userInfo } = useSelector(({ auth }) => auth);
+  console.log(userInfo);
   return (
     <ul className="navbar-list">
       <li className="navbar-list-item">
@@ -26,6 +29,17 @@ const HorizontalNav = () => {
           <IntlMessages id="watchlist" />
         </NavLink>
       </li>
+      {userInfo.plan && userInfo.plan.name ? null : (
+        <li className="navbar-list-item">
+          <NavLink
+            activeClassName={"active"}
+            className="nav-item"
+            to="/pricing"
+          >
+            <IntlMessages id="pricing" />
+          </NavLink>
+        </li>
+      )}
     </ul>
   );
 };

@@ -14,6 +14,7 @@ import OrderItem from "./OrderItem";
 import getSignals from "../../appRedux/actions/API/getSignals";
 import CircularProgress from "../../components/CircularProgress";
 import { Link } from "react-router-dom";
+import IntlMessages from "../../util/IntlMessages";
 
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
@@ -49,8 +50,6 @@ const Orders = () => {
     setPage(num);
   };
 
-  console.log(signals);
-
   return (
     <>
       {pageLoaders.getStrategies ||
@@ -65,23 +64,23 @@ const Orders = () => {
               <Card title="Filter">
                 <Radio.Group value={filter} onChange={handleChangeFilter}>
                   <Radio style={radioStyle} value={"all"}>
-                    All
+                    <IntlMessages id="all" />
                   </Radio>
                   <Radio style={radioStyle} value={"win"}>
-                    win
+                    <IntlMessages id="win" />
                   </Radio>
                   <Radio style={radioStyle} value={"lose"}>
-                    lose
+                    <IntlMessages id="lose" />
                   </Radio>
                   <Radio style={radioStyle} value={"execute"}>
-                    execute
+                    <IntlMessages id="excute" />
                   </Radio>
                 </Radio.Group>
               </Card>
             </Col>
             <Col md={18} xs={24}>
               <Title level={4} className="gx-text-capitalize">
-                {filter} Orders
+                {filter} <IntlMessages id="orders" />
               </Title>
               {signals.list.length >= 1 ? (
                 <>
@@ -97,7 +96,7 @@ const Orders = () => {
                           <Col md={8}>
                             <div className="gx-flex-column">
                               <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                Initial Price
+                                <IntlMessages id="initialPrice" />
                               </Text>
                               <Text className="gx-fs-lg" ellipsis>
                                 {item.initialPrice}
@@ -107,7 +106,7 @@ const Orders = () => {
                           <Col md={8}>
                             <div className="gx-flex-column">
                               <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                Close Price
+                                <IntlMessages id="closePrice" />
                               </Text>
                               <Text className="gx-fs-lg" ellipsis>
                                 {item.closePrice}
@@ -128,7 +127,7 @@ const Orders = () => {
                             <Link to={`/strategy/${item.strategyId}`}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                  Strategy
+                                  <IntlMessages id="stategy" />
                                 </Text>
                                 <Text className="gx-fs-lg" ellipsis>
                                   {item.strategyId}
@@ -140,7 +139,7 @@ const Orders = () => {
                             <Link to={`/profile/${item.mangerId}`}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                  Investor
+                                  <IntlMessages id="investor" />
                                 </Text>
                                 <Text className="gx-fs-lg" ellipsis>
                                   {item.investorId}
@@ -152,7 +151,7 @@ const Orders = () => {
                             <Link to={`/profile/${item.managerId}`}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                  Manger
+                                  <IntlMessages id="manger" />
                                 </Text>
                                 <Text className="gx-fs-lg" ellipsis>
                                   {item.managerId}
@@ -177,7 +176,9 @@ const Orders = () => {
                 </>
               ) : (
                 <div className="gx-p-5 gx-text-center">
-                  <Text className="gx-fs-xl">No Orders Found</Text>
+                  <Text className="gx-fs-xl">
+                    <IntlMessages id="noOrders" />
+                  </Text>
                 </div>
               )}
             </Col>

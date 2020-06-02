@@ -3,6 +3,7 @@ import { Button, Form, Input } from "antd";
 import IntlMessages from "util/IntlMessages";
 import { useSelector, useDispatch } from "react-redux";
 import { userResetPassword } from "../appRedux/actions/Auth";
+import { useIntl } from "react-intl";
 
 const FormItem = Form.Item;
 
@@ -11,6 +12,7 @@ const ResetPassword = (props) => {
   const code = props.match.params.code;
   const dispatch = useDispatch();
   const { pageLoaders } = useSelector(({ Api }) => Api);
+  const { formatMessage } = useIntl();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ const ResetPassword = (props) => {
   const compareToFirstPassword = (rule, value, callback) => {
     const form = props.form;
     if (value && value !== form.getFieldValue("newPass")) {
-      callback("Two passwords that you enter is inconsistent!");
+      callback(<IntlMessages id="retypeNewPasswordError2" />);
     } else {
       callback();
     }
@@ -51,9 +53,11 @@ const ResetPassword = (props) => {
           />
         </div>
         <div className="gx-mb-4">
-          <h2>Reset Password</h2>
+          <h2>
+            <IntlMessages id="resetPassword" />
+          </h2>
           <p>
-            <IntlMessages id="appModule.enterPasswordReset" />
+            <IntlMessages id="resetPasswordText" />
           </p>
         </div>
 
@@ -63,13 +67,18 @@ const ResetPassword = (props) => {
               rules: [
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: <IntlMessages id="passwordError" />,
                 },
                 {
                   validator: validateToNextPassword,
                 },
               ],
-            })(<Input type="password" placeholder="New Password" />)}
+            })(
+              <Input
+                type="password"
+                placeholder={formatMessage({ id: "newPassword" })}
+              />
+            )}
           </FormItem>
 
           <FormItem>
@@ -77,13 +86,18 @@ const ResetPassword = (props) => {
               rules: [
                 {
                   required: true,
-                  message: "Please confirm your password!",
+                  message: <IntlMessages id="retypeNewPasswordError" />,
                 },
                 {
                   validator: compareToFirstPassword,
                 },
               ],
-            })(<Input placeholder="Retype New Password" type="password" />)}
+            })(
+              <Input
+                placeholder={formatMessage({ id: "retypeNewPassword" })}
+                type="password"
+              />
+            )}
           </FormItem>
 
           <FormItem>
@@ -92,7 +106,7 @@ const ResetPassword = (props) => {
               htmlType="submit"
               loading={pageLoaders.resetPassword}
             >
-              <IntlMessages id="app.userAuth.reset" />
+              <IntlMessages id="reset" />
             </Button>
           </FormItem>
         </Form>

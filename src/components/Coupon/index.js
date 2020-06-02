@@ -14,6 +14,8 @@ import Widget from "../Widget/index";
 import { useSelector, useDispatch } from "react-redux";
 import editUserSettings from "../../appRedux/actions/API/editUserSettings";
 import applyCoupon from "../../appRedux/actions/API/applyCoupon";
+import IntlMessages from "util/IntlMessages";
+import { useIntl } from "react-intl";
 
 const { Title, Text } = Typography;
 const FormItem = Form.Item;
@@ -33,7 +35,7 @@ const Coupon = ({ form }) => {
       }
     });
   };
-
+  const { formatMessage } = useIntl();
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 24 },
@@ -42,7 +44,9 @@ const Coupon = ({ form }) => {
   return (
     <Card className="gx-w-100">
       <div className=" gx-text-center">
-        <Title>Enter coupon if you have one</Title>
+        <Title>
+          <IntlMessages id="enterCoupon" />
+        </Title>
       </div>
       <div className="gx-text-center">
         <Form
@@ -52,8 +56,10 @@ const Coupon = ({ form }) => {
         >
           <FormItem>
             {getFieldDecorator("coupon", {
-              rules: [{ required: true, message: "Please input your coupon!" }],
-            })(<Input placeholder="Enter your coupon code" />)}
+              rules: [
+                { required: true, message: <IntlMessages id="couponError" /> },
+              ],
+            })(<Input placeholder={formatMessage({ id: "coupon" })} />)}
           </FormItem>
 
           <FormItem>
@@ -63,7 +69,7 @@ const Coupon = ({ form }) => {
                 onClick={handleSubmit}
                 loading={pageLoaders.applyCoupon}
               >
-                Enter
+                <IntlMessages id="enter" />
               </Button>
             </div>
           </FormItem>
