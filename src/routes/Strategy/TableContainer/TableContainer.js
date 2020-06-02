@@ -138,7 +138,15 @@ const TableContainer = () => {
   const columns5 = [
     {
       title: formatMessage({ id: "profitFactor" }),
-      dataIndex: "profitFactor",
+      render: (i) => {
+        return (
+          <span className="">
+            {i.profitFactor
+              ? parseFloat(i.profitFactor)
+              : parseFloat(i.profits) + 1}
+          </span>
+        );
+      },
     },
     {
       title: formatMessage({ id: "winningRate" }),
@@ -162,7 +170,7 @@ const TableContainer = () => {
     },
     {
       title: formatMessage({ id: "loses" }),
-      dataIndex: "loses",
+      dataIndex: "losses",
     },
     {
       title: formatMessage({ id: "profits" }),

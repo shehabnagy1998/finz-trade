@@ -242,7 +242,7 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
               }
             >
               <i className="icon gx-mr-2 icon-notification" />
-              <IntlMessages id="Watch" />
+              <IntlMessages id="watch" />
             </Button>
             <Popconfirm
               title={`This will cost you ${strategy.cost}$ monthly and can't be refunded ?`}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Typography, notification } from "antd";
+import { Button, Typography, notification, Modal } from "antd";
 
 import IntlMessages from "util/IntlMessages";
 import subscribePlan from "../../appRedux/actions/API/subscribePlan";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useStripe } from "@stripe/react-stripe-js";
 import confirmSubscribePlan from "../../appRedux/actions/API/confirmSubscribePlan";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const openNotificationError = (msg) => {
   notification["error"]({
@@ -15,6 +16,8 @@ const openNotificationError = (msg) => {
     description: msg,
   });
 };
+
+const { confirm } = Modal;
 
 const PriceItem = ({
   item,
@@ -94,6 +97,22 @@ const PriceItem = ({
       );
     else return <h2 className="gx-price">{oldValue}$</h2>;
   };
+
+  function showConfirm() {
+    confirm({
+      title: `Do you want to subscribe to ${item.name}`,
+      icon: <ExclamationCircleOutlined />,
+      content: "you will be charged with this plan price",
+      onOk() {
+        console.log("OK");
+        handleSubscribe();
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  }
+
   return (
     <div className={`${styleName}`}>
       <div className={`${headerStyle}`}>
@@ -152,7 +171,7 @@ const PriceItem = ({
           <Button
             type="primary"
             className={`${footerStyle}`}
-            onClick={handleSubscribe}
+            onClick={showConfirm}
             loading={loader}
           >
             <IntlMessages id="buyNow" />

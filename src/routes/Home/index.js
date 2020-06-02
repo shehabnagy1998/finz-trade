@@ -99,7 +99,7 @@ const Index = ({ match }) => {
               <CustomScrollbars className="gx-wall-scroll">
                 <BuildingCard
                   noBadge={true}
-                  title={<IntlMessages id="downloadOutApp" />}
+                  title={<IntlMessages id="downloadOurApp" />}
                   text={<IntlMessages id="googlePlay" />}
                   img={require("assets/images/google_play.png")}
                   link="https://play.google.com/store?hl=en"

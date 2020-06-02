@@ -6,6 +6,7 @@ import { useIntl } from "react-intl";
 
 const TableContainer = ({ profileInfo }) => {
   const { formatMessage } = useIntl();
+  console.log(profileInfo);
 
   const timeConversion = (millisec) => {
     var seconds = (millisec / 1000).toFixed(1);
@@ -138,7 +139,15 @@ const TableContainer = ({ profileInfo }) => {
   const columns5 = [
     {
       title: formatMessage({ id: "profitFactor" }),
-      dataIndex: "profitFactor",
+      render: (i) => {
+        return (
+          <span className="">
+            {i.profitFactor
+              ? parseFloat(i.profitFactor)
+              : parseFloat(i.profits) + 1}
+          </span>
+        );
+      },
     },
     {
       title: formatMessage({ id: "winningRate" }),
@@ -162,7 +171,7 @@ const TableContainer = ({ profileInfo }) => {
     },
     {
       title: formatMessage({ id: "loses" }),
-      dataIndex: "loses",
+      dataIndex: "losses",
     },
     {
       title: formatMessage({ id: "profits" }),

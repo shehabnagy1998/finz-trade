@@ -104,18 +104,12 @@ const InsideHeader = () => {
               
               /> */}
             </div>
-            <Link
-              to="/"
-              className="gx-d-block gx-d-lg-none gx-pointer gx-mx-2 gx-pt-xs-1 gx-w-logo"
-            >
+            <div className="gx-d-block gx-d-lg-none gx-mx-2 gx-pt-xs-1 gx-w-logo">
               <img alt="" src={require("assets/images/w-logo.png")} />
-            </Link>
-            <Link
-              to="/"
-              className="gx-d-none gx-d-lg-block gx-pointer gx-mr-xs-5 gx-logo gx-width-200"
-            >
+            </div>
+            <div className="gx-d-none gx-d-lg-block gx-mr-xs-5 gx-logo gx-width-200">
               <img alt="" src={require("assets/images/logo.png")} />
-            </Link>
+            </div>
 
             <div className="gx-header-horizontal-nav-curve gx-d-none gx-d-lg-block">
               <HorizontalNav />

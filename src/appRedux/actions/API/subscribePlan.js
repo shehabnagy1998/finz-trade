@@ -30,6 +30,7 @@ export default (token, followObject) => async (dispatch, getState) => {
   const couponName = getState().Api.coupon.name;
   let url = `/subscription/subscribe/${token}`;
   if (couponName) url += `?coupon=${couponName}`;
+  if (followObject.id) url += `?strategy=true`;
   try {
     const res = await Axios({
       baseURL: API,
