@@ -40,7 +40,7 @@ export default (token, followObject) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
+
     dispatch({ type: REDUX_PAGE_LOADERS, value: { subscribePlan: false } });
     if (followObject.id) {
       dispatch(toggleFollowStrategy(followObject.id, followObject.type));

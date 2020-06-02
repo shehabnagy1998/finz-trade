@@ -15,13 +15,13 @@ export default (token) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/paymentSource/${token}`,
+      url: `/user/paymentSource/${token}?cb=Date.now()`,
       method: "GET",
       headers: {
         token: userToken,
       },
     });
-    console.log(res);
+
     dispatch({ type: REDUX_PAYMENT_SOURCES, value: res.data.source });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getPaymentSource: false } });
   } catch (error) {

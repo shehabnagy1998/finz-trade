@@ -9,8 +9,8 @@ export default (page, status) => async (dispatch, getState) => {
   let to = page * 5;
   let from = to - 4;
   const userToken = getState().auth.authUser;
-  let url = `/signal/get/${from}/${to}`;
-  if (status) url += `?status=${status}`;
+  let url = `/signal/get/${from}/${to}?cb=Date.now()`;
+  if (status) url += `&status=${status}`;
   try {
     const res = await Axios({
       baseURL: API,
@@ -20,7 +20,7 @@ export default (page, status) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
+
     dispatch({
       type: REDUX_SIGNALS,
       value: { list: res.data.data, count: res.data.count },

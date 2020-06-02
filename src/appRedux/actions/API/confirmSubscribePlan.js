@@ -35,7 +35,7 @@ export default (token) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
+
     openNotificationSuccess();
     dispatch({
       type: REDUX_PAGE_TEMPS,

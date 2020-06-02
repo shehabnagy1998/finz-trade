@@ -27,7 +27,6 @@ const openNotificationSuccess = (title, msg) => {
   });
 };
 
-///////////////////////////////////////////////////////////////////////
 export const userConfirmEmail = (code) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -38,7 +37,7 @@ export const userConfirmEmail = (code) => async (dispatch, getState) => {
     const res = await Axios({
       baseURL: API,
       url: `/user/confirm/${code}`,
-      method: "PUT",
+      method: "GET",
     });
     openNotificationSuccess("Confirmation", "Email confirmed");
     dispatch(push("/login"));
@@ -55,7 +54,6 @@ export const userConfirmEmail = (code) => async (dispatch, getState) => {
   }
 };
 
-///////////////////////////////////////////////////////////////////////
 export const userSignUp = (user) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -69,7 +67,7 @@ export const userSignUp = (user) => async (dispatch, getState) => {
       method: "POST",
       data: { ...user },
     });
-    console.log(res);
+
     openNotificationSuccess("Register", "Account created successfully");
     dispatch(push("/confirm-email"));
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signUpUser: false } });
@@ -85,7 +83,6 @@ export const userSignUp = (user) => async (dispatch, getState) => {
   }
 };
 
-///////////////////////////////////////////////////////////////////////
 export const getUserInfo = (_) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -96,17 +93,12 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-<<<<<<< HEAD
-      url: "/user/info?cb=" + Date.now(),
-=======
-      url: "/user/info?stats=true",
->>>>>>> eedf90249140cf869510ff5af84ec114fb190dc3
+      url: "/user/info?stats=true&?cb=Date.now()",
       method: "GET",
       headers: {
         token: userToken,
       },
     });
-    console.log(res);
     if (res.data.data.user.plan.subscriptionId)
       dispatch({
         type: UPDATE_USER,
@@ -135,7 +127,7 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
   }
 };
 
-///////////////////////////////////////////////////////////////////////
+
 export const userSignIn = (user) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -148,7 +140,7 @@ export const userSignIn = (user) => async (dispatch, getState) => {
       url: `/user/login/${user.username}/${user.password}`,
       method: "POST",
     });
-
+    console.log(res);
     if (user.remember) localStorage.setItem("user_id", res.data.token);
     dispatch({
       type: SIGNIN_USER,
@@ -159,6 +151,7 @@ export const userSignIn = (user) => async (dispatch, getState) => {
     });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signInUser: false } });
   } catch (error) {
+    console.log(error);
     console.log(error.response);
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signInUser: false } });
     if (error.response && error.response.data) {
@@ -170,7 +163,6 @@ export const userSignIn = (user) => async (dispatch, getState) => {
   }
 };
 
-///////////////////////////////////////////////////////////////////////
 export const userSignOut = (_) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -199,7 +191,7 @@ export const userSignOut = (_) => async (dispatch, getState) => {
   }
 };
 
-///////////////////////////////////////////////////////////////////////
+
 export const userForgotPassword = (email) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -212,7 +204,7 @@ export const userForgotPassword = (email) => async (dispatch, getState) => {
       url: `/user/requestChangePassword/${email}`,
       method: "PUT",
     });
-    console.log(res);
+
     openNotificationSuccess(
       "Forget Password",
       "if your email is registered, you will find email with code"
@@ -230,7 +222,7 @@ export const userForgotPassword = (email) => async (dispatch, getState) => {
   }
 };
 
-///////////////////////////////////////////////////////////////////////
+
 export const editUserPic = (base64) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -261,7 +253,7 @@ export const editUserPic = (base64) => async (dispatch, getState) => {
   }
 };
 
-///////////////////////////////////////////////////////////////////////
+
 export const userResetPassword = (obj) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -274,7 +266,7 @@ export const userResetPassword = (obj) => async (dispatch, getState) => {
       url: `/user/changePass/${obj.email}/${obj.code}/${obj.newPass}`,
       method: "PUT",
     });
-    console.log(res);
+
     openNotificationSuccess("Reset Password", "password reseted successfully");
     dispatch(push("/login"));
     dispatch({ type: REDUX_PAGE_LOADERS, value: { resetPassword: false } });

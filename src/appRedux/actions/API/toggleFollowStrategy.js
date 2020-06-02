@@ -46,7 +46,7 @@ export default (id, type, stripeId) => async (dispatch, getState) => {
         },
       });
     }
-    console.log(res);
+
     if (type === "all") {
       dispatch(getStrategies());
     }

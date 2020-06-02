@@ -24,7 +24,7 @@ export default (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/brokerFile",
+      url: "/user/brokerFile?cb=Date.now()",
       method: "GET",
       headers: {
         token: userToken,
@@ -34,7 +34,7 @@ export default (_) => async (dispatch, getState) => {
     if (file) {
       let link = CDN + file;
       let name = "Broker File";
-      console.log(res);
+
       console.log(link);
       downloadURI(link, name);
     }

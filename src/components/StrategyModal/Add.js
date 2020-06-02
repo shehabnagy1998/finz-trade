@@ -43,11 +43,11 @@ const AddModal = ({ isVisible, setIsVisible, form }) => {
   const validateFormFields = (rule, value, callback) => {
     const fieldName = rule.field;
     if (fieldName === "title") {
-      /^$|^[a-z0-9\ ]{12,80}$/.test(value)
+      !/^$|^[a-z0-9\ ]{12,80}$/.test(value)
         ? callback()
         : callback("should be 12 min and 80 max character");
     } else if (fieldName === "description") {
-      /^$|^[a-z0-9 ]{80,255}$/.test(value)
+      !/^$|^[a-z0-9 ]{80,255}$/.test(value)
         ? callback()
         : callback("should be 80 min and 255 max character");
     }

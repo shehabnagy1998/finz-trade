@@ -12,8 +12,8 @@ export default (lastID) => async (dispatch, getState) => {
     value: { getInVoices: true },
   });
   const userToken = getState().auth.authUser;
-  let url = "/invoice/get";
-  if (lastID) url += `?last=${lastID}`;
+  let url = "/invoice/get?cb=Date.now()";
+  if (lastID) url += `&last=${lastID}`;
   try {
     const res = await Axios({
       baseURL: API,
@@ -23,7 +23,7 @@ export default (lastID) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
+
     let invoices = res.data.data.invoices.data.map((i) => ({
       ...i,
       plan_description: i.lines.data[0].description,

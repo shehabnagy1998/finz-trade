@@ -25,7 +25,7 @@ export default (obj) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
+
     // dispatch({ type: REDUX_STRATEGIES, value: res.data.data });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { editUserSettings: false } });
   } catch (error) {
