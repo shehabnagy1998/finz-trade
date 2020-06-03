@@ -36,6 +36,7 @@ import {
   NAV_STYLE_DEFAULT_HORIZONTAL,
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
 } from "../../constants/ThemeSetting";
+import { REDUX_ORDER_SIGNALS } from "../../constants/API";
 
 const RestrictedRoute = ({
   component: Component,
@@ -156,6 +157,10 @@ const App = (props) => {
   };
 
   useEffect(() => {
+    dispatch({
+      type: REDUX_ORDER_SIGNALS,
+      value: { list: [], count: 0, order: {} },
+    });
     if (location.pathname === "/") {
       if (authUser === null) {
         history.push("/login");

@@ -71,20 +71,20 @@ const OrderSignalsModal = ({}) => {
                         <Text className="gx-text-muted gx-fs-md gx-mb-2">
                           Strategy
                         </Text>
-                        <Text className="gx-fs-lg" ellipsis>
+                        <Text className="gx-link gx-fs-lg" ellipsis>
                           {item.strategyId}
                         </Text>
                       </div>
                     </Link>
                   </Col>
                   <Col xs={8}>
-                    <Link to={`/profile/${item.mangerId}`}>
+                    <Link to={`/profile/${item.investorId}`}>
                       <div className="gx-flex-column">
                         <Text className="gx-text-muted gx-fs-md gx-mb-2">
                           Investor
                         </Text>
-                        <Text className="gx-fs-lg" ellipsis>
-                          {item.investorId}
+                        <Text className="gx-link gx-fs-lg" ellipsis>
+                          {item.investorId ? item.investorId : "-"}
                         </Text>
                       </div>
                     </Link>
@@ -95,7 +95,7 @@ const OrderSignalsModal = ({}) => {
                         <Text className="gx-text-muted gx-fs-md gx-mb-2">
                           Manger
                         </Text>
-                        <Text className="gx-fs-lg" ellipsis>
+                        <Text className="gx-link gx-fs-lg" ellipsis>
                           {item.managerId}
                         </Text>
                       </div>

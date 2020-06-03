@@ -99,6 +99,7 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
         token: userToken,
       },
     });
+    console.log(res);
     if (res.data.data.user.plan.subscriptionId)
       dispatch({
         type: UPDATE_USER,
@@ -127,7 +128,6 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
   }
 };
 
-
 export const userSignIn = (user) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -140,7 +140,6 @@ export const userSignIn = (user) => async (dispatch, getState) => {
       url: `/user/login/${user.username}/${user.password}`,
       method: "POST",
     });
-    console.log(res);
     if (user.remember) localStorage.setItem("user_id", res.data.token);
     dispatch({
       type: SIGNIN_USER,
@@ -191,7 +190,6 @@ export const userSignOut = (_) => async (dispatch, getState) => {
   }
 };
 
-
 export const userForgotPassword = (email) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -222,7 +220,6 @@ export const userForgotPassword = (email) => async (dispatch, getState) => {
   }
 };
 
-
 export const editUserPic = (base64) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
@@ -252,7 +249,6 @@ export const editUserPic = (base64) => async (dispatch, getState) => {
     openNotificationError("User Picture", "Failed to change picture");
   }
 };
-
 
 export const userResetPassword = (obj) => async (dispatch, getState) => {
   dispatch({
