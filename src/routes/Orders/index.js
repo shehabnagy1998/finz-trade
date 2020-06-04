@@ -85,83 +85,84 @@ const Orders = () => {
               {signals.list.length >= 1 ? (
                 <>
                   <Collapse accordion>
-                    {signals.list.map((item, index) => (
-                      // <OrderItem key={index} order={item} />
-                      <Panel
-                        key={index}
-                        showArrow={false}
-                        header={<OrderItem key={index} order={item} />}
-                      >
-                        <Row className="gx-mb-5">
-                          <Col md={8}>
-                            <div className="gx-flex-column">
-                              <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                <IntlMessages id="initialPrice" />
-                              </Text>
-                              <Text className="gx-fs-lg" ellipsis>
-                                {item.initialPrice}
-                              </Text>
-                            </div>
-                          </Col>
-                          <Col md={8}>
-                            <div className="gx-flex-column">
-                              <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                <IntlMessages id="closePrice" />
-                              </Text>
-                              <Text className="gx-fs-lg" ellipsis>
-                                {item.closePrice}
-                              </Text>
-                            </div>
-                          </Col>
-                          <Col
-                            md={8}
-                            className="gx-d-flex gx-justify-content-end gx-align-items-center"
-                          >
-                            <Tag color="#8c8c8c" className="gx-text-center">
-                              {item.side.toUpperCase()}
-                            </Tag>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col xs={8}>
-                            <Link to={`/strategy/${item.strategyId}`}>
+                    {signals.list &&
+                      signals.list.length >= 1 &&
+                      signals.list.map((item, index) => (
+                        <Panel
+                          key={index}
+                          showArrow={false}
+                          header={<OrderItem key={index} order={item} />}
+                        >
+                          <Row className="gx-mb-5">
+                            <Col md={8}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                  <IntlMessages id="stategy" />
+                                  <IntlMessages id="initialPrice" />
                                 </Text>
-                                <Text className="gx-link gx-fs-lg" ellipsis>
-                                  {item.strategyId}
+                                <Text className="gx-fs-lg" ellipsis>
+                                  {item.initialPrice}
                                 </Text>
                               </div>
-                            </Link>
-                          </Col>
-                          <Col xs={8}>
-                            <Link to={`/profile/${item.mangerId}`}>
+                            </Col>
+                            <Col md={8}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                  <IntlMessages id="investor" />
+                                  <IntlMessages id="closePrice" />
                                 </Text>
-                                <Text className="gx-fs-lg gx-link" ellipsis>
-                                  {item.investorId ? item.investorId : "-"}
-                                </Text>
-                              </div>
-                            </Link>
-                          </Col>
-                          <Col xs={8}>
-                            <Link to={`/profile/${item.managerId}`}>
-                              <div className="gx-flex-column">
-                                <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                  <IntlMessages id="manger" />
-                                </Text>
-                                <Text className="gx-fs-lg gx-link" ellipsis>
-                                  {item.managerId}
+                                <Text className="gx-fs-lg" ellipsis>
+                                  {item.closePrice}
                                 </Text>
                               </div>
-                            </Link>
-                          </Col>
-                        </Row>
-                      </Panel>
-                    ))}
+                            </Col>
+                            <Col
+                              md={8}
+                              className="gx-d-flex gx-justify-content-end gx-align-items-center"
+                            >
+                              <Tag color="#8c8c8c" className="gx-text-center">
+                                {item.side.toUpperCase()}
+                              </Tag>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col xs={8}>
+                              <Link to={`/strategy/${item.strategyId}`}>
+                                <div className="gx-flex-column">
+                                  <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                    <IntlMessages id="stategy" />
+                                  </Text>
+                                  <Text className="gx-link gx-fs-lg" ellipsis>
+                                    {item.strategyId}
+                                  </Text>
+                                </div>
+                              </Link>
+                            </Col>
+                            <Col xs={8}>
+                              <Link to={`/profile/${item.investorId}`}>
+                                <div className="gx-flex-column">
+                                  <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                    <IntlMessages id="investor" />
+                                  </Text>
+                                  <Text className="gx-fs-lg gx-link" ellipsis>
+                                    {item.investorId ? item.investorId : "-"}
+                                  </Text>
+                                </div>
+                              </Link>
+                            </Col>
+                            <Col xs={8}>
+                              <Link to={`/profile/${item.managerId}`}>
+                                <div className="gx-flex-column">
+                                  <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                    <IntlMessages id="manger" />
+                                  </Text>
+                                  <Text className="gx-fs-lg gx-link" ellipsis>
+                                    {item.managerId}
+                                  </Text>
+                                </div>
+                              </Link>
+                            </Col>
+                          </Row>
+                        </Panel>
+                      ))}
                   </Collapse>
 
                   <div className="gx-text-right gx-my-2">

@@ -145,8 +145,8 @@ const Strategy = ({ match }) => {
                               </div>
                             </Link>
                           </Col>
-                          <Col xs={8}>
-                            <Link to={`/profile/${item.mangerId}`}>
+                          {/* <Col xs={8}>
+                            <Link to={`/profile/${item.investorId}`}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
                                   <IntlMessages id="investor" />
@@ -156,7 +156,7 @@ const Strategy = ({ match }) => {
                                 </Text>
                               </div>
                             </Link>
-                          </Col>
+                          </Col> */}
                           <Col xs={8}>
                             <Link to={`/profile/${item.managerId}`}>
                               <div className="gx-flex-column">

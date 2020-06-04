@@ -14,7 +14,7 @@ export default (otherUsername) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/strategy/get/addedIn/-1?cb="+Date.now(),
+      url: "/strategy/get/addedIn/-1?cb=" + Date.now(),
       method: "GET",
     });
     let owned = [],
@@ -34,7 +34,9 @@ export default (otherUsername) => async (dispatch, getState) => {
     else
       res.data.data.map((st) => {
         if (st.username === user.username) owned.push(st);
-        else others.push(st);
+        else {
+          if (st.public) others.push(st);
+        }
         if (st.followersIds.includes(user.username)) following.push(st);
         if (st.watchersIds.includes(user.username)) watching.push(st);
         all.push(st);
