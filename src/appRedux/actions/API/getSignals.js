@@ -9,7 +9,7 @@ export default (page, status) => async (dispatch, getState) => {
   let to = page * 5;
   let from = to - 4;
   const userToken = getState().auth.authUser;
-  let url = `/signal/get/${from}/${to}?cb=Date.now()`;
+  let url = "/signal/get/"+from+"/"+to+"?cb="+Date.now();
   if (status) url += `&status=${status}`;
   try {
     const res = await Axios({

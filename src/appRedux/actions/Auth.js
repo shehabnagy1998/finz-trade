@@ -93,7 +93,7 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/info?stats=true&?cb=Date.now()",
+      url: "/user/info?stats=true&?cb="+Date.now(),
       method: "GET",
       headers: {
         token: userToken,

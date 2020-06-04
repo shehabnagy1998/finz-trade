@@ -24,7 +24,7 @@ export default (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/brokerFile?cb=Date.now()",
+      url: "/user/brokerFile?cb=" + Date.now(),
       method: "GET",
       headers: {
         token: userToken,
