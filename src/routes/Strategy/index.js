@@ -102,8 +102,8 @@ const Strategy = ({ match }) => {
                         showArrow={false}
                         header={<OrderItem key={index} order={item} />}
                       >
-                        <Row className="gx-mb-5">
-                          <Col md={8}>
+                        <Row className="">
+                          <Col md={7} xs={12}>
                             <div className="gx-flex-column">
                               <Text className="gx-text-muted gx-fs-md gx-mb-2">
                                 <IntlMessages id="initialPrice" />
@@ -113,7 +113,7 @@ const Strategy = ({ match }) => {
                               </Text>
                             </div>
                           </Col>
-                          <Col md={8}>
+                          <Col md={7} xs={12}>
                             <div className="gx-flex-column">
                               <Text className="gx-text-muted gx-fs-md gx-mb-2">
                                 <IntlMessages id="closePrice" />
@@ -123,17 +123,8 @@ const Strategy = ({ match }) => {
                               </Text>
                             </div>
                           </Col>
-                          <Col
-                            md={8}
-                            className="gx-d-flex gx-justify-content-end gx-align-items-center"
-                          >
-                            <Tag color="#8c8c8c" className="gx-text-center">
-                              {item.side.toUpperCase()}
-                            </Tag>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col xs={8}>
+
+                          <Col md={7} xs={12} className="gx-mt-3 gx-mt-md-0">
                             <Link to={`/strategy/${item.strategyId}`}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
@@ -145,7 +136,18 @@ const Strategy = ({ match }) => {
                               </div>
                             </Link>
                           </Col>
-                          {/* <Col xs={8}>
+                          <Col
+                            md={3}
+                            xs={12}
+                            className="gx-d-flex gx-justify-content-md-end gx-align-items-center gx-mt-3 gx-mt-md-0"
+                          >
+                            <Tag color="#8c8c8c" className="gx-text-center">
+                              {item.side.toUpperCase()}
+                            </Tag>
+                          </Col>
+                        </Row>
+                        {/* <Row>
+                          <Col xs={8}>
                             <Link to={`/profile/${item.investorId}`}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
@@ -156,7 +158,7 @@ const Strategy = ({ match }) => {
                                 </Text>
                               </div>
                             </Link>
-                          </Col> */}
+                          </Col> 
                           <Col xs={8}>
                             <Link to={`/profile/${item.managerId}`}>
                               <div className="gx-flex-column">
@@ -168,8 +170,8 @@ const Strategy = ({ match }) => {
                                 </Text>
                               </div>
                             </Link>
-                          </Col>
-                        </Row>
+                          </Col> 
+                        </Row>*/}
                       </Panel>
                     </Collapse>
                   ))

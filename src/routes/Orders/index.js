@@ -73,7 +73,7 @@ const Orders = () => {
                     <IntlMessages id="lose" />
                   </Radio>
                   <Radio style={radioStyle} value={"execute"}>
-                    <IntlMessages id="excute" />
+                    <IntlMessages id="pending" />
                   </Radio>
                 </Radio.Group>
               </Card>
@@ -93,8 +93,8 @@ const Orders = () => {
                           showArrow={false}
                           header={<OrderItem key={index} order={item} />}
                         >
-                          <Row className="gx-mb-5">
-                            <Col md={8}>
+                          <Row className="">
+                            <Col md={7} xs={12}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
                                   <IntlMessages id="initialPrice" />
@@ -104,7 +104,7 @@ const Orders = () => {
                                 </Text>
                               </div>
                             </Col>
-                            <Col md={8}>
+                            <Col md={7} xs={12}>
                               <div className="gx-flex-column">
                                 <Text className="gx-text-muted gx-fs-md gx-mb-2">
                                   <IntlMessages id="closePrice" />
@@ -114,17 +114,8 @@ const Orders = () => {
                                 </Text>
                               </div>
                             </Col>
-                            <Col
-                              md={8}
-                              className="gx-d-flex gx-justify-content-end gx-align-items-center"
-                            >
-                              <Tag color="#8c8c8c" className="gx-text-center">
-                                {item.side.toUpperCase()}
-                              </Tag>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col xs={8}>
+
+                            <Col md={7} xs={12} className="gx-mt-3 gx-mt-md-0">
                               <Link to={`/strategy/${item.strategyId}`}>
                                 <div className="gx-flex-column">
                                   <Text className="gx-text-muted gx-fs-md gx-mb-2">
@@ -136,31 +127,42 @@ const Orders = () => {
                                 </div>
                               </Link>
                             </Col>
-                            <Col xs={8}>
-                              <Link to={`/profile/${item.investorId}`}>
-                                <div className="gx-flex-column">
-                                  <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                    <IntlMessages id="investor" />
-                                  </Text>
-                                  <Text className="gx-fs-lg gx-link" ellipsis>
-                                    {item.investorId ? item.investorId : "-"}
-                                  </Text>
-                                </div>
-                              </Link>
-                            </Col>
-                            <Col xs={8}>
-                              <Link to={`/profile/${item.managerId}`}>
-                                <div className="gx-flex-column">
-                                  <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                                    <IntlMessages id="manger" />
-                                  </Text>
-                                  <Text className="gx-fs-lg gx-link" ellipsis>
-                                    {item.managerId}
-                                  </Text>
-                                </div>
-                              </Link>
+                            <Col
+                              md={3}
+                              xs={12}
+                              className="gx-d-flex gx-justify-content-md-end gx-align-items-center gx-mt-3 gx-mt-md-0"
+                            >
+                              <Tag color="#8c8c8c" className="gx-text-center">
+                                {item.side.toUpperCase()}
+                              </Tag>
                             </Col>
                           </Row>
+                          {/* <Row>
+                          <Col xs={8}>
+                            <Link to={`/profile/${item.investorId}`}>
+                              <div className="gx-flex-column">
+                                <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                  <IntlMessages id="investor" />
+                                </Text>
+                                <Text className="gx-link gx-fs-lg" ellipsis>
+                                  {item.investorId ? item.investorId : "-"}
+                                </Text>
+                              </div>
+                            </Link>
+                          </Col> 
+                          <Col xs={8}>
+                            <Link to={`/profile/${item.managerId}`}>
+                              <div className="gx-flex-column">
+                                <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                  <IntlMessages id="manger" />
+                                </Text>
+                                <Text className="gx-link gx-fs-lg" ellipsis>
+                                  {item.managerId}
+                                </Text>
+                              </div>
+                            </Link>
+                          </Col> 
+                        </Row>*/}
                         </Panel>
                       ))}
                   </Collapse>

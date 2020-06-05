@@ -5,6 +5,7 @@ import { Modal, Button, Typography, Collapse, Card, Row, Col, Tag } from "antd";
 import DisplayDate from "../wall/DisplayDate";
 import { Link } from "react-router-dom";
 import OrderItem from "./OrderItem";
+import IntlMessages from "../../util/IntlMessages";
 
 const OrderSignalsModal = ({}) => {
   const { Title, Text } = Typography;
@@ -34,42 +35,33 @@ const OrderSignalsModal = ({}) => {
                 showArrow={false}
                 header={<OrderItem key={index} order={item} />}
               >
-                <Row className="gx-mb-5">
-                  <Col md={8}>
+                <Row className="">
+                  <Col md={7} xs={12}>
                     <div className="gx-flex-column">
                       <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                        Initial Price
+                        <IntlMessages id="initialPrice" />
                       </Text>
                       <Text className="gx-fs-lg" ellipsis>
                         {item.initialPrice}
                       </Text>
                     </div>
                   </Col>
-                  <Col md={8}>
+                  <Col md={7} xs={12}>
                     <div className="gx-flex-column">
                       <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                        Close Price
+                        <IntlMessages id="closePrice" />
                       </Text>
                       <Text className="gx-fs-lg" ellipsis>
                         {item.closePrice}
                       </Text>
                     </div>
                   </Col>
-                  <Col
-                    md={8}
-                    className="gx-d-flex gx-justify-content-end gx-align-items-center"
-                  >
-                    <Tag color="#8c8c8c" className="gx-text-center">
-                      {item.side.toUpperCase()}
-                    </Tag>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs={8}>
+
+                  <Col md={7} xs={12} className="gx-mt-3 gx-mt-md-0">
                     <Link to={`/strategy/${item.strategyId}`}>
                       <div className="gx-flex-column">
                         <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                          Strategy
+                          <IntlMessages id="stategy" />
                         </Text>
                         <Text className="gx-link gx-fs-lg" ellipsis>
                           {item.strategyId}
@@ -77,31 +69,42 @@ const OrderSignalsModal = ({}) => {
                       </div>
                     </Link>
                   </Col>
-                  <Col xs={8}>
-                    <Link to={`/profile/${item.investorId}`}>
-                      <div className="gx-flex-column">
-                        <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                          Investor
-                        </Text>
-                        <Text className="gx-link gx-fs-lg" ellipsis>
-                          {item.investorId ? item.investorId : "-"}
-                        </Text>
-                      </div>
-                    </Link>
-                  </Col>
-                  <Col xs={8}>
-                    <Link to={`/profile/${item.managerId}`}>
-                      <div className="gx-flex-column">
-                        <Text className="gx-text-muted gx-fs-md gx-mb-2">
-                          Manger
-                        </Text>
-                        <Text className="gx-link gx-fs-lg" ellipsis>
-                          {item.managerId}
-                        </Text>
-                      </div>
-                    </Link>
+                  <Col
+                    md={3}
+                    xs={12}
+                    className="gx-d-flex gx-justify-content-md-end gx-align-items-center gx-mt-3 gx-mt-md-0"
+                  >
+                    <Tag color="#8c8c8c" className="gx-text-center">
+                      {item.side.toUpperCase()}
+                    </Tag>
                   </Col>
                 </Row>
+                {/* <Row>
+                          <Col xs={8}>
+                            <Link to={`/profile/${item.investorId}`}>
+                              <div className="gx-flex-column">
+                                <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                  <IntlMessages id="investor" />
+                                </Text>
+                                <Text className="gx-link gx-fs-lg" ellipsis>
+                                  {item.investorId ? item.investorId : "-"}
+                                </Text>
+                              </div>
+                            </Link>
+                          </Col> 
+                          <Col xs={8}>
+                            <Link to={`/profile/${item.managerId}`}>
+                              <div className="gx-flex-column">
+                                <Text className="gx-text-muted gx-fs-md gx-mb-2">
+                                  <IntlMessages id="manger" />
+                                </Text>
+                                <Text className="gx-link gx-fs-lg" ellipsis>
+                                  {item.managerId}
+                                </Text>
+                              </div>
+                            </Link>
+                          </Col> 
+                        </Row>*/}
               </Panel>
             ))}
           </Collapse>

@@ -160,6 +160,7 @@
   "winTrades": "Win Trades",
   "totalTrades": "Total Trades",
   "pendingTrades": "Pending Trades",
+  "pending": "Pending",
   "allTrades": "All Trades",
   "maxHoldPeriod": "Max Hold Period",
   "minHoldPeriod": "Min Hold Period",

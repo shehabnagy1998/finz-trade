@@ -21,7 +21,7 @@ import TableContainer from "../../components/profile/TableContainer/TableContain
 import ChartContainer from "../../components/profile/Chart/ChartContainer";
 import Status from "../../components/profile/Status";
 
-const Profile = ({ match }) => {
+const Profile = ({ match, history }) => {
   const { pageLoaders, paymentSource, otherUser } = useSelector(
     ({ Api }) => Api
   );
@@ -40,10 +40,11 @@ const Profile = ({ match }) => {
         await setProfileInfo(userInfo);
         await dispatch(getStrategies());
       } else {
-        await dispatch(getOtherUser(paramId));
-        await dispatch(getStrategies(paramId));
-        console.log(otherUser);
-        setProfileInfo(otherUser);
+        // await dispatch(getOtherUser(paramId));
+        // await dispatch(getStrategies(paramId));
+        // console.log(otherUser);
+        // setProfileInfo(otherUser);
+        history.push("/home");
       }
     };
     getFunc();
@@ -70,7 +71,7 @@ const Profile = ({ match }) => {
         <CircularProgress />
       ) : (
         <Auxiliary>
-          {profileInfo ? (
+          {profileInfo.username ? (
             <>
               <ProfileHeader profileInfo={profileInfo} />
               <div className="gx-profile-content">
