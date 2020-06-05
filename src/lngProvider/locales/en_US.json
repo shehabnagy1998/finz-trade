@@ -10,6 +10,7 @@
   "followWith": "Follow With {val}",
   "ordersWonOf": "{firstVal} Orders Won Of {secondVal}",
   "watching": "Watching",
+  "watch": "Watch",
   "share": "Share",
   "downloadOurApp": "Download Our App",
   "googlePlay": "From Google Play",
@@ -172,5 +173,7 @@
   "maxDrawdown": "Max Drowdown",
   "bestHead": "Best Hit",
   "loses": "Loses",
-  "profits": "Profits"
+  "profits": "Profits",
+  "executionTime": "Execution",
+  "closeTime": "Close"
 }

@@ -30,7 +30,7 @@ export default (token, followObject) => async (dispatch, getState) => {
   const couponName = getState().Api.coupon.name;
   let url = `/subscription/subscribe/${token}`;
   if (couponName) url += `?coupon=${couponName}`;
-  if (followObject.id) url += `?strategy=true`;
+  if (followObject && followObject.id) url += `?strategy=true`;
   try {
     const res = await Axios({
       baseURL: API,
@@ -41,9 +41,9 @@ export default (token, followObject) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-
+    console.log(res);
     dispatch({ type: REDUX_PAGE_LOADERS, value: { subscribePlan: false } });
-    if (followObject.id) {
+    if (followObject && followObject.id) {
       dispatch(toggleFollowStrategy(followObject.id, followObject.type));
       return;
     }

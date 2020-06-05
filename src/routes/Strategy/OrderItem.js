@@ -5,6 +5,7 @@ import { Typography, Spin } from "antd";
 import DisplayDate from "../../components/wall/DisplayDate";
 import getOrderSignals from "../../appRedux/actions/API/getOrderSignals";
 import { useDispatch, useSelector } from "react-redux";
+import IntlMessages from "../../util/IntlMessages";
 
 const RecentOrdersItem = ({ order }) => {
   const { Text } = Typography;
@@ -35,11 +36,11 @@ const RecentOrdersItem = ({ order }) => {
   return (
     <Spin spinning={pageLoaders.getOrderSignals === order._id || false}>
       <Widget styleName={`gx-card-full gx-p-3 gx-my-2`}>
-        <div className="gx-media gx-justify-content-between gx-flex-nowrap">
+        <div className="gx-media gx-justify-content-between gx-align-items-center gx-flex-nowrap">
           <div className="gx-flex-column">
-            <div className="gx-media gx-align-items-center">
+            <div className="gx-media gx-align-items-center gx-flex-nowrap">
               <i
-                className={`gx-mr-2 gx-mr-xxl-3 gx-text-${cardColor} icon icon-${cardIcon} gx-fs-xl`}
+                className={`gx-mr-2 gx-text-${cardColor} icon icon-${cardIcon} gx-fs-xl`}
               />
               {order.result && (
                 <Text className="">{`${
@@ -50,19 +51,24 @@ const RecentOrdersItem = ({ order }) => {
             <Text strong className="gx-text-capitalize ">
               {order.market}
             </Text>
+            <Text
+              className="gx-link gx-fs-sm"
+              onClick={(_) => dispatch(getOrderSignals(order))}
+            >
+              <IntlMessages id="showSignals" />
+            </Text>
           </div>
           <div className="gx-flex-column">
             <Text className=" gx-fs-lg gx-mb-1" strong>
               {order.amount} LOT
             </Text>
-            <Text className="gx-fs-sm ">
+            <Text className="gx-fs-xs">
+              <IntlMessages id="executionTime" />:{" "}
               <DisplayDate date={order.executedIn} />
             </Text>
-            <Text
-              className="gx-link gx-fs-sm"
-              onClick={(_) => dispatch(getOrderSignals(order))}
-            >
-              Show Signals
+            <Text className="gx-fs-xs">
+              <IntlMessages id="closeTime" />:{" "}
+              <DisplayDate date={order.closedIn} />
             </Text>
           </div>
         </div>

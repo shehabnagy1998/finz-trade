@@ -15,7 +15,7 @@ const { Text } = Typography;
 const InVoices = ({ match }) => {
   const { pageLoaders, user, inVoices } = useSelector(({ Api }) => Api);
   const dispatch = useDispatch();
-  let pageTotal = 1;
+  let pageTotal = 16;
   const [highestPage, setHighestPage] = useState(1);
   const [state, setState] = useState({
     filteredInfo: {},

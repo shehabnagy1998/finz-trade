@@ -32,13 +32,14 @@ export const userConfirmEmail = (code) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { confirmEmail: true },
   });
-
+  console.log(code);
   try {
     const res = await Axios({
       baseURL: API,
       url: `/user/confirm/${code}`,
       method: "GET",
     });
+    console.log(res);
     openNotificationSuccess("Confirmation", "Email confirmed");
     dispatch(push("/login"));
     dispatch({ type: REDUX_PAGE_LOADERS, value: { confirmEmail: false } });
@@ -67,7 +68,7 @@ export const userSignUp = (user) => async (dispatch, getState) => {
       method: "POST",
       data: { ...user },
     });
-
+    console.log(res);
     openNotificationSuccess("Register", "Account created successfully");
     dispatch(push("/confirm-email"));
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signUpUser: false } });
@@ -93,13 +94,12 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/info?stats=true&?cb="+Date.now(),
+      url: "/user/info?stats=true&?cb=" + Date.now(),
       method: "GET",
       headers: {
         token: userToken,
       },
     });
-    console.log(res);
     if (res.data.data.user.plan.subscriptionId)
       dispatch({
         type: UPDATE_USER,

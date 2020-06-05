@@ -193,12 +193,13 @@ const App = (props) => {
             location={location}
             component={SignUp}
           />
-          <UnRestrictedRoute
+          {/* <UnRestrictedRoute
             path="/confirm-email"
             authUser={authUser}
             location={location}
             component={ConfirmEmail}
-          />
+          /> */}
+          <Route path="/confirm-email" component={ConfirmEmail} />
           <UnRestrictedRoute
             path="/forgot-password"
             authUser={authUser}
