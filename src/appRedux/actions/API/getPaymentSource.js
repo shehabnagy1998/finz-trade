@@ -15,7 +15,7 @@ export default (token) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/paymentSource/${token}?cb="+Date.now(),
+      url: "/user/paymentSource/"+token+"?cb="+Date.now(),
       method: "GET",
       headers: {
         token: userToken,
