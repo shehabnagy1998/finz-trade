@@ -14,7 +14,7 @@ export default (username) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/info/${username}?cb=Date.now()&stats=true`,
+      url: "/user/info/"+username+"?cb="+Date.now()+"&stats=true",
       method: "GET",
       headers: {
         token: userToken,

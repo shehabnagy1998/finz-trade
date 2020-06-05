@@ -28,7 +28,7 @@ export default (order) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/signal/getAll/1/50/executedIn/1?cb=Date.now()&superTicket=${order.ticket}`,
+      url: "/signal/getAll/1/50/executedIn/1?cb="+Date.now()+"&superTicket="+order.ticket,
       method: "GET",
       headers: {
         token: userToken,
