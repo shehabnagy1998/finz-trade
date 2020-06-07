@@ -1,5 +1,5 @@
-export const API = "http://finztrade.com";
-export const CDN = "http://finztrade.com";
+export const API = "https://finztrade.com";
+export const CDN = "https://finztrade.com";
 export const REDUX_PAGE_LOADERS = "REDUX_PAGE_LOADERS";
 export const REDUX_PAGE_ERRORS = "REDUX_PAGE_ERRORS";
 export const REDUX_PAGE_TEMPS = "REDUX_PAGE_TEMPS";
