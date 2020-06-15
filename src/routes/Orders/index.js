@@ -122,7 +122,7 @@ const Orders = () => {
                                     <IntlMessages id="stategy" />
                                   </Text>
                                   <Text className="gx-link gx-fs-lg" ellipsis>
-                                    {item.strategyId}
+                                    {item.strategyName}
                                   </Text>
                                 </div>
                               </Link>

@@ -100,6 +100,7 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
         token: userToken,
       },
     });
+    console.log(res);
     if (res.data.data.user.plan.subscriptionId)
       dispatch({
         type: UPDATE_USER,
@@ -137,7 +138,7 @@ export const userSignIn = (user) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/login/${user.username}/${user.password}`,
+      url: `/user/login/${user.email}/${user.password}`,
       method: "POST",
     });
     if (user.remember) localStorage.setItem("user_id", res.data.token);
@@ -150,7 +151,6 @@ export const userSignIn = (user) => async (dispatch, getState) => {
     });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signInUser: false } });
   } catch (error) {
-    console.log(error);
     console.log(error.response);
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signInUser: false } });
     if (error.response && error.response.data) {

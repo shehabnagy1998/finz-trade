@@ -8,6 +8,12 @@ import getStrategies from "./getStrategies";
 import getStrategyById from "./getStrategyById";
 import { notification } from "antd";
 
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Strategies",
+    description: "you have successfully watched strategy",
+  });
+};
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Strategies",
@@ -51,7 +57,7 @@ export default (id, type, sortObj) => async (dispatch, getState) => {
       dispatch(getStrategies());
       dispatch(getStrategyById(id));
     }
-
+    openNotificationSuccess();
     dispatch({
       type: REDUX_PAGE_LOADERS,
       value: { toggleWatchStrategy: null },

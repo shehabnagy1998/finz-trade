@@ -13,6 +13,13 @@ const openNotificationError = (msg) => {
     description: msg,
   });
 };
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Coupon Code",
+    description:
+      "You have successfully redeemed your coupon. Kindly click the selected plan below to enjoy your discount. Thank You",
+  });
+};
 
 export default (name) => async (dispatch, getState) => {
   dispatch({
@@ -23,12 +30,13 @@ export default (name) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/coupon/getInfo/"+name+"?cb=" + Date.now(),
+      url: "/coupon/getInfo/" + name + "?cb=" + Date.now(),
       method: "GET",
       headers: {
         token: userToken,
       },
     });
+    openNotificationSuccess();
     dispatch({ type: REDUX_COUPON, value: { ...res.data.data.coupon, name } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { applyCoupon: false } });
   } catch (error) {

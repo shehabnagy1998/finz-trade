@@ -9,6 +9,7 @@ import {
   Button,
   Popconfirm,
   Popover,
+  Modal,
 } from "antd";
 import {
   FacebookShareButton,
@@ -28,6 +29,7 @@ import subscribePlan from "../../appRedux/actions/API/subscribePlan";
 import { Link, useHistory } from "react-router-dom";
 import DisplayDate from "../wall/DisplayDate";
 import IntlMessages from "../../util/IntlMessages";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const StrategyCard = ({ strategy, setStrategyEditItem }) => {
   const { Title, Text } = Typography;
@@ -47,6 +49,7 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
     history.push(`/profile/${userInfo.username}`);
   };
 
+  const shareLink = `${window.location.origin}/strategy/${strategy._id}`;
   const cashTypeColor =
     strategy.cashType === "off"
       ? "#ff4d4f"
@@ -58,30 +61,22 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
   const shareContent = (
     <div className="gx-media gx-align-items-center">
       <div className="gx-mx-2 gx-icon-scale gx-size-30">
-        <FacebookShareButton
-          url={`http://finztrade.com/strategy/${strategy._id}`}
-        >
+        <FacebookShareButton url={shareLink}>
           <FacebookIcon className="gx-img-fluid" />
         </FacebookShareButton>
       </div>
       <div className="gx-mx-2 gx-icon-scale gx-size-30">
-        <TwitterShareButton
-          url={`http://finztrade.com/strategy/${strategy._id}`}
-        >
+        <TwitterShareButton url={shareLink}>
           <TwitterIcon className="gx-img-fluid" />
         </TwitterShareButton>
       </div>
       <div className="gx-mx-2 gx-icon-scale gx-size-30">
-        <TelegramShareButton
-          url={`http://finztrade.com/strategy/${strategy._id}`}
-        >
+        <TelegramShareButton url={shareLink}>
           <TelegramIcon className="gx-img-fluid" />
         </TelegramShareButton>
       </div>
       <div className="gx-mx-2 gx-icon-scale gx-size-30">
-        <WhatsappShareButton
-          url={`http://finztrade.com/strategy/${strategy._id}`}
-        >
+        <WhatsappShareButton url={shareLink}>
           <WhatsappIcon className="gx-img-fluid" />
         </WhatsappShareButton>
       </div>
@@ -89,29 +84,46 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
   );
 
   const [isLoading, setIsLoading] = useState(false);
-  const handleFollow = async (_) => {
+  const handleFollow = async (resolve) => {
     setIsLoading(true);
     setIsPopVisible(false);
     await dispatch(
       toggleFollowStrategy(strategy._id, "one", strategy.stripeId)
     );
+    resolve();
     setIsLoading(false);
   };
 
   const handlePopVisibleChange = (visible) => {
-    console.log(visible);
-    if (!visible) {
-      setIsPopVisible(visible);
-      return;
-    }
     // Determining condition before show the popconfirm.
     let isExist = strategy.followersIds.includes(userInfo.username);
     if (isExist) {
       handleFollow(); // next step
     } else {
-      setIsPopVisible(visible); // show the popconfirm
+      showPromiseConfirm(); // show the popconfirm
     }
   };
+
+  let profitFactor = strategy.wonMoney / strategy.lostMoney;
+  let netProfit = strategy.wonMoney - strategy.lostMoney;
+
+  const { confirm } = Modal;
+
+  function showPromiseConfirm() {
+    confirm({
+      title: "Do you want to follow this strategy?",
+      icon: <ExclamationCircleOutlined />,
+      content: `This will cost you $${strategy.cost} monthly and can't be refunded Consectetur duis sit culpa deserunt consequat cupidatat mollit amet ea in excepteur aliqua tempor incididunt. Officia enim laborum quis laboris. Quis ea laborum sunt dolore do tempor commodo eu adipisicing velit.`,
+      onOk() {
+        return new Promise(async (resolve, reject) => {
+          // setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+          handleFollow(resolve);
+        }).catch(() => console.log("Oops errors!"));
+      },
+      onCancel() {},
+    });
+  }
+
   return (
     <Card className="gx-card">
       <div className="gx-media gx-wall-user-info gx-flex-nowrap gx-align-items-center">
@@ -157,23 +169,34 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
         </ul>
       </div>
       <p className="gx-overflow-break">{strategy.description}</p>
-      <div className="gx-flex-row gx-mb-2">
-        {strategy.stocks &&
-          strategy.stocks.length >= 1 &&
-          strategy.stocks.map((i, j) => (
-            <Tag
-              key={j}
-              color="#8c8c8c"
-              className="gx-mb-2 gx-mb-md-0 gx-text-center"
-            >
-              {i.toUpperCase()}
-            </Tag>
-          ))}
+      <div className="gx-flex-row gx-mb-2 gx-justify-content-between">
+        <div>
+          {strategy.stocks &&
+            strategy.stocks.length >= 1 &&
+            strategy.stocks.map((i, j) => (
+              <Tag
+                key={j}
+                color="#8c8c8c"
+                className="gx-mb-2 gx-mb-md-0 gx-text-center"
+              >
+                {i.toUpperCase()}
+              </Tag>
+            ))}
+        </div>
         <Tag
           color={cashTypeColor}
           className="gx-mb-2 gx-mb-md-0 gx-text-center"
         >
           {strategy.cashType}
+        </Tag>
+      </div>
+      <div className="gx-mb-2 gx-flex-row">
+        <Tag color={"#825bf0"} className="gx-mb-2 gx-mb-md-0 gx-text-center">
+          <IntlMessages id="profitFactor" />:{" "}
+          {profitFactor ? profitFactor : "-"}
+        </Tag>
+        <Tag color={"#825bf0"} className="gx-mb-2 gx-mb-md-0 gx-text-center">
+          <IntlMessages id="netProfit" />: {netProfit}
         </Tag>
       </div>
       <div>
@@ -244,8 +267,8 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
               <i className="icon gx-mr-2 icon-notification" />
               <IntlMessages id="watch" />
             </Button>
-            <Popconfirm
-              title={`This will cost you ${strategy.cost}$ monthly and can't be refunded ?`}
+            {/* <Popconfirm
+              title={`This will cost you $${strategy.cost} monthly and can't be refunded ?`}
               visible={isPopVisible}
               onVisibleChange={handlePopVisibleChange}
               onConfirm={handleFollow}
@@ -266,7 +289,23 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
                   values={{ val: `${strategy.cost}$` }}
                 />
               </Button>
-            </Popconfirm>
+            </Popconfirm> */}
+            <Button
+              block
+              // loading={isLoading}
+              onClick={handlePopVisibleChange}
+              type={
+                strategy.followersIds.includes(userInfo.username)
+                  ? "primary"
+                  : "default"
+              }
+            >
+              <i className="icon gx-mr-2 icon-add" />
+              <IntlMessages
+                id="followWith"
+                values={{ val: `${strategy.cost}$` }}
+              />
+            </Button>
             <Popover content={shareContent} trigger="hover">
               <Button block>
                 <i className="icon gx-mr-2 icon-sent" />

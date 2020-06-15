@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const HorizontalNav = () => {
   const { userInfo } = useSelector(({ auth }) => auth);
-  console.log(userInfo);
   return (
     <ul className="navbar-list">
       <li className="navbar-list-item">

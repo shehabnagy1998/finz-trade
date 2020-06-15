@@ -6,6 +6,7 @@ import { Typography, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import getOrderSignals from "../../../appRedux/actions/API/getOrderSignals";
 import IntlMessages from "../../../util/IntlMessages";
+import { Link } from "react-router-dom";
 
 const RecentOrdersItem = ({ order }) => {
   const { Text } = Typography;
@@ -14,7 +15,6 @@ const RecentOrdersItem = ({ order }) => {
   let formatedRes = result.split("@");
   const dispatch = useDispatch();
   const { pageLoaders } = useSelector(({ Api }) => Api);
-  console.log(order);
 
   const cardColor =
     order.status === "win"
@@ -33,6 +33,7 @@ const RecentOrdersItem = ({ order }) => {
       : order.status === "execute"
       ? "menu-right"
       : "";
+  console.log(order);
   return (
     <Spin spinning={pageLoaders.getOrderSignals === order._id || false}>
       <Widget styleName={`gx-card-full gx-p-3 gx-my-2`}>
@@ -70,6 +71,11 @@ const RecentOrdersItem = ({ order }) => {
               <IntlMessages id="closeTime" />:{" "}
               <DisplayDate date={order.closedIn} />
             </Text>
+            <Link to={`/strategy/${order.strategyId}`}>
+              <Text className="gx-fs-xs gx-link">
+                <IntlMessages id="strategy" />: {order.strategyName}
+              </Text>
+            </Link>
           </div>
         </div>
       </Widget>

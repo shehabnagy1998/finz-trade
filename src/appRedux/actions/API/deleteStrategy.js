@@ -7,6 +7,12 @@ import {
 import getStrategies from "./getStrategies";
 import { notification } from "antd";
 
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Strategies",
+    description: "you have successfully deleted strategy",
+  });
+};
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Strategies",
@@ -31,6 +37,7 @@ export default (id) => async (dispatch, getState) => {
       },
     });
     await dispatch(getStrategies());
+    openNotificationSuccess();
     dispatch({ type: REDUX_PAGE_LOADERS, value: { deleteStrategy: false } });
   } catch (error) {
     console.log(error.response);

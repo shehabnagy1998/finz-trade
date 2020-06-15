@@ -14,7 +14,7 @@ export default (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/order/get/1/5?cb="+Date.now(),
+      url: "/order/get/1/5?cb=" + Date.now(),
       method: "GET",
       headers: {
         token: userToken,

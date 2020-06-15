@@ -33,27 +33,34 @@ const Profile = ({ match, history }) => {
   const [profileInfo, setProfileInfo] = useState({});
   const { Title } = Typography;
 
+  // useEffect(() => {
+  //   const getFunc = async () => {
+  //     if (paramId === userInfo.username && isMyProfile === null) {
+  //       // setIsMyProfile(true);
+  //       // await setProfileInfo(userInfo);
+  //       // await dispatch(getStrategies());
+  //     } else {
+  //       // await dispatch(getOtherUser(paramId));
+  //       // await dispatch(getStrategies(paramId));
+  //       // console.log(otherUser);
+  //       // setProfileInfo(otherUser);
+  //       // history.push("/home");
+  //     }
+  //   };
+  //   getFunc();
+  //   return (_) => setIsMyProfile(null);
+  // }, [paramId, userInfo]);
   useEffect(() => {
-    const getFunc = async () => {
-      if (paramId === userInfo.username && isMyProfile === null) {
-        setIsMyProfile(true);
-        await setProfileInfo(userInfo);
-        await dispatch(getStrategies());
-      } else {
-        // await dispatch(getOtherUser(paramId));
-        // await dispatch(getStrategies(paramId));
-        // console.log(otherUser);
-        // setProfileInfo(otherUser);
-        history.push("/home");
-      }
-    };
-    getFunc();
-    return (_) => setIsMyProfile(null);
-  }, [paramId, userInfo]);
+    if (isMyProfile === null && userInfo.username) {
+      setIsMyProfile(true);
+      setProfileInfo(userInfo);
+    }
+  }, [userInfo]);
 
   useEffect(() => {
     dispatch(getBrokers());
   }, []);
+  console.log(userInfo);
 
   const dis1 = { xl: 16, lg: 14, md: 14, sm: 24, xs: 24 };
   const dis2 = { xs: 24 };

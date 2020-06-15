@@ -156,7 +156,7 @@ const TableContainer = ({ profileInfo }) => {
       },
     },
     {
-      title: formatMessage({ id: "rio" }),
+      title: formatMessage({ id: "netProfit" }),
       dataIndex: "rio",
     },
   ];

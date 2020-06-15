@@ -7,6 +7,12 @@ import {
 import getStrategies from "./getStrategies";
 import { notification } from "antd";
 
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Strategies",
+    description: "you have successfully edited strategy",
+  });
+};
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Strategies",
@@ -32,6 +38,7 @@ export default (obj, setItem) => async (dispatch, getState) => {
     });
     await dispatch(getStrategies());
     setItem({});
+    openNotificationSuccess();
     dispatch({ type: REDUX_PAGE_LOADERS, value: { editStrategy: false } });
   } catch (error) {
     console.log(error.response);

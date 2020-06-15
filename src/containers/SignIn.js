@@ -65,21 +65,14 @@ const SignIn = (props) => {
             </div>
             <Form onSubmit={handleSubmit} className="gx-form-row0">
               <FormItem>
-                {getFieldDecorator("username", {
+                {getFieldDecorator("email", {
                   rules: [
                     {
                       required: true,
-                      message: <IntlMessages id="usernameError" />,
+                      message: <IntlMessages id="emailError" />,
                     },
                   ],
-                })(
-                  <Input
-                    prefix={
-                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder={formatMessage({ id: "username" })}
-                  />
-                )}
+                })(<Input placeholder={formatMessage({ id: "email" })} />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("password", {
@@ -90,11 +83,7 @@ const SignIn = (props) => {
                     },
                   ],
                 })(
-                  <Input
-                    prefix={
-                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    type="password"
+                  <Input.Password
                     placeholder={formatMessage({ id: "password" })}
                   />
                 )}

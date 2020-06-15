@@ -19,7 +19,7 @@ const Index = ({ match }) => {
   const strategies = useSelector(({ Api }) => Api.strategies.others);
   const pageLoaders = useSelector(({ Api }) => Api.pageLoaders);
   const [items, setItems] = useState(strategies);
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState("addedIn");
 
   useEffect(() => {
     dispatch(getRecentOrders());
@@ -27,8 +27,7 @@ const Index = ({ match }) => {
 
   useEffect(() => {
     if (strategies.length >= 1) {
-      let newItems = sortBy(strategies, (i) => i[sort]);
-      setItems(newItems);
+      setItems(strategies);
     }
   }, [strategies]);
   useEffect(() => {
@@ -66,6 +65,7 @@ const Index = ({ match }) => {
                       title={<IntlMessages id="sortBy" />}
                     >
                       <Select
+                        value={sort}
                         className="gx-w-100"
                         placeholder={<IntlMessages id="sortPlaceholder" />}
                         style={{ width: 120 }}

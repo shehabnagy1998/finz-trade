@@ -40,24 +40,31 @@ const AppNotification = () => {
         id="notification-scrollbar"
         className="gx-popover-scroll"
       >
-        <InfiniteScroll
-          scrollableTarget={"notification-scrollbar"}
-          dataLength={notification.arr.length} //This is important field to render the next data
-          // next={handleFetchMore}
-          // hasMore={notification.fetchMore}
-          loader={
-            <div className="gx-text-center">
-              <Spin />
-            </div>
-          }
-        >
-          <ul className="gx-sub-popover">
-            {notification.arr.length >= 1 &&
-              notification.arr.map((notification, index) => (
+        {notification.arr.length >= 1 ? (
+          <InfiniteScroll
+            scrollableTarget={"notification-scrollbar"}
+            dataLength={notification.arr.length} //This is important field to render the next data
+            // next={handleFetchMore}
+            // hasMore={notification.fetchMore}
+            loader={
+              <div className="gx-text-center">
+                <Spin />
+              </div>
+            }
+          >
+            <ul className="gx-sub-popover">
+              {notification.arr.map((notification, index) => (
                 <NotificationItem key={index} notification={notification} />
               ))}
-          </ul>
-        </InfiniteScroll>
+            </ul>
+          </InfiniteScroll>
+        ) : (
+          <div className="gx-d-flex gx-justify-content-center gx-align-items-center gx-h-100">
+            <span>
+              <IntlMessages id="noNotification" />
+            </span>
+          </div>
+        )}
       </CustomScrollbars>
     </Auxiliary>
   );

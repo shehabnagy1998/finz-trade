@@ -8,6 +8,13 @@ import {
 import getBrokers from "./getBrokers";
 import { notification } from "antd";
 
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Broker",
+    description: "you have successfully added new broker",
+  });
+};
+
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Broker",
@@ -30,6 +37,7 @@ export default (obj) => async (dispatch, getState) => {
         token: userToken,
       },
     });
+    openNotificationSuccess();
     await dispatch(getBrokers());
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addBroker: false } });
   } catch (error) {

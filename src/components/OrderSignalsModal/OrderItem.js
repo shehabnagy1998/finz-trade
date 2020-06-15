@@ -5,7 +5,7 @@ import IntlMessages from "../../util/IntlMessages";
 
 const OrderItem = ({ order }) => {
   const { Title, Text } = Typography;
-
+  console.log(order);
   const result = order.result;
   let formatedRes = result.split("@");
   const cardColor =
@@ -33,7 +33,7 @@ const OrderItem = ({ order }) => {
             <i
               className={`gx-mr-2 gx-text-${cardColor} icon icon-${cardIcon} gx-fs-xl`}
             />
-            {order.result && (
+            {order.result && formatedRes.length >= 2 && (
               <Text className="">{`${
                 formatedRes[0]
               } ${formatedRes[1].toUpperCase()}`}</Text>

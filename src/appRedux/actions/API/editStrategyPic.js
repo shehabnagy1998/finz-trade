@@ -7,6 +7,12 @@ import {
 import getStrategies from "./getStrategies";
 import { notification } from "antd";
 
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Strategies",
+    description: "you have successfully edited strategy picture",
+  });
+};
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Strategies",
@@ -31,6 +37,7 @@ export default (id, base64) => async (dispatch, getState) => {
       },
     });
     await dispatch(getStrategies());
+    openNotificationSuccess();
     dispatch({ type: REDUX_PAGE_LOADERS, value: { editStrategyPic: false } });
   } catch (error) {
     console.log(error.response);
@@ -39,6 +46,6 @@ export default (id, base64) => async (dispatch, getState) => {
       openNotificationError("Strategy Picture", error.response.data.message);
       return;
     }
-    openNotificationError("Strategy Picture", "Failed to change picture");
+    openNotificationError("Failed to change picture");
   }
 };

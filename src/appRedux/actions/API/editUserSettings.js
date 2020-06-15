@@ -2,10 +2,16 @@ import Axios from "axios";
 import { REDUX_PAGE_LOADERS, API } from "../../../constants/API";
 import { notification } from "antd";
 
-const openNotificationError = () => {
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "User Settings",
+    description: "you have successfully edited your settings",
+  });
+};
+const openNotificationError = (msg) => {
   notification["error"]({
     message: "Settings",
-    description: "sorry failed to change settings, try again",
+    description: msg,
   });
 };
 
@@ -25,12 +31,16 @@ export default (obj) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-
+    openNotificationSuccess();
     // dispatch({ type: REDUX_STRATEGIES, value: res.data.data });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { editUserSettings: false } });
   } catch (error) {
     console.log(error.response);
-    openNotificationError();
     dispatch({ type: REDUX_PAGE_LOADERS, value: { editUserSettings: false } });
+    if (error.response && error.response.data) {
+      openNotificationError(error.response.data.message);
+      return;
+    }
+    openNotificationError("sorry failed to edit your settings, try again");
   }
 };

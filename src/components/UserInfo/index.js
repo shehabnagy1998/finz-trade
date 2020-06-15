@@ -28,7 +28,7 @@ const UserInfo = () => {
       overlayClassName="gx-popover-horizantal"
       placement="bottomRight"
       content={userMenuOptions}
-      trigger="click"
+      trigger="hover"
     >
       <Avatar src={CDN + user.pic} className="gx-avatar gx-pointer" alt="" />
     </Popover>

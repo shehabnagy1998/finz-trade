@@ -122,8 +122,7 @@ const SignUp = (props) => {
                     },
                   ],
                 })(
-                  <Input
-                    type="password"
+                  <Input.Password
                     placeholder={formatMessage({ id: "password" })}
                   />
                 )}

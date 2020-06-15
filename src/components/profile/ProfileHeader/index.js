@@ -5,6 +5,8 @@ import DisplayDate from "../../wall/DisplayDate";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, editUserPic } from "../../../appRedux/actions/Auth";
 import IntlMessages from "../../../util/IntlMessages";
+import { UserOutlined } from "@ant-design/icons";
+import NoProfileImg from "assets/images/noProfile.jpg";
 
 const ProfileHeader = ({ profileInfo }) => {
   const ref = useRef(null);
@@ -27,7 +29,9 @@ const ProfileHeader = ({ profileInfo }) => {
       reader.readAsDataURL(file);
     }
   };
-
+  const ProfilePic = profileInfo.pic
+    ? { src: CDN + profileInfo.pic }
+    : { icon: <UserOutlined /> };
   return (
     <div className="gx-profile-banner">
       <div className="gx-profile-container">
@@ -39,9 +43,9 @@ const ProfileHeader = ({ profileInfo }) => {
             >
               <Spin spinning={pageLoaders.editUserPic || false}>
                 <Avatar
-                  className="gx-size-90"
+                  size={90}
                   alt="..."
-                  src={CDN + profileInfo.pic}
+                  src={profileInfo.pic ? CDN + profileInfo.pic : NoProfileImg}
                 />
               </Spin>
               <input

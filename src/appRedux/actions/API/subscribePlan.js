@@ -7,16 +7,17 @@ import {
 } from "../../../constants/API";
 import { notification } from "antd";
 import toggleFollowStrategy from "./toggleFollowStrategy";
+import { getUserInfo } from "../Auth";
 
 const openNotificationSuccess = () => {
   notification["success"]({
-    message: "Subscribtion",
+    message: "Subscription",
     description: "you have successfully subscribed",
   });
 };
 const openNotificationError = (msg) => {
   notification["error"]({
-    message: "Subscribtion",
+    message: "Subscription",
     description: msg,
   });
 };
@@ -47,6 +48,7 @@ export default (token, followObject) => async (dispatch, getState) => {
       dispatch(toggleFollowStrategy(followObject.id, followObject.type));
       return;
     }
+    await dispatch(getUserInfo());
     openNotificationSuccess();
   } catch (error) {
     console.log(error.response);

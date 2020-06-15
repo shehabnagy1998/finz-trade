@@ -12,7 +12,11 @@ const ChartContainer = () => {
       <Row>
         {strategy.stats.rios && strategy.stats.rios.length >= 1 && (
           <Col xs={24}>
-            <AreaChart name={"rios"} data={strategy.stats.rios} cName="Rios" />
+            <AreaChart
+              name={"rios"}
+              data={strategy.stats.rios}
+              cName="Net Profits"
+            />
           </Col>
         )}
         {strategy.stats.winingRates && strategy.stats.winingRates.length >= 1 && (

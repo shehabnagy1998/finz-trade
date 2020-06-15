@@ -4,6 +4,21 @@ import {
   API,
   REDUX_STRATEGIES,
 } from "../../../constants/API";
+import { notification } from "antd";
+
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Payment Method",
+    description: "you have successfully added new payment method",
+  });
+};
+
+const openNotificationError = () => {
+  notification["error"]({
+    message: "Payment Method",
+    description: "Failed to add payment method",
+  });
+};
 
 export default (token) => async (dispatch, getState) => {
   dispatch({
@@ -23,10 +38,12 @@ export default (token) => async (dispatch, getState) => {
         token: userToken,
       },
     });
+    openNotificationSuccess();
     // dispatch({ type: REDUX_STRATEGIES, value: res.data.data });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addPaymentSource: false } });
   } catch (error) {
     console.log(error.response);
+    openNotificationError();
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addPaymentSource: false } });
   }
 };

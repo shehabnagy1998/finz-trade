@@ -18,6 +18,8 @@ import TextArea from "antd/lib/input/TextArea";
 import editStrategy from "../../appRedux/actions/API/editStrategy";
 import { CDN } from "../../constants/API";
 import editStrategyPic from "../../appRedux/actions/API/editStrategyPic";
+import IntlMessages from "../../util/IntlMessages";
+import { useIntl } from "react-intl";
 const { Option } = Select;
 const FormItem = Form.Item;
 const stocksArr = ["stock", "forex", "crypto", "commodities"];
@@ -43,6 +45,7 @@ const EditModal = ({ item, setItem, form }) => {
     });
   };
   const ref = useRef(null);
+  const { formatMessage } = useIntl();
 
   const handleChangeImage = async (e) => {
     var file = e.target.files[0];
@@ -64,13 +67,13 @@ const EditModal = ({ item, setItem, form }) => {
   const validateFormFields = (rule, value, callback) => {
     const fieldName = rule.field;
     if (fieldName === "title") {
-      !/^$|^[a-z0-9\ ]{12,80}$/.test(value)
+      /^$|^[a-z0-9 ]{12,80}$/.test(value)
         ? callback()
-        : callback("should be 12 min and 80 max character");
+        : callback(formatMessage({ id: "titleError2" }));
     } else if (fieldName === "description") {
-      !/^$|^[a-z0-9 ]{80,255}$/.test(value)
+      /^$|^[a-z0-9 ]{80,255}$/.test(value)
         ? callback()
-        : callback("should be 80 min and 255 max character");
+        : callback(formatMessage({ id: "descError2" }));
     }
   };
 
@@ -90,7 +93,7 @@ const EditModal = ({ item, setItem, form }) => {
   return (
     <Modal
       visible={item._id}
-      title="Edit Strategy"
+      title={<IntlMessages id="editStrategy" />}
       onCancel={handleCancel}
       footer={null}
       bodyStyle={{ paddingBottom: 0 }}
@@ -122,25 +125,29 @@ const EditModal = ({ item, setItem, form }) => {
         <FormItem>
           {getFieldDecorator("title", {
             rules: [
-              { required: true, message: "Please input strategy title!" },
+              { required: true, message: <IntlMessages id="titleError" /> },
               { validator: validateFormFields },
             ],
-          })(<Input placeholder="Title" />)}
+          })(<Input placeholder={formatMessage({ id: "title" })} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("cost", {
-            rules: [{ required: true, message: "Please input strategy cost!" }],
-          })(<Input placeholder="Cost" type="number" />)}
+            rules: [
+              { required: true, message: <IntlMessages id="costError" /> },
+            ],
+          })(
+            <Input placeholder={formatMessage({ id: "cost" })} type="number" />
+          )}
         </FormItem>
         <FormItem>
           {getFieldDecorator("description", {
             rules: [
-              { required: true, message: "Please input strategy description!" },
+              { required: true, message: <IntlMessages id="descError" /> },
               { validator: validateFormFields },
             ],
           })(
             <TextArea
-              placeholder="Descripiton"
+              placeholder={formatMessage({ id: "desc" })}
               autoSize={{ minRows: 2, maxRows: 5 }}
             />
           )}
@@ -148,10 +155,13 @@ const EditModal = ({ item, setItem, form }) => {
         <FormItem>
           {getFieldDecorator("stocks", {
             rules: [
-              { required: true, message: "Please choose one or more stocks!" },
+              { required: true, message: <IntlMessages id="stocksError" /> },
             ],
           })(
-            <Select placeholder="Stocks" mode="multiple">
+            <Select
+              placeholder={formatMessage({ id: "stocks" })}
+              mode="multiple"
+            >
               {stocksArr.map((item, index) => (
                 <Select.Option value={item} key={index}>
                   {item}
@@ -162,9 +172,11 @@ const EditModal = ({ item, setItem, form }) => {
         </FormItem>
         <FormItem>
           {getFieldDecorator("tradeType", {
-            rules: [{ required: true, message: "Please choose trade type!" }],
+            rules: [
+              { required: true, message: <IntlMessages id="tradeTypeError" /> },
+            ],
           })(
-            <Select placeholder="Trade Type">
+            <Select placeholder={formatMessage({ id: "tradeType" })}>
               {tradeTypingArr.map((item, index) => (
                 <Select.Option value={item} key={index}>
                   {item}
@@ -173,25 +185,35 @@ const EditModal = ({ item, setItem, form }) => {
             </Select>
           )}
         </FormItem>
-        <FormItem label="Type" labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+        {/* <FormItem
+          label={formatMessage({ id: "type" })}
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 20 }}
+        >
           {getFieldDecorator("public", {
             initialValue: true,
             rules: [
-              { required: true, message: "Please choose strategy type!" },
+              { required: true, message: <IntlMessages id="typeError" /> },
             ],
           })(
             <Radio.Group>
-              <Radio value={true}>Private</Radio>
-              <Radio value={false}>Public</Radio>
+              <Radio value={false}>
+                <IntlMessages id="private" />
+              </Radio>
+              <Radio value={true}>
+                <IntlMessages id="public" />
+              </Radio>
             </Radio.Group>
           )}
-        </FormItem>
+        </FormItem> */}
 
         <FormItem className="">
           <div className="gx-d-flex gx-align-items gx-justify-content-end gx-mt-3">
-            <Button onClick={handleCancel}>Cancel</Button>
+            <Button onClick={handleCancel}>
+              <IntlMessages id="cancel" />
+            </Button>
             <Button htmlType="submit" type="primary" loading={confirmLoading}>
-              Ok
+              <IntlMessages id="ok" />
             </Button>
           </div>
         </FormItem>

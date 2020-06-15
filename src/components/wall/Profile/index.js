@@ -4,9 +4,12 @@ import { useSelector } from "react-redux";
 import Auxiliary from "util/Auxiliary";
 import { CDN } from "../../../constants/API";
 import IntlMessages from "../../../util/IntlMessages";
+import NoProfileImg from "assets/images/noProfile.jpg";
+import { useIntl } from "react-intl";
 
 const Profile = (props) => {
   const [isFollow, setIsFollow] = useState(false);
+  const { formatMessage } = useIntl();
 
   const handleToggle = () => {
     setIsFollow((previousState) => ({
@@ -16,12 +19,13 @@ const Profile = (props) => {
 
   const user = useSelector(({ auth }) => auth.userInfo);
   const { Text } = Typography;
+  console.log(user);
 
   return (
     <Auxiliary>
       <div className="gx-profileon">
         <div className="gx-profileon-thumb gx-profileon-thumb-htctrcrop">
-          <img src={CDN + user.pic} alt="" />
+          <img src={user.pic ? CDN + user.pic : NoProfileImg} alt="" />
         </div>
         <div className="gx-profileon-content">
           <p className="gx-profileon-title">{user.name}</p>
@@ -31,7 +35,7 @@ const Profile = (props) => {
             }`}
           >
             {user.subscribed ? (
-              <IntlMessages id="subscribed" />
+              formatMessage({ id: "subscribed" }) + " - " + user.plan.name
             ) : (
               <IntlMessages id="notSubscribed" />
             )}

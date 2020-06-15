@@ -155,7 +155,7 @@ const TableContainer = () => {
       },
     },
     {
-      title: formatMessage({ id: "rio" }),
+      title: formatMessage({ id: "netProfit" }),
       dataIndex: "rio",
     },
   ];

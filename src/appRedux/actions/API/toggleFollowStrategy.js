@@ -9,6 +9,12 @@ import getStrategyById from "./getStrategyById";
 import { notification } from "antd";
 import subscribePlan from "./subscribePlan";
 
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Strategies",
+    description: "you have successfully followed strategy",
+  });
+};
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Strategies",
@@ -54,7 +60,7 @@ export default (id, type, stripeId) => async (dispatch, getState) => {
       dispatch(getStrategies());
       dispatch(getStrategyById(id));
     }
-
+    openNotificationSuccess();
     dispatch({
       type: REDUX_PAGE_LOADERS,
       value: { toggleFollowStrategy: null },

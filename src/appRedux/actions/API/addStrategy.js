@@ -7,6 +7,12 @@ import {
 import getStrategies from "./getStrategies";
 import { notification } from "antd";
 
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Strategy",
+    description: "you have successfully added payout data",
+  });
+};
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Strategies",
@@ -14,7 +20,7 @@ const openNotificationError = (msg) => {
   });
 };
 
-export default (obj, setIsVisible) => async (dispatch, getState) => {
+export default (obj, setIsVisible, info) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_PAGE_LOADERS,
     value: { addStrategy: true },
@@ -34,6 +40,7 @@ export default (obj, setIsVisible) => async (dispatch, getState) => {
     await dispatch(getStrategies());
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addStrategy: false } });
     setIsVisible(false);
+    info();
   } catch (error) {
     console.log(error.response);
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addStrategy: false } });

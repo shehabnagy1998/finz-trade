@@ -13,7 +13,7 @@ const ChartContainer = ({ profileInfo }) => {
             <AreaChart
               name={"rios"}
               data={profileInfo.stats.rios}
-              cName="Rios"
+              cName="Net Profits"
             />
           </Col>
         )}

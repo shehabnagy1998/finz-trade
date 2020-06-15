@@ -64,7 +64,6 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
             name: values.name,
           },
         });
-        console.log(paymentMethod);
         if (!paymentMethod) {
           openNotificationError("please check your information");
           setConfirmLoading(false);
@@ -117,7 +116,7 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
             </Select>
           )}
         </FormItem>
-        <FormItem>
+        {/* <FormItem>
           {getFieldDecorator("city", {
             rules: [
               { required: true, message: <IntlMessages id="cardCityError" /> },
@@ -133,7 +132,7 @@ const PaymentModal = ({ isVisible, setIsVisible, form }) => {
               },
             ],
           })(<Input placeholder={formatMessage({ id: "cardAddress" })} />)}
-        </FormItem>
+        </FormItem> */}
         <FormItem>
           <CardElement
             onChange={(e) => setState({ credit: e.complete })}

@@ -4,6 +4,20 @@ import {
   API,
   REDUX_STRATEGIES,
 } from "../../../constants/API";
+import { notification } from "antd";
+
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Payment method",
+    description: "you have successfully deleted payment method",
+  });
+};
+const openNotificationError = (msg) => {
+  notification["error"]({
+    message: "Payment method",
+    description: msg,
+  });
+};
 
 export default (id) => async (dispatch, getState) => {
   dispatch({
@@ -21,6 +35,7 @@ export default (id) => async (dispatch, getState) => {
       },
     });
     // dispatch({ type: REDUX_STRATEGIES, value: res.data.data });
+    openNotificationSuccess();
     dispatch({
       type: REDUX_PAGE_LOADERS,
       value: { deletePaymentSource: false },
@@ -31,5 +46,10 @@ export default (id) => async (dispatch, getState) => {
       type: REDUX_PAGE_LOADERS,
       value: { deletePaymentSource: false },
     });
+    if (error.response && error.response.data) {
+      openNotificationError(error.response.data.message);
+      return;
+    }
+    openNotificationError("sorry failed to delete payment method, try again");
   }
 };

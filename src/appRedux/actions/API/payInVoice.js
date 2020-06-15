@@ -6,6 +6,20 @@ import {
   REDUX_BROKERS,
   REDUX_INVOICES,
 } from "../../../constants/API";
+import { notification } from "antd";
+
+const openNotificationSuccess = () => {
+  notification["success"]({
+    message: "Invoices",
+    description: "you have successfully paied invoice",
+  });
+};
+const openNotificationError = (msg) => {
+  notification["error"]({
+    message: "Invoices",
+    description: msg,
+  });
+};
 
 export default (id) => async (dispatch, getState) => {
   dispatch({
@@ -27,11 +41,16 @@ export default (id) => async (dispatch, getState) => {
       if (i.id) i.status = "paid";
       return i;
     });
-
+    openNotificationSuccess();
     dispatch({ type: REDUX_INVOICES, value: inVoices });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { payInVoice: null } });
   } catch (error) {
     console.log(error.response);
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { payInVoice: null } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { payInVoice: false } });
+    if (error.response && error.response.data) {
+      openNotificationError(error.response.data.message);
+      return;
+    }
+    openNotificationError("sorry failed to pay invoice, try again");
   }
 };

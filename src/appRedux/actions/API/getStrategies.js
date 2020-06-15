@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { sortBy } from "lodash";
 import {
   REDUX_PAGE_LOADERS,
   API,
@@ -17,13 +18,14 @@ export default (otherUsername) => async (dispatch, getState) => {
       url: "/strategy/get/addedIn/-1?cb=" + Date.now(),
       method: "GET",
     });
+    let strategies = sortBy(res.data.data, (i) => i["addedIn"]).reverse();
     let owned = [],
       others = [],
       following = [],
       watching = [],
       all = [];
     if (otherUsername)
-      res.data.data.map((st) => {
+      strategies.map((st) => {
         if (st.username === otherUsername) owned.push(st);
         else others.push(st);
         if (st.followersIds.includes(otherUsername)) following.push(st);
@@ -32,7 +34,7 @@ export default (otherUsername) => async (dispatch, getState) => {
         return st;
       });
     else
-      res.data.data.map((st) => {
+      strategies.map((st) => {
         if (st.username === user.username) owned.push(st);
         else {
           if (st.public) others.push(st);
