@@ -29,7 +29,7 @@ export default (token) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/subscription/confirm`,
+      url: `/subscription/confirm?lang=${getState().settings.locale.locale}`,
       method: "PUT",
       headers: {
         token: userToken,

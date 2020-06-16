@@ -25,13 +25,12 @@ export default (token) => async (dispatch, getState) => {
     type: REDUX_PAGE_LOADERS,
     value: { addPaymentSource: true },
   });
-  console.log("token" + token);
 
   const userToken = getState().auth.authUser;
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/paymentSource",
+      url: `/user/paymentSource?lang=${getState().settings.locale.locale}`,
       method: "POST",
       data: { token },
       headers: {

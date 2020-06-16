@@ -67,7 +67,6 @@ const PriceItem = ({
   useEffect(() => {
     const myMethod = async (_) => {
       setLoader(true);
-      console.log(stripeConfirm);
       await dispatch(confirmSubscribePlan(stripeConfirm.id));
       await dispatch(getUserInfo());
       setStripeConfirm(null);
@@ -104,12 +103,9 @@ const PriceItem = ({
       icon: <ExclamationCircleOutlined />,
       content: "you will be charged with this plan price",
       onOk() {
-        console.log("OK");
         handleSubscribe();
       },
-      onCancel() {
-        console.log("Cancel");
-      },
+      onCancel() {},
     });
   }
 

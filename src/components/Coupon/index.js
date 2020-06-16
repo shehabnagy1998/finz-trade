@@ -29,7 +29,6 @@ const Coupon = ({ form }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     form.validateFields((err, values) => {
-      console.log("values", values);
       if (!err) {
         dispatch(applyCoupon(values.coupon));
       }

@@ -6,6 +6,6 @@ const ZhLan = {
     ...zhMessages,
   },
   antd: antdZh,
-  locale: "zh-Hans-CN",
+  locale: "cn",
 };
 export default ZhLan;

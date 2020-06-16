@@ -15,7 +15,7 @@ export default (id) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/broker/delete/${id}`,
+      url: `/broker/delete/${id}?lang=${getState().settings.locale.locale}`,
       method: "DELETE",
       headers: {
         token: userToken,

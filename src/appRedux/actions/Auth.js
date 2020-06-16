@@ -36,10 +36,9 @@ export const userConfirmEmail = (code) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/confirm/${code}`,
+      url: `/user/confirm/${code}?lang=${getState().settings.locale.locale}`,
       method: "GET",
     });
-    console.log(res);
     openNotificationSuccess("Confirmation", "Email confirmed");
     dispatch(push("/login"));
     dispatch({ type: REDUX_PAGE_LOADERS, value: { confirmEmail: false } });
@@ -64,11 +63,10 @@ export const userSignUp = (user) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/register`,
+      url: `/user/register?lang=${getState().settings.locale.locale}`,
       method: "POST",
       data: { ...user },
     });
-    console.log(res);
     openNotificationSuccess("Register", "Account created successfully");
     dispatch(push("/confirm-email"));
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signUpUser: false } });
@@ -94,13 +92,14 @@ export const getUserInfo = (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/info?stats=true&?cb=" + Date.now(),
+      url: `/user/info?stats=true&?lang=${
+        getState().settings.locale.locale
+      }&cb=${Date.now()}`,
       method: "GET",
       headers: {
         token: userToken,
       },
     });
-    console.log(res);
     if (res.data.data.user.plan.subscriptionId)
       dispatch({
         type: UPDATE_USER,
@@ -138,7 +137,9 @@ export const userSignIn = (user) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/login/${user.email}/${user.password}`,
+      url: `/user/login/${user.email}/${user.password}?lang=${
+        getState().settings.locale.locale
+      }`,
       method: "POST",
     });
     if (user.remember) localStorage.setItem("user_id", res.data.token);
@@ -172,7 +173,7 @@ export const userSignOut = (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/logout",
+      url: `/user/logout?lang=${getState().settings.locale.locale}`,
       method: "DELETE",
       headers: {
         token: userToken,
@@ -199,7 +200,9 @@ export const userForgotPassword = (email) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/requestChangePassword/${email}`,
+      url: `/user/requestChangePassword/${email}?lang=${
+        getState().settings.locale.locale
+      }`,
       method: "PUT",
     });
 
@@ -230,7 +233,7 @@ export const editUserPic = (base64) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/uploadPic",
+      url: `/user/uploadPic?lang=${getState().settings.locale.locale}`,
       method: "PUT",
       data: { base64 },
       headers: {
@@ -259,7 +262,9 @@ export const userResetPassword = (obj) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/changePass/${obj.email}/${obj.code}/${obj.newPass}`,
+      url: `/user/changePass/${obj.email}/${obj.code}/${obj.newPass}?lang=${
+        getState().settings.locale.locale
+      }`,
       method: "PUT",
     });
 

@@ -15,7 +15,9 @@ export default (otherUsername) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/strategy/get/addedIn/-1?cb=" + Date.now(),
+      url: `/strategy/get/addedIn/-1?lang=${
+        getState().settings.locale.locale
+      }&cb=${Date.now()}`,
       method: "GET",
     });
     let strategies = sortBy(res.data.data, (i) => i["addedIn"]).reverse();

@@ -25,7 +25,9 @@ export default (_) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/brokerFile?cb=" + Date.now(),
+      url: `/user/brokerFile?lang=${
+        getState().settings.locale.locale
+      }&cb=${Date.now()}`,
       method: "GET",
       headers: {
         token: userToken,
@@ -36,7 +38,6 @@ export default (_) => async (dispatch, getState) => {
       let link = CDN + file;
       let name = "Broker File";
 
-      console.log(link);
       downloadURI(link, name);
     }
     dispatch({ type: REDUX_BROKER_FILE, value: res.data.data });

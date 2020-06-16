@@ -6,6 +6,6 @@ const MsLang = {
     ...enMessages,
   },
   antd: antdMs,
-  locale: "ms-MY",
+  locale: "ms",
 };
 export default MsLang;

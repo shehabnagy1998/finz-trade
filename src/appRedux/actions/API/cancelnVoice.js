@@ -30,7 +30,7 @@ export default (id) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/invoice/cancel/${id}`,
+      url: `/invoice/cancel/${id}?lang=${getState().settings.locale.locale}`,
       method: "DELETE",
       headers: {
         token: userToken,

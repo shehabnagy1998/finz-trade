@@ -40,8 +40,6 @@ const Strategy = ({ match }) => {
     if (strategies.all.length >= 1) dispatch(getStrategyById(pageId));
   }, [pageId, strategies]);
 
-  console.log(strategy);
-
   return (
     <>
       {pageLoaders.getStrategies ||

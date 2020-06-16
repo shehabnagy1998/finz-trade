@@ -7,6 +7,7 @@ import {
 import getStrategies from "./getStrategies";
 import getStrategyById from "./getStrategyById";
 import { notification } from "antd";
+import { getUserInfo } from "../Auth";
 
 const openNotificationSuccess = () => {
   notification["success"]({
@@ -34,7 +35,9 @@ export default (id, type, sortObj) => async (dispatch, getState) => {
     if (strategy) {
       const res = await Axios({
         baseURL: API,
-        url: `/strategy/unwatch/${id}`,
+        url: `/strategy/unwatch/${id}?lang=${
+          getState().settings.locale.locale
+        }`,
         method: "DELETE",
         headers: {
           token: userToken,
@@ -57,6 +60,8 @@ export default (id, type, sortObj) => async (dispatch, getState) => {
       dispatch(getStrategies());
       dispatch(getStrategyById(id));
     }
+    await dispatch(getUserInfo());
+
     openNotificationSuccess();
     dispatch({
       type: REDUX_PAGE_LOADERS,

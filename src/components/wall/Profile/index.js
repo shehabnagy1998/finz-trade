@@ -19,7 +19,6 @@ const Profile = (props) => {
 
   const user = useSelector(({ auth }) => auth.userInfo);
   const { Text } = Typography;
-  console.log(user);
 
   return (
     <Auxiliary>

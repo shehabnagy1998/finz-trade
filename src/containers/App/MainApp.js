@@ -34,12 +34,14 @@ import { getUserInfo } from "../../appRedux/actions/Auth";
 import getPaymentSource from "../../appRedux/actions/API/getPaymentSource";
 import getStrategies from "../../appRedux/actions/API/getStrategies";
 import getNotification from "../../appRedux/actions/API/getNotification";
+import { useIntl } from "react-intl";
 
 const { Content, Footer } = Layout;
 
 const MainApp = () => {
   const { width, navStyle } = useSelector(({ settings }) => settings);
   const user = useSelector(({ auth }) => auth.userInfo);
+  const { locale } = useIntl();
 
   const match = useRouteMatch();
   const dispatch = useDispatch();

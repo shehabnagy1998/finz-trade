@@ -14,7 +14,9 @@ export default (position) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/notification/get/${position.from}/${position.to}?cb="+Date.now()+"&seen=false",
+      url: `/notification/get/${position.from}/${position.to}?lang=${
+        getState().settings.locale.locale
+      }&cb=${Date.now()}&seen=false`,
       method: "GET",
       headers: {
         token: userToken,
@@ -24,7 +26,10 @@ export default (position) => async (dispatch, getState) => {
     if (res.data.data.length <= 0) {
       const resSeen = await Axios({
         baseURL: API,
-        url: "/notification/get/${position.from}/${position.to}?cb="+Date.now()+"&seen=true",
+        url:
+          "/notification/get/${position.from}/${position.to}?cb=" +
+          Date.now() +
+          "&seen=true",
         method: "GET",
         headers: {
           token: userToken,

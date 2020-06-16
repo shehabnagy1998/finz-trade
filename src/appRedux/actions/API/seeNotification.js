@@ -17,7 +17,7 @@ export default () => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/notification/watch`,
+      url: `/notification/watch?lang=${getState().settings.locale.locale}`,
       method: "put",
       headers: {
         token: userToken,

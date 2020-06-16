@@ -12,7 +12,9 @@ export default (lastID) => async (dispatch, getState) => {
     value: { getInVoices: true },
   });
   const userToken = getState().auth.authUser;
-  let url = "/invoice/get?cb="+Date.now();
+  let url = `/invoice/get?lang=${
+    getState().settings.locale.locale
+  }&cb=${Date.now()}`;
   if (lastID) url += `&last=${lastID}`;
   try {
     const res = await Axios({

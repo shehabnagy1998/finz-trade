@@ -29,7 +29,7 @@ export default (obj, setIsVisible, info) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/strategy/add`,
+      url: `/strategy/add?lang=${getState().settings.locale.locale}`,
       method: "POST",
       data: { ...obj },
       headers: {

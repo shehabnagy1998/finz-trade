@@ -29,7 +29,7 @@ export default (id) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/strategy/delete/${id}`,
+      url: `/strategy/delete/${id}?lang=${getState().settings.locale.locale}`,
       method: "DELETE",
 
       headers: {

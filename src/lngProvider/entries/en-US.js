@@ -3,9 +3,9 @@ import enMessages from "../locales/en_US.json";
 
 const EnLang = {
   messages: {
-    ...enMessages
+    ...enMessages,
   },
   antd: antdEn,
-  locale: 'en-US'
+  locale: "en",
 };
 export default EnLang;

@@ -15,7 +15,9 @@ export default (token) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/plan/get?cb="+Date.now(),
+      url: `/plan/get?lang=${
+        getState().settings.locale.locale
+      }&cb=${Date.now()}`,
       method: "GET",
     });
 

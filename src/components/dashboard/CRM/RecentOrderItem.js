@@ -33,7 +33,6 @@ const RecentOrdersItem = ({ order }) => {
       : order.status === "execute"
       ? "menu-right"
       : "";
-  console.log(order);
   return (
     <Spin spinning={pageLoaders.getOrderSignals === order._id || false}>
       <Widget styleName={`gx-card-full gx-p-3 gx-my-2`}>

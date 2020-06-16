@@ -8,6 +8,7 @@ import getStrategies from "./getStrategies";
 import getStrategyById from "./getStrategyById";
 import { notification } from "antd";
 import subscribePlan from "./subscribePlan";
+import { getUserInfo } from "../Auth";
 
 const openNotificationSuccess = () => {
   notification["success"]({
@@ -32,11 +33,12 @@ export default (id, type, stripeId) => async (dispatch, getState) => {
   try {
     let [strategy] = newStrategies.following.filter((i) => i._id === id);
     let res;
-    console.log(strategy);
     if (strategy) {
       res = await Axios({
         baseURL: API,
-        url: `/strategy/unfollow/${id}`,
+        url: `/strategy/unfollow/${id}?lang=${
+          getState().settings.locale.locale
+        }`,
         method: "DELETE",
         headers: {
           token: userToken,
@@ -60,6 +62,8 @@ export default (id, type, stripeId) => async (dispatch, getState) => {
       dispatch(getStrategies());
       dispatch(getStrategyById(id));
     }
+    await dispatch(getUserInfo());
+
     openNotificationSuccess();
     dispatch({
       type: REDUX_PAGE_LOADERS,

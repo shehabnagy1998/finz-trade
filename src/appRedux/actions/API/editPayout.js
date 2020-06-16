@@ -30,7 +30,7 @@ export default (obj) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/payout`,
+      url: `/user/payout?lang=${getState().settings.locale.locale}`,
       method: "put",
       data: { ...obj },
       headers: {

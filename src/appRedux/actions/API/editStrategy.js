@@ -29,7 +29,9 @@ export default (obj, setItem) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/strategy/edit/${obj._id}`,
+      url: `/strategy/edit/${obj._id}?lang=${
+        getState().settings.locale.locale
+      }`,
       method: "PUT",
       data: { ...obj },
       headers: {

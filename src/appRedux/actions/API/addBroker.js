@@ -31,7 +31,9 @@ export default (obj) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/broker/add/${obj.id}/${obj.name}`,
+      url: `/broker/add/${obj.id}/${obj.name}?lang=${
+        getState().settings.locale.locale
+      }`,
       method: "POST",
       headers: {
         token: userToken,

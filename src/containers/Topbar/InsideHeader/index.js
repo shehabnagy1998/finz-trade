@@ -38,7 +38,6 @@ const InsideHeader = () => {
   const navCollapsed = useSelector(({ settings }) => settings.navCollapsed);
   const { authUser } = useSelector(({ auth }) => auth);
   const notification = useSelector(({ Api }) => Api.notification);
-  console.log(notification);
 
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">

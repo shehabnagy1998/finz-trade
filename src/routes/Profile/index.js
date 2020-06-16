@@ -42,7 +42,6 @@ const Profile = ({ match, history }) => {
   //     } else {
   //       // await dispatch(getOtherUser(paramId));
   //       // await dispatch(getStrategies(paramId));
-  //       // console.log(otherUser);
   //       // setProfileInfo(otherUser);
   //       // history.push("/home");
   //     }
@@ -60,7 +59,6 @@ const Profile = ({ match, history }) => {
   useEffect(() => {
     dispatch(getBrokers());
   }, []);
-  console.log(userInfo);
 
   const dis1 = { xl: 16, lg: 14, md: 14, sm: 24, xs: 24 };
   const dis2 = { xs: 24 };

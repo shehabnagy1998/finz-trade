@@ -30,7 +30,9 @@ export default (name) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/coupon/getInfo/" + name + "?cb=" + Date.now(),
+      url: `/coupon/getInfo/${name}?lang=${
+        getState().settings.locale.locale
+      }&cb=${Date.now()}`,
       method: "GET",
       headers: {
         token: userToken,

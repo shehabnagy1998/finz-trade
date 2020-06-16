@@ -93,7 +93,6 @@ const App = (props) => {
   const location = useLocation();
   const history = useHistory();
   const match = useRouteMatch();
-  console.log(authUser);
 
   useEffect(() => {
     let link = document.createElement("link");

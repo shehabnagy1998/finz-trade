@@ -28,7 +28,9 @@ export default (id) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/user/paymentSource/${id}`,
+      url: `/user/paymentSource/${id}?lang=${
+        getState().settings.locale.locale
+      }`,
       method: "DELETE",
       headers: {
         token: userToken,

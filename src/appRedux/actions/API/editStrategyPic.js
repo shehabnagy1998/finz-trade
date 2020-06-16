@@ -29,7 +29,9 @@ export default (id, base64) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: `/strategy/uploadPic/${id}`,
+      url: `/strategy/uploadPic/${id}?lang=${
+        getState().settings.locale.locale
+      }`,
       method: "PUT",
       data: { base64 },
       headers: {

@@ -24,7 +24,7 @@ export default (obj) => async (dispatch, getState) => {
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/user/preferences",
+      url: `/user/preferences?lang=${getState().settings.locale.locale}`,
       method: "PUT",
       data: { ...obj },
       headers: {
