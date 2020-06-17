@@ -5,6 +5,7 @@ import { userSignOut } from "appRedux/actions/Auth";
 import { Link } from "react-router-dom";
 import { CDN } from "../../constants/API";
 import IntlMessages from "../../util/IntlMessages";
+import NoProfileImg from "assets/images/noProfile.jpg";
 
 const UserInfo = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,11 @@ const UserInfo = () => {
       content={userMenuOptions}
       trigger="hover"
     >
-      <Avatar src={CDN + user.pic} className="gx-avatar gx-pointer" alt="" />
+      <Avatar
+        src={user.pic ? CDN + user.pic : NoProfileImg}
+        className="gx-avatar gx-pointer"
+        alt=""
+      />
     </Popover>
   );
 };

@@ -46,7 +46,6 @@ const PriceItem = ({
     try {
       setLoader(true);
       await dispatch(subscribePlan(item[`${period}StripeId`]));
-      await dispatch(getUserInfo());
       setLoader(false);
     } catch (error) {
       console.log(error);

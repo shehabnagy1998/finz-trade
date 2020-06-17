@@ -15,6 +15,7 @@ const createBrowserHistory = require("history").createBrowserHistory;
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["settings"],
 };
 
 export const history = createBrowserHistory();

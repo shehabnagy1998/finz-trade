@@ -31,7 +31,7 @@ const Index = ({ match }) => {
     }
   }, [strategies]);
   useEffect(() => {
-    let newItems = sortBy(strategies, (i) => i[sort]);
+    let newItems = sortBy(strategies, (i) => i[sort]).reverse();
     setItems(newItems);
   }, [sort]);
 
