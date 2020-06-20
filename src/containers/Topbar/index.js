@@ -110,7 +110,7 @@ const Topbar = () => {
               </Popover>
             </li>
 
-            <li className="gx-msg">
+            {/* <li className="gx-msg">
               <Popover
                 overlayClassName="gx-popover-horizantal"
                 placement="bottomRight"
@@ -122,7 +122,7 @@ const Topbar = () => {
                   <span className="gx-status gx-status-rtl gx-small gx-orange" />
                 </span>
               </Popover>
-            </li>
+            </li> */}
           </Auxiliary>
         )}
         <li className="gx-language">
