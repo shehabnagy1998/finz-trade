@@ -197,5 +197,9 @@
   "public": "Public",
   "addStrategy": "Add Strategy",
   "editStrategy": "Edit Strategy",
-  "noNotification": "You dont have notification yet"
+  "noNotification": "You dont have notification yet",
+  "unlimited": "Unlimited",
+  "brokerTutorial": "Tutorial: How to add broker",
+  "changePicture": "Change Picture",
+  "addPicture": "Add Picture"
 }

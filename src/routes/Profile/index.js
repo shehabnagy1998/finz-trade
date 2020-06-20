@@ -29,8 +29,6 @@ const Profile = ({ match, history }) => {
   const dispatch = useDispatch();
 
   const paramId = match.params.id;
-  const [isMyProfile, setIsMyProfile] = useState(null);
-  const [profileInfo, setProfileInfo] = useState({});
   const { Title } = Typography;
 
   // useEffect(() => {
@@ -49,12 +47,6 @@ const Profile = ({ match, history }) => {
   //   getFunc();
   //   return (_) => setIsMyProfile(null);
   // }, [paramId, userInfo]);
-  useEffect(() => {
-    if (isMyProfile === null && userInfo.username) {
-      setIsMyProfile(true);
-      setProfileInfo(userInfo);
-    }
-  }, [userInfo]);
 
   useEffect(() => {
     dispatch(getBrokers());
@@ -62,7 +54,7 @@ const Profile = ({ match, history }) => {
 
   const dis1 = { xl: 16, lg: 14, md: 14, sm: 24, xs: 24 };
   const dis2 = { xs: 24 };
-  let toView = isMyProfile ? dis1 : dis2;
+  let toView = true ? dis1 : dis2;
 
   return (
     <>
@@ -76,29 +68,29 @@ const Profile = ({ match, history }) => {
         <CircularProgress />
       ) : (
         <Auxiliary>
-          {profileInfo.username ? (
+          {userInfo.username ? (
             <>
-              <ProfileHeader profileInfo={profileInfo} />
+              <ProfileHeader profileInfo={userInfo} />
               <div className="gx-profile-content">
                 <Row>
                   <Col {...toView}>
-                    {profileInfo.stats && (
-                      <TableContainer profileInfo={profileInfo} />
+                    {userInfo.stats && (
+                      <TableContainer profileInfo={userInfo} />
                     )}
-                    {!isMyProfile && <Status isMyProfile={isMyProfile} />}
-                    <OwnStrategy isMyProfile={isMyProfile} />
-                    {isMyProfile && <InVoices />}
+                    {!true && <Status isMyProfile={true} />}
+                    <OwnStrategy isMyProfile={true} />
+                    {true && <InVoices />}
                   </Col>
 
                   <Col xl={8} lg={10} md={10} sm={24} xs={24}>
-                    {profileInfo.stats && (
-                      <ChartContainer profileInfo={profileInfo} />
+                    {userInfo.stats && (
+                      <ChartContainer profileInfo={userInfo} />
                     )}
-                    {isMyProfile && <Broker />}
-                    {isMyProfile && <Settings />}
-                    {isMyProfile && <Payments />}
-                    {isMyProfile && <Payout />}
-                    {isMyProfile && <Subscription />}
+                    {true && <Broker />}
+                    {true && <Settings />}
+                    {true && <Payments />}
+                    {true && <Payout />}
+                    {true && <Subscription />}
                   </Col>
                 </Row>
               </div>

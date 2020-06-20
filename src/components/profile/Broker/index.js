@@ -76,10 +76,19 @@ const Broker = () => {
           </div>
         ))
       ) : (
-        <div className="gx-text-center gx-mt-3">
+        <div className="gx-text-center gx-mt-3 gx-flex-column">
           <Text className="gx-text-orange gx-fs-lg">
             <IntlMessages id="noBroker" />
           </Text>
+          <a
+            href="https://finztrade.com/finztrade-integration.pdf"
+            target="_blank"
+            className="gx-mt-2"
+          >
+            <Text className="gx-text-purple gx-fs-lg">
+              <IntlMessages id="brokerTutorial" />
+            </Text>
+          </a>
         </div>
       )}
       <BrokerModal isVisible={isVisible} setIsVisible={setIsVisible} />

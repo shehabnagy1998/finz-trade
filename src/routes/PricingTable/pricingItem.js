@@ -74,26 +74,24 @@ const PriceItem = ({
 
     if (stripeConfirm) myMethod();
   }, [stripeConfirm]);
-
   const getDiscount = (_) => {
     let oldValue = parseFloat(item[`${period}Cost`]),
-      newValue = 0;
+      newValue = null;
 
     if (coupon.amount_off) newValue = oldValue - parseFloat(coupon.amount_off);
     else newValue = oldValue - oldValue * (coupon.percent_off / 100);
-
-    if (newValue)
+    if (newValue >= 0)
       return (
         <div className="gx-d-flex gx-align-items-center gx-justify-content-center gx-text-white">
           <Text strong className="gx-price gx-fs-xxl gx-mr-2 gx-text-white">
-            {newValue}$
+            ${newValue}
           </Text>
           <Text className="gx-price gx-fs-lg gx-text-white" delete>
-            {oldValue}$
+            ${oldValue}
           </Text>
         </div>
       );
-    else return <h2 className="gx-price">{oldValue}$</h2>;
+    else return <h2 className="gx-price">${oldValue}</h2>;
   };
 
   function showConfirm() {
@@ -108,6 +106,9 @@ const PriceItem = ({
     });
   }
 
+  const checkForUnlimited = (val) => val;
+  // val == "999" || val == "9999" ? <IntlMessages id="unlimited" /> : val;
+
   return (
     <div className={`${styleName}`}>
       <div className={`${headerStyle}`}>
@@ -120,42 +121,42 @@ const PriceItem = ({
       <div className={`${itemStyle}`}>
         <ul className="gx-package-items">
           <li className="gx-d-flex">
-            <span>{item.maxFollowers}</span>
+            <span>{checkForUnlimited(item.maxFollowers)}</span>
             <span className="gx-ml-3">
               <IntlMessages id="maxFollowers" />
             </span>
           </li>
 
           <li className="gx-d-flex">
-            <span>{item.maxWatchers}</span>
+            <span>{checkForUnlimited(item.maxWatchers)}</span>
             <span className="gx-ml-3">
               <IntlMessages id="maxWatchers" />
             </span>
           </li>
 
           <li className="gx-d-flex">
-            <span>{item.maxStrategiesAdd}</span>
+            <span>{checkForUnlimited(item.maxStrategiesAdd)}</span>
             <span className="gx-ml-3">
               <IntlMessages id="maxStrategiesAdd" />
             </span>
           </li>
 
           <li className="gx-d-flex">
-            <span>{item.maxStrategiesFollow}</span>
+            <span>{checkForUnlimited(item.maxStrategiesFollow)}</span>
             <span className="gx-ml-3">
               <IntlMessages id="maxStrategiesFollow" />
             </span>
           </li>
 
           <li className="gx-d-flex">
-            <span>{item.maxStrategiesWatch}</span>
+            <span>{checkForUnlimited(item.maxStrategiesWatch)}</span>
             <span className="gx-ml-3">
               <IntlMessages id="maxStrategiesWatch" />
             </span>
           </li>
 
           <li className="gx-d-flex">
-            <span>{item.maxBrokersHave}</span>
+            <span>{checkForUnlimited(item.maxBrokersHave)}</span>
             <span className="gx-ml-3">
               <IntlMessages id="maxBrokers" />
             </span>

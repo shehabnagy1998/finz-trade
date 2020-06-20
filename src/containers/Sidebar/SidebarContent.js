@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import CustomScrollbars from "util/CustomScrollbars";
 import SidebarLogo from "./SidebarLogo";
@@ -21,6 +21,7 @@ const SidebarContent = () => {
   let { navStyle, themeType, pathname } = useSelector(
     ({ settings }) => settings
   );
+  const { userInfo } = useSelector(({ auth }) => auth);
 
   const getNoHeaderClass = (navStyle) => {
     if (
@@ -52,30 +53,45 @@ const SidebarContent = () => {
         <CustomScrollbars className="gx-layout-sider-scrollbar">
           <ul className="navbar-list">
             <li className="navbar-list-item">
-              <Link to="/home">
-                <IntlMessages id="sidebar.home" />
-              </Link>
+              <NavLink
+                activeClassName={"active"}
+                className="nav-item"
+                to="/home"
+              >
+                <IntlMessages id="home" />
+              </NavLink>
             </li>
+
             <li className="navbar-list-item">
-              <Link to="/home">
-                <IntlMessages id="sidebar.strategies" />
-              </Link>
+              <NavLink
+                activeClassName={"active"}
+                className="nav-item"
+                to="/orders"
+              >
+                <IntlMessages id="orders" />
+              </NavLink>
             </li>
+
             <li className="navbar-list-item">
-              <Link to="/home">
-                <IntlMessages id="sidebar.orders" />
-              </Link>
+              <NavLink
+                activeClassName={"active"}
+                className="nav-item"
+                to="/watchlist"
+              >
+                <IntlMessages id="watchlist" />
+              </NavLink>
             </li>
-            <li className="navbar-list-item">
-              <Link to="/home">
-                <IntlMessages id="sidebar.stats" />
-              </Link>
-            </li>
-            <li className="navbar-list-item">
-              <Link to="/home">
-                <IntlMessages id="sidebar.inVoices" />
-              </Link>
-            </li>
+            {userInfo.plan && userInfo.plan.name ? null : (
+              <li className="navbar-list-item">
+                <NavLink
+                  activeClassName={"active"}
+                  className="nav-item"
+                  to="/pricing"
+                >
+                  <IntlMessages id="pricing" />
+                </NavLink>
+              </li>
+            )}
           </ul>
         </CustomScrollbars>
       </div>

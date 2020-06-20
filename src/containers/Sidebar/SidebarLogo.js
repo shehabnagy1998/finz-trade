@@ -47,13 +47,13 @@ const SidebarLogo = () => {
         </div>
       ) : null}
 
-      <Link to="/" className="gx-site-logo">
+      <div className="gx-site-logo  gx-w-75">
         {navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && width >= TAB_SIZE ? (
           <img alt="lo" src={require("assets/images/w-logo.png")} />
         ) : (
           <img alt="logo2" src={require("assets/images/logo.png")} />
         )}
-      </Link>
+      </div>
     </div>
   );
 };

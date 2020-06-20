@@ -38,6 +38,7 @@ export default (name) => async (dispatch, getState) => {
         token: userToken,
       },
     });
+    console.log(res);
     openNotificationSuccess();
     dispatch({ type: REDUX_COUPON, value: { ...res.data.data.coupon, name } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { applyCoupon: false } });

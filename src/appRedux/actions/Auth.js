@@ -67,8 +67,11 @@ export const userSignUp = (user) => async (dispatch, getState) => {
       method: "POST",
       data: { ...user },
     });
-    openNotificationSuccess("Register", "Account created successfully");
-    dispatch(push("/confirm-email"));
+    openNotificationSuccess(
+      "Register",
+      "Account created successfully, check your inbox to verify your email"
+    );
+    // dispatch(push("/confirm-email"));
     dispatch({ type: REDUX_PAGE_LOADERS, value: { signUpUser: false } });
   } catch (error) {
     console.log(error.response);

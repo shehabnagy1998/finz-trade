@@ -187,7 +187,7 @@ const InsideHeader = () => {
                 </Popover>
               </li>
               {authUser && (
-                <li className="gx-user-nav">
+                <li className="gx-user-nav gx-ml-0">
                   <UserInfo />
                 </li>
               )}

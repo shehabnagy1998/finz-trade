@@ -76,7 +76,7 @@ const Topbar = () => {
         value={searchText}
       />
       <ul className="gx-header-notifications gx-ml-auto">
-        <li className="gx-notify gx-notify-search gx-d-inline-block gx-d-lg-none">
+        {/* <li className="gx-notify gx-notify-search gx-d-inline-block gx-d-lg-none">
           <Popover
             overlayClassName="gx-popover-horizantal"
             placement="bottomRight"
@@ -94,7 +94,7 @@ const Topbar = () => {
               <i className="icon icon-search-new" />
             </span>
           </Popover>
-        </li>
+        </li> */}
         {width >= TAB_SIZE ? null : (
           <Auxiliary>
             <li className="gx-notify">

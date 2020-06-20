@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Avatar, Spin } from "antd";
+import { Avatar, Spin, Popover, Button } from "antd";
 import { CDN } from "../../../constants/API";
 import DisplayDate from "../../wall/DisplayDate";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,30 +32,45 @@ const ProfileHeader = ({ profileInfo }) => {
   const ProfilePic = profileInfo.pic
     ? { src: CDN + profileInfo.pic }
     : { icon: <UserOutlined /> };
+
+  const popContent = (
+    <div>
+      <Button
+        onClick={(_) => ref.current.click()}
+        type="primary"
+        className="gx-m-0"
+      >
+        {profileInfo.pic ? (
+          <IntlMessages id="changePicture" />
+        ) : (
+          <IntlMessages id="addPicture" />
+        )}
+      </Button>
+    </div>
+  );
   return (
     <div className="gx-profile-banner">
       <div className="gx-profile-container">
         <div className="gx-profile-banner-top">
           <div className="gx-profile-banner-top-left">
-            <div
-              className="gx-profile-banner-avatar gx-custom-avatar"
-              onClick={(_) => ref.current.click()}
-            >
-              <Spin spinning={pageLoaders.editUserPic || false}>
-                <Avatar
-                  size={90}
-                  alt="..."
-                  src={profileInfo.pic ? CDN + profileInfo.pic : NoProfileImg}
+            <Popover placement="bottom" content={popContent} arrowPointAtCenter>
+              <div className="gx-profile-banner-avatar gx-custom-avatar">
+                <Spin spinning={pageLoaders.editUserPic || false}>
+                  <Avatar
+                    size={90}
+                    alt="..."
+                    src={profileInfo.pic ? CDN + profileInfo.pic : NoProfileImg}
+                  />
+                </Spin>
+                <input
+                  type="file"
+                  ref={ref}
+                  style={{ display: "none" }}
+                  accept="image/*"
+                  onChange={handleFileChange}
                 />
-              </Spin>
-              <input
-                type="file"
-                ref={ref}
-                style={{ display: "none" }}
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-            </div>
+              </div>
+            </Popover>
             <div className="gx-profile-banner-avatar-info">
               <h2 className="gx-mb-2 gx-mb-sm-3 gx-fs-xxl gx-font-weight-light">
                 {profileInfo.name}
