@@ -16,6 +16,9 @@ import CircularProgress from "../../components/CircularProgress";
 import { Link } from "react-router-dom";
 import IntlMessages from "../../util/IntlMessages";
 
+document.title = "FinzTrade - Orders";
+document.getElementsByTagName("META")[0].content = "";
+
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
 

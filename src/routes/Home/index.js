@@ -21,6 +21,9 @@ const Index = ({ match }) => {
   const [items, setItems] = useState(strategies);
   const [sort, setSort] = useState("addedIn");
 
+  document.title = "FinzTrade - Home";
+  document.getElementsByTagName("META")[0].content = "";
+
   useEffect(() => {
     dispatch(getRecentOrders());
   }, []);

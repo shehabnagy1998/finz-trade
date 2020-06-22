@@ -10,7 +10,8 @@ const { Text } = Typography;
 
 const Watchlist = ({}) => {
   const strategies = useSelector(({ Api }) => Api.strategies);
-
+  document.title = "FinzTrade - Watchlist";
+  document.getElementsByTagName("META")[0].content = "";
   return (
     <Widget
       title="Watchlist"

@@ -28,6 +28,11 @@ const Profile = ({ match, history }) => {
   const { userInfo } = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
 
+  document.title = userInfo.username
+    ? `FinzTrade - ${userInfo.username}`
+    : "FinzTrade - Profile";
+  document.getElementsByTagName("META")[0].content = "";
+
   const paramId = match.params.id;
   const { Title } = Typography;
 

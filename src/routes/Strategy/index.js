@@ -34,6 +34,12 @@ const Strategy = ({ match }) => {
   const { strategy, pageLoaders, strategies } = useSelector(({ Api }) => Api);
   const { Title, Text } = Typography;
 
+  document.title =
+    strategy.data && strategy.data.title
+      ? `FinzTrade - ${strategy.data.title}`
+      : "FinzTrade - Strategy";
+  document.getElementsByTagName("META")[0].content = "";
+
   const [strategyEditItem, setStrategyEditItem] = useState({});
 
   useEffect(() => {

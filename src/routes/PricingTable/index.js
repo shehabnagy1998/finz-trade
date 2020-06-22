@@ -15,6 +15,9 @@ const PricingTable = ({ match }) => {
   const dispatch = useDispatch();
   const pageLoaders = useSelector(({ Api }) => Api.pageLoaders);
 
+  document.title = "FinzTrade - Pricing";
+  document.getElementsByTagName("META")[0].content = "";
+
   useEffect(() => {
     dispatch(getPricingTable());
   }, []);
