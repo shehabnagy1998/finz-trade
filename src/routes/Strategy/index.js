@@ -38,7 +38,7 @@ const Strategy = ({ match }) => {
     strategy.data && strategy.data.title
       ? `FinzTrade - ${strategy.data.title}`
       : "FinzTrade - Strategy";
-  document.getElementsByTagName("META")[0].content = "";
+  // document.getElementsByTagName("META")[0].content = "";
 
   const [strategyEditItem, setStrategyEditItem] = useState({});
 

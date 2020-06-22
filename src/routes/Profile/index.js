@@ -31,7 +31,7 @@ const Profile = ({ match, history }) => {
   document.title = userInfo.username
     ? `FinzTrade - ${userInfo.username}`
     : "FinzTrade - Profile";
-  document.getElementsByTagName("META")[0].content = "";
+  // document.getElementsByTagName("META")[0].content = "";
 
   const paramId = match.params.id;
   const { Title } = Typography;

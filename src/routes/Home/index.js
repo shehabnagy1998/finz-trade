@@ -22,7 +22,7 @@ const Index = ({ match }) => {
   const [sort, setSort] = useState("addedIn");
 
   document.title = "FinzTrade - Home";
-  document.getElementsByTagName("META")[0].content = "";
+  // document.getElementsByTagName("META")[0].content = "";
 
   useEffect(() => {
     dispatch(getRecentOrders());
