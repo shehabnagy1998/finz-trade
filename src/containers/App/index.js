@@ -94,15 +94,16 @@ const App = (props) => {
   const history = useHistory();
   const match = useRouteMatch();
 
-  useEffect(() => {
-    let link = document.createElement("link");
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    link.href = "/css/style.css";
+  // useEffect(() => {
+  //   let link = document.createElement("link");
+  //   link.type = "text/css";
+  //   link.rel = "stylesheet";
+  //   link.href = "/css/style.css";
 
-    link.className = "gx-style";
-    document.body.appendChild(link);
-  }, []);
+  //   link.className = "gx-style";
+  //   document.body.appendChild(link);
+
+  // }, []);
 
   useEffect(() => {
     if (initURL === "") {
