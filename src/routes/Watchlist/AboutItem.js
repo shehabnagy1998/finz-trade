@@ -7,6 +7,7 @@ import toggleWatchStrategy from "../../appRedux/actions/API/toggleWatchStrategy"
 import { Link } from "react-router-dom";
 import IntlMessages from "util/IntlMessages";
 import DisplayDate from "../../components/wall/DisplayDate";
+import NoIMG from "assets/images/no-img.png";
 
 const AboutItem = ({ data, type }) => {
   const { Text } = Typography;
@@ -47,7 +48,7 @@ const AboutItem = ({ data, type }) => {
                 <Avatar
                   className="gx-mr-3 gx-mb-2 gx-size-50"
                   // src={require("assets/images/carousel/wolf.jpg")}
-                  src={`${CDN}${data.pic}`}
+                  src={data.pic ? `${CDN}${data.pic}` : NoIMG}
                 />
               </Link>
               <div className="gx-media-body">

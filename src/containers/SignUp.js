@@ -60,11 +60,13 @@ const SignUp = (props) => {
         <div className="gx-login-container">
           <div className="gx-login-content gx-login-content-custom">
             <div className="gx-login-header">
-              <img
-                src={require("assets/images/logo.png")}
-                alt="wieldy"
-                title="wieldy"
-              />
+              <a href="https://finztrade.com">
+                <img
+                  src={require("assets/images/logo.png")}
+                  alt="wieldy"
+                  title="wieldy"
+                />
+              </a>
             </div>
             <div className="gx-login-header">
               <Title className="gx-login-title gx-text-primary" level={2}>

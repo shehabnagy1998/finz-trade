@@ -87,6 +87,23 @@ const Index = ({ match }) => {
                     </Card>
 
                     <StrategyList items={items} />
+                    <div className="gx-d-lg-none">
+                      <BuildingCard
+                        noBadge={true}
+                        title={<IntlMessages id="downloadOurApp" />}
+                        text={<IntlMessages id="googlePlay" />}
+                        img={require("assets/images/google_play.png")}
+                        link="https://play.google.com/store?hl=en"
+                        classes="gx-mb-3"
+                      />
+                      <BuildingCard
+                        noBadge={true}
+                        title={<IntlMessages id="downloadOurApp" />}
+                        text={<IntlMessages id="appStore" />}
+                        img={require("assets/images/app_store.png")}
+                        link="https://www.apple.com/ios/app-store/"
+                      />
+                    </div>
                   </div>
                 </CustomScrollbars>
               )}
