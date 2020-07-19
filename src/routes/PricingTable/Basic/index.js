@@ -25,13 +25,13 @@ const Basic = () => {
             size="large"
           >
             <RadioButton value="yearly">
-              <IntlMessages id="year" />
+              <IntlMessages id="yearly" />
             </RadioButton>
             <RadioButton value="halfYearly">
-              <IntlMessages id="halfYear" />
+              <IntlMessages id="biyearly" />
             </RadioButton>
             <RadioButton value="monthly">
-              <IntlMessages id="month" />
+              <IntlMessages id="monthly" />
             </RadioButton>
           </RadioGroup>
         </Col>

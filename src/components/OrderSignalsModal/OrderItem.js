@@ -8,6 +8,8 @@ const OrderItem = ({ order }) => {
   console.log(order);
   const result = order.result;
   let formatedRes = result.split("@");
+  formatedRes[0] = formatedRes[0] ? formatedRes[0] : "";
+  formatedRes[1] = formatedRes[1] ? formatedRes[1] : "";
   const cardColor =
     order.status === "win"
       ? "teal"

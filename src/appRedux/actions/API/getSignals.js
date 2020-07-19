@@ -22,7 +22,6 @@ export default (page, status) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(res);
     dispatch({
       type: REDUX_SIGNALS,
       value: { list: res.data.data, count: res.data.count },

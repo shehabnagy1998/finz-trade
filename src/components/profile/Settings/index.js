@@ -89,12 +89,12 @@ const Settings = ({ form }) => {
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label={<IntlMessages id="showProfits" />} className="gx-mb-1">
-          {getFieldDecorator("showProfits", {
+        <FormItem label={<IntlMessages id="autoRenewal" />} className="gx-mb-1">
+          {getFieldDecorator("autoRenewal", {
             valuePropName: "checked",
           })(<Switch size="small" />)}
         </FormItem>
-        <FormItem
+        {/* <FormItem
           label={<IntlMessages id="reciveEmails" />}
           className="gx-mb-1"
         >
@@ -106,7 +106,7 @@ const Settings = ({ form }) => {
           {getFieldDecorator("pushNotifications", {
             valuePropName: "checked",
           })(<Switch size="small" />)}
-        </FormItem>
+        </FormItem> */}
       </Widget>
     </Form>
   );

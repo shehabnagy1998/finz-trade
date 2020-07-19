@@ -8,6 +8,7 @@ import {
   Dropdown,
   Popconfirm,
   Tag,
+  Popover,
 } from "antd";
 import DisplayDate from "../../wall/DisplayDate";
 import { CDN } from "../../../constants/API";
@@ -16,14 +17,45 @@ import { useDispatch } from "react-redux";
 import deleteStrategy from "../../../appRedux/actions/API/deleteStrategy";
 import { Link } from "react-router-dom";
 import IntlMessages from "../../../util/IntlMessages";
+import NoIMG from "assets/images/no-img.png";
 
 const { Text } = Typography;
 
 const OwnStrateyItem = ({ item, setStrategyEditItem, isMyProfile }) => {
   const dispatch = useDispatch();
+  // const MyMenu = (
+  //   <Menu>
+  //     <Menu.Item
+  //       onClick={(_) =>
+  //         setStrategyEditItem({
+  //           _id: item._id,
+  //           title: item.title,
+  //           description: item.description,
+  //           cost: item.cost,
+  //           pic: item.pic,
+  //           stocks: item.stocks,
+  //           tradeType: item.tradeType,
+  //           public: item.public,
+  //         })
+  //       }
+  //     >
+  //       <IntlMessages id="edit" />
+  //     </Menu.Item>
+  //     <Menu.Item>
+  //       <Popconfirm
+  //         title="Are you sure you'd like to delete this strategy ?"
+  //         onConfirm={(_) => dispatch(deleteStrategy(item._id))}
+  //       >
+  //         <span>
+  //           <IntlMessages id="delete" />
+  //         </span>
+  //       </Popconfirm>
+  //     </Menu.Item>
+  //   </Menu>
+  // );
   const MyMenu = (
-    <Menu>
-      <Menu.Item
+    <ul className="gx-user-popover">
+      <li
         onClick={(_) =>
           setStrategyEditItem({
             _id: item._id,
@@ -38,16 +70,18 @@ const OwnStrateyItem = ({ item, setStrategyEditItem, isMyProfile }) => {
         }
       >
         <IntlMessages id="edit" />
-      </Menu.Item>
-      <Menu.Item>
+      </li>
+      <li>
         <Popconfirm
           title="Are you sure you'd like to delete this strategy ?"
           onConfirm={(_) => dispatch(deleteStrategy(item._id))}
         >
-          <IntlMessages id="delete" />
+          <span>
+            <IntlMessages id="delete" />
+          </span>
         </Popconfirm>
-      </Menu.Item>
-    </Menu>
+      </li>
+    </ul>
   );
 
   let profitFactor = item.wonMoney / item.lostMoney;
@@ -71,7 +105,7 @@ const OwnStrateyItem = ({ item, setStrategyEditItem, isMyProfile }) => {
           <Avatar
             className="gx-mr-3 gx-mb-2 gx-size-50"
             // src={require("assets/images/carousel/wolf.jpg")}
-            src={`${CDN}${item.pic}`}
+            src={item.pic ? `${CDN}${item.pic}` : NoIMG}
           />
         </Link>
         <div className="gx-media-body">
@@ -86,11 +120,16 @@ const OwnStrateyItem = ({ item, setStrategyEditItem, isMyProfile }) => {
             <DisplayDate date={item.addedIn} />
           </Text>
         </div>
-        <div className="gx-d-flex gx-mt-3 gx-mt-lg-0 gx-justify-content-center">
+        <div>
           {isMyProfile && (
-            <Dropdown overlay={MyMenu} placement="bottomRight">
+            <Popover
+              overlayClassName="gx-popover-horizantal"
+              placement="bottomRight"
+              content={MyMenu}
+              trigger="hover"
+            >
               <MoreOutlined />
-            </Dropdown>
+            </Popover>
           )}
         </div>
       </div>

@@ -33,6 +33,7 @@ const Strategy = ({ match }) => {
   const dispatch = useDispatch();
   const { strategy, pageLoaders, strategies } = useSelector(({ Api }) => Api);
   const { Title, Text } = Typography;
+  console.log(strategy);
 
   document.title =
     strategy.data && strategy.data.title
@@ -150,6 +151,7 @@ const Strategy = ({ match }) => {
                             </Tag>
                           </Col>
                         </Row>
+
                         {/* <Row>
                           <Col xs={8}>
                             <Link to={`/profile/${item.investorId}`}>

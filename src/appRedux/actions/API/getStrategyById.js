@@ -32,7 +32,6 @@ export default (id) => async (dispatch, getState) => {
         token: userToken,
       },
     });
-    console.log(ordersRes);
     dispatch({
       type: REDUX_STRATEGY,
       value: {

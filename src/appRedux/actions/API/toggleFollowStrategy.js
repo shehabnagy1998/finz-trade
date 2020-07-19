@@ -16,6 +16,12 @@ const openNotificationSuccess = () => {
     description: "you have successfully followed strategy",
   });
 };
+const openNotificationSuccess2 = () => {
+  notification["success"]({
+    message: "Strategies",
+    description: "you have successfully unfollowed strategy",
+  });
+};
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Strategies",
@@ -44,6 +50,7 @@ export default (id, type, stripeId) => async (dispatch, getState) => {
           token: userToken,
         },
       });
+      openNotificationSuccess2();
     } else {
       res = await Axios({
         baseURL: API,
@@ -53,6 +60,7 @@ export default (id, type, stripeId) => async (dispatch, getState) => {
           token: userToken,
         },
       });
+      openNotificationSuccess();
     }
 
     if (type === "all") {
@@ -64,7 +72,6 @@ export default (id, type, stripeId) => async (dispatch, getState) => {
     }
     await dispatch(getUserInfo());
 
-    openNotificationSuccess();
     dispatch({
       type: REDUX_PAGE_LOADERS,
       value: { toggleFollowStrategy: null },

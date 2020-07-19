@@ -14,7 +14,7 @@ const UserInfo = () => {
   const userMenuOptions = (
     <ul className="gx-user-popover">
       <li>
-        <Link className="gx-text-black-grey" to={`/profile/${user.username}`}>
+        <Link className="gx-text-black-grey" to={`/my-profile`}>
           <IntlMessages id="myAccount" />
         </Link>
       </li>

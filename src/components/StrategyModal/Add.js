@@ -42,11 +42,10 @@ const AddModal = ({ isVisible, setIsVisible, form }) => {
           other users:
           <ol className="gx-my-2">
             <li>
-              i. You must have at least 10 trades (5 buy & 5 sell) in 2
-              weeks-time
+              You must have at least 10 trades (5 buy & 5 sell) in 2 weeks-time
             </li>
-            <li>ii. The Win Rate must be more than 50%</li>
-            <li>iii. Profit Factor must be more than 1 time</li>
+            <li>The Win Rate must be more than 50%</li>
+            <li>Profit Factor must be more than 1 time</li>
           </ol>
           Your strategy will be hidden until the criteria above is met
         </div>
@@ -68,11 +67,11 @@ const AddModal = ({ isVisible, setIsVisible, form }) => {
   const validateFormFields = (rule, value, callback) => {
     const fieldName = rule.field;
     if (fieldName === "title") {
-      /^$|^[a-z0-9A-Z ]{12,80}$/.test(value)
+      /^$|^.{12,80}$/.test(value)
         ? callback()
         : callback(formatMessage({ id: "titleError2" }));
     } else if (fieldName === "description") {
-      /^$|^[a-z0-9A-Z ]{80,255}$/.test(value)
+      /^$|^.{80,255}$/.test(value)
         ? callback()
         : callback(formatMessage({ id: "descError2" }));
     }
@@ -133,7 +132,7 @@ const AddModal = ({ isVisible, setIsVisible, form }) => {
             <Select placeholder={formatMessage({ id: "brokerId" })}>
               {brokers.map((item, index) => (
                 <Select.Option value={item.id} key={index}>
-                  {item.name}
+                  {item.id} - {item.name}
                 </Select.Option>
               ))}
             </Select>

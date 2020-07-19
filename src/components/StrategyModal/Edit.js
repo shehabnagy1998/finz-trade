@@ -20,7 +20,8 @@ import { CDN } from "../../constants/API";
 import editStrategyPic from "../../appRedux/actions/API/editStrategyPic";
 import IntlMessages from "../../util/IntlMessages";
 import { useIntl } from "react-intl";
-const { Option } = Select;
+import NoIMG from "assets/images/no-img.png";
+
 const FormItem = Form.Item;
 const stocksArr = ["stock", "forex", "crypto", "commodities"];
 const tradeTypingArr = ["automatic", "manual", "mixed"];
@@ -67,11 +68,11 @@ const EditModal = ({ item, setItem, form }) => {
   const validateFormFields = (rule, value, callback) => {
     const fieldName = rule.field;
     if (fieldName === "title") {
-      /^$|^[a-z0-9A-Z ]{12,80}$/.test(value)
+      /^$|^.{12,80}$/.test(value)
         ? callback()
         : callback(formatMessage({ id: "titleError2" }));
     } else if (fieldName === "description") {
-      /^$|^[a-z0-9A-Z ]{80,255}$/.test(value)
+      /^$|^.{80,255}$/.test(value)
         ? callback()
         : callback(formatMessage({ id: "descError2" }));
     }
@@ -107,7 +108,7 @@ const EditModal = ({ item, setItem, form }) => {
             <Avatar
               className="gx-size-100"
               alt="..."
-              src={CDN + item.pic}
+              src={item.pic ? CDN + item.pic : NoIMG}
               shape="circle"
             />
           </Spin>
@@ -130,15 +131,7 @@ const EditModal = ({ item, setItem, form }) => {
             ],
           })(<Input placeholder={formatMessage({ id: "title" })} />)}
         </FormItem>
-        <FormItem>
-          {getFieldDecorator("cost", {
-            rules: [
-              { required: true, message: <IntlMessages id="costError" /> },
-            ],
-          })(
-            <Input placeholder={formatMessage({ id: "cost" })} type="number" />
-          )}
-        </FormItem>
+
         <FormItem>
           {getFieldDecorator("description", {
             rules: [

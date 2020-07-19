@@ -10,7 +10,8 @@ import { notification } from "antd";
 const openNotificationSuccess = () => {
   notification["success"]({
     message: "Strategy",
-    description: "you have successfully added payout data",
+    description:
+      "Thank you for adding your strategy on FinzTrade. Do note that the profit sharing to FinzTrade is 40% for every subscriber to your strategy",
   });
 };
 const openNotificationError = (msg) => {
@@ -40,6 +41,7 @@ export default (obj, setIsVisible, info) => async (dispatch, getState) => {
     await dispatch(getStrategies());
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addStrategy: false } });
     setIsVisible(false);
+    openNotificationSuccess();
     info();
   } catch (error) {
     console.log(error.response);

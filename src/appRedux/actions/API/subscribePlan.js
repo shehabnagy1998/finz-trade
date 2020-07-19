@@ -8,6 +8,7 @@ import {
 import { notification } from "antd";
 import toggleFollowStrategy from "./toggleFollowStrategy";
 import { getUserInfo } from "../Auth";
+import { push } from "connected-react-router";
 
 const openNotificationSuccess = () => {
   notification["success"]({
@@ -23,6 +24,7 @@ const openNotificationError = (msg) => {
 };
 
 export default (token, followObject) => async (dispatch, getState) => {
+  console.log(token);
   dispatch({
     type: REDUX_PAGE_LOADERS,
     value: { subscribePlan: true },
@@ -51,6 +53,7 @@ export default (token, followObject) => async (dispatch, getState) => {
     }
     await dispatch(getUserInfo());
     openNotificationSuccess();
+    dispatch(push("/home"));
   } catch (error) {
     console.log(error.response);
     if (error.response && error.response.data) {

@@ -83,12 +83,12 @@
   "retypeNewPasswordError2": "Two passwords that you enter is inconsistent",
   "title": "Title",
   "titleError": "Please input strategy title",
-  "titleError2": "should be 12 min and 80 max character, without special characters",
+  "titleError2": "should be 12 min and 80 max character",
   "cost": "Cost",
   "costError": "Please input strategy cost",
   "desc": "Description",
   "descError": "Please input strategy description",
-  "descError2": "should be 80 min and 255 max character, without special characters",
+  "descError2": "should be 80 min and 255 max character",
   "brokerId": "Broker ID",
   "brokerIdError": "Please input strategy broker ID",
   "stocks": "Stocks",
@@ -159,6 +159,9 @@
   "year": "Year",
   "halfYear": "Half-Year",
   "month": "Month",
+  "yearly": "Yearly",
+  "biyearly": "Biyearly",
+  "monthly": "Monthly",
   "pricing": "Pricing",
   "enterCoupon": "Enter Coupon If You Have One",
   "enter": "Enter",
@@ -201,5 +204,7 @@
   "unlimited": "Unlimited",
   "brokerTutorial": "Tutorial: How to add broker",
   "changePicture": "Change Picture",
-  "addPicture": "Add Picture"
+  "addPicture": "Add Picture",
+  "autoRenewal": "Auto Renewal",
+  "free": "free"
 }

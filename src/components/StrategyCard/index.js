@@ -30,6 +30,8 @@ import { Link, useHistory } from "react-router-dom";
 import DisplayDate from "../wall/DisplayDate";
 import IntlMessages from "../../util/IntlMessages";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import BadgeIMG from "assets/images/green-badge.png";
+import NoIMG from "assets/images/no-img.png";
 
 const StrategyCard = ({ strategy, setStrategyEditItem }) => {
   const { Title, Text } = Typography;
@@ -105,7 +107,7 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
   };
 
   let profitFactor = strategy.wonMoney / strategy.lostMoney;
-  let netProfit = strategy.wonMoney - strategy.lostMoney;
+  let netProfit = strategy.wonMoney + strategy.lostMoney;
 
   const { confirm } = Modal;
 
@@ -131,12 +133,17 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
           <Avatar
             className="gx-mr-3 gx-mb-2 gx-size-50"
             // src={require("assets/images/carousel/wolf.jpg")}
-            src={`${CDN}${strategy.pic}`}
+            src={strategy.pic ? `${CDN}${strategy.pic}` : NoIMG}
           />
         </Link>
         <div className="gx-media-body">
           <Link to={`/strategy/${strategy._id}`}>
-            <h5 className="gx-wall-user-title">{strategy.title}</h5>
+            <h5 className="gx-wall-user-title">
+              {strategy.title}{" "}
+              {strategy.geniune && (
+                <Avatar src={BadgeIMG} className="gx-size-15" />
+              )}
+            </h5>
           </Link>
           {strategy.tradeType && (
             <Text className="gx-fs-sm">{strategy.tradeType.toUpperCase()}</Text>
@@ -193,7 +200,7 @@ const StrategyCard = ({ strategy, setStrategyEditItem }) => {
       <div className="gx-mb-2 gx-flex-row">
         <Tag color={"#825bf0"} className="gx-mb-2 gx-mb-md-0 gx-text-center">
           <IntlMessages id="profitFactor" />:{" "}
-          {profitFactor ? profitFactor : "-"}
+          {profitFactor ? profitFactor.toFixed(2) : "-"}
         </Tag>
         <Tag color={"#825bf0"} className="gx-mb-2 gx-mb-md-0 gx-text-center">
           <IntlMessages id="netProfit" />: {netProfit}

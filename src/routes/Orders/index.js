@@ -140,6 +140,7 @@ const Orders = () => {
                               </Tag>
                             </Col>
                           </Row>
+
                           {/* <Row>
                           <Col xs={8}>
                             <Link to={`/profile/${item.investorId}`}>

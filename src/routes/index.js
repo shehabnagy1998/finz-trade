@@ -13,7 +13,7 @@ const App = ({ match }) => {
     <div className="gx-main-content-wrapper">
       <Switch>
         <Route path={`${match.url}home`} component={Home} />
-        <Route path={`${match.url}profile/`} component={Profile} />
+        <Route path={`${match.url}my-profile`} component={Profile} />
         <Route path={`${match.url}pricing`} component={PricingTable} />
         <Route path={`${match.url}watchlist`} component={Watchlist} />
         <Route path={`${match.url}orders`} component={Orders} />

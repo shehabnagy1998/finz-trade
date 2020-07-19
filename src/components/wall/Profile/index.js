@@ -36,7 +36,7 @@ const Profile = (props) => {
             {user.subscribed ? (
               formatMessage({ id: "subscribed" }) + " - " + user.plan.name
             ) : (
-              <IntlMessages id="notSubscribed" />
+              <IntlMessages id="free" />
             )}
           </Text>
         </div>

@@ -37,13 +37,23 @@ export default (otherUsername) => async (dispatch, getState) => {
       });
     else
       strategies.map((st) => {
-        if (st.username === user.username) owned.push(st);
-        else {
-          if (st.public) others.push(st);
+        if (st.public) {
+          // if (true) {
+          let profitFactor = st.wonMoney / st.lostMoney;
+          profitFactor = profitFactor ? profitFactor : 0;
+          let winningRate =
+            (st.wonOrders / (st.wonOrders + st.lostOrders)) * 100;
+          winningRate = winningRate ? winningRate : 0;
+          if (profitFactor >= 1 && winningRate >= 50) st.geniune = true;
+          else st.geniune = false;
+          if (st.username === user.username) owned.push(st);
+          else {
+            others.push(st);
+          }
+          if (st.followersIds.includes(user.username)) following.push(st);
+          if (st.watchersIds.includes(user.username)) watching.push(st);
+          all.push(st);
         }
-        if (st.followersIds.includes(user.username)) following.push(st);
-        if (st.watchersIds.includes(user.username)) watching.push(st);
-        all.push(st);
         return st;
       });
     dispatch({

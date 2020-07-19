@@ -15,6 +15,12 @@ const openNotificationSuccess = () => {
     description: "you have successfully watched strategy",
   });
 };
+const openNotificationSuccess2 = () => {
+  notification["success"]({
+    message: "Strategies",
+    description: "you have successfully unwatched strategy",
+  });
+};
 const openNotificationError = (msg) => {
   notification["error"]({
     message: "Strategies",
@@ -43,6 +49,7 @@ export default (id, type, sortObj) => async (dispatch, getState) => {
           token: userToken,
         },
       });
+      openNotificationSuccess2();
     } else {
       const res = await Axios({
         baseURL: API,
@@ -52,6 +59,7 @@ export default (id, type, sortObj) => async (dispatch, getState) => {
           token: userToken,
         },
       });
+      openNotificationSuccess();
     }
     if (type === "all") {
       dispatch(getStrategies());
@@ -62,7 +70,6 @@ export default (id, type, sortObj) => async (dispatch, getState) => {
     }
     await dispatch(getUserInfo());
 
-    openNotificationSuccess();
     dispatch({
       type: REDUX_PAGE_LOADERS,
       value: { toggleWatchStrategy: null },
