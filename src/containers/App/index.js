@@ -102,7 +102,6 @@ const App = (props) => {
 
   //   link.className = "gx-style";
   //   document.body.appendChild(link);
-
   // }, []);
 
   useEffect(() => {
